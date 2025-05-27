@@ -376,15 +376,15 @@ class Main(QtWidgets.QWidget):
             QPushButton:hover {
               background-color: #6b6b6b; }"""
 
-        queue = QtWidgets.QPushButton(QtGui.QIcon(onyx_queue_add_icon)， f"{t('Add to Queue')}  ")
-        queue.setIconSize(QtCore.QSize(26， 26))
+        queue = QtWidgets.QPushButton(QtGui.QIcon(onyx_queue_add_icon), f"{t('Add to Queue')}  ")
+        queue.setIconSize(QtCore.QSize(26, 26))
         queue.setFixedHeight(50)
         queue.setStyleSheet(theme)
         queue.setLayoutDirection(QtCore.Qt.RightToLeft)
         queue.clicked.connect(lambda: self.add_to_queue())
 
-        self.widgets.convert_button = QtWidgets.QPushButton(QtGui.QIcon(onyx_convert_icon)， f"{t('Convert')}  ")
-        self.widgets.convert_button.setIconSize(QtCore.QSize(26， 26))
+        self.widgets.convert_button = QtWidgets.QPushButton(QtGui.QIcon(onyx_convert_icon), f"{t('Convert')}  ")
+        self.widgets.convert_button.setIconSize(QtCore.QSize(26, 26))
         self.widgets.convert_button.setFixedHeight(50)
         self.widgets.convert_button.setStyleSheet(theme)
         self.widgets.convert_button.setLayoutDirection(QtCore.Qt.RightToLeft)
@@ -444,7 +444,7 @@ class Main(QtWidgets.QWidget):
             logger.info("Resuming FFmpeg conversion")
 
     def config_update(self):
-        self.thumb_file = Path(self.app.fastflix.config.work_path， "thumbnail_preview.jpg")
+        self.thumb_file = Path(self.app.fastflix.config.work_path, "thumbnail_preview.jpg")
         self.change_output_types()
         self.page_update(build_thumbnail=True)
 
@@ -459,14 +459,14 @@ class Main(QtWidgets.QWidget):
         source_label.setFixedWidth(85)
         self.source_video_path_widget.setFixedHeight(23)
         source_layout.addWidget(source_label)
-        source_layout.addWidget(self.source_video_path_widget， stretch=True)
+        source_layout.addWidget(self.source_video_path_widget, stretch=True)
 
         output_layout = QtWidgets.QHBoxLayout()
         output_label = QtWidgets.QLabel(t("Filename"))
         output_label.setFixedWidth(85)
         self.output_video_path_widget.setFixedHeight(23)
         output_layout.addWidget(output_label)
-        output_layout.addWidget(self.output_video_path_widget， stretch=True)
+        output_layout.addWidget(self.output_video_path_widget, stretch=True)
 
         self.widgets.output_type_combo.setFixedWidth(80)
         self.widgets.output_type_combo.addItems(self.current_encoder.video_extensions)
@@ -490,12 +490,12 @@ class Main(QtWidgets.QWidget):
         self.output_path_button.setDisabled(True)
         self.output_path_button.setFixedHeight(23)
         # self.output_path_button.setFixedHeight(12)
-        self.output_path_button.setIconSize(QtCore.QSize(16， 16))
-        self.output_path_button.setFixedSize(QtCore.QSize(16， 16))
+        self.output_path_button.setIconSize(QtCore.QSize(16, 16))
+        self.output_path_button.setFixedSize(QtCore.QSize(16, 16))
         self.output_path_button.setStyleSheet("border: none; padding: 0; margin: 0")
 
         out_dir_layout.addWidget(out_dir_label)
-        out_dir_layout.addWidget(self.widgets.output_directory， alignment=QtCore.Qt.AlignTop)
+        out_dir_layout.addWidget(self.widgets.output_directory, alignment=QtCore.Qt.AlignTop)
         out_dir_layout.addWidget(self.output_path_button)
         layout.addLayout(out_dir_layout)
         layout.addLayout(output_layout)
@@ -952,7 +952,7 @@ class Main(QtWidgets.QWidget):
         l2.addWidget(auto_crop, alignment=(QtCore.Qt.AlignTop | QtCore.Qt.AlignRight))
 
         reset_layout = QtWidgets.QHBoxLayout()
-        reset_layout.addWidget(QtWidgets.QLabel("Reset")
+        reset_layout.addWidget(QtWidgets.QLabel("Reset"))
         reset_layout.addWidget(reset)
 
         l2.addLayout(reset_layout)
