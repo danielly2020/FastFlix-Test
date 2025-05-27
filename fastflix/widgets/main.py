@@ -397,7 +397,7 @@ class Main(QtWidgets.QWidget):
     def init_thumb_time_selector(self):
         layout = QtWidgets.QHBoxLayout()
 
-        self.widgets。thumb_key = QtWidgets.QCheckBox(t("Keyframe"))
+        self.widgets.thumb_key = QtWidgets.QCheckBox("Keyframe")
         self.widgets.thumb_key.setChecked(False)
         self.widgets.thumb_key.clicked.connect(self.thumb_time_change)
 
@@ -952,7 +952,7 @@ class Main(QtWidgets.QWidget):
         l2.addWidget(auto_crop, alignment=(QtCore.Qt.AlignTop | QtCore.Qt.AlignRight))
 
         reset_layout = QtWidgets.QHBoxLayout()
-        reset_layout.addWidget(QtWidgets.QLabel(t("Reset"))
+        reset_layout.addWidget(QtWidgets.QLabel("Reset")
         reset_layout.addWidget(reset)
 
         l2.addLayout(reset_layout)
