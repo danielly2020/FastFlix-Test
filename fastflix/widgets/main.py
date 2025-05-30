@@ -825,10 +825,10 @@ class Main(QtWidgets.QWidget):
         self.widgets.fast_time = QtWidgets.QComboBox()
         self.widgets.fast_time.addItems(["fast", "exact"])
         self.widgets.fast_time.setCurrentIndex(0)
-        self.widgets.fast_time.setToolTip(
+        self.widgets.fast_time.setToolTip(t(
             "uses [fast] seek to a rough position ahead of timestamp, "
             "vs a specific [exact] frame lookup. (GIF encodings use [fast])"
-        )
+        ))
         self.widgets.fast_time.currentIndexChanged.connect(lambda: self.page_update(build_thumbnail=False))
         self.widgets.fast_time.setFixedWidth(65)
 
@@ -939,7 +939,7 @@ class Main(QtWidgets.QWidget):
         self.buttons.append(auto_crop)
 
         reset = QtWidgets.QPushButton(QtGui.QIcon(self.get_icon("undo")), "")
-        reset.setIconSize(QtCore.QSize(10, 10))
+        reset.setIconSize(QtCore.QSize(15, 15))
         reset.setStyleSheet(reset_button_style)
         reset.setFixedWidth(15)
         reset.clicked.connect(self.reset_crop)

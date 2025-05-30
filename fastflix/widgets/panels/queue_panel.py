@@ -37,10 +37,10 @@ done_actions = {
         "hibernate": "pm-hibernate",
     },
     "windows": {
-        "shutdown": "shutdown /s",
-        "restart": "shutdown /r",
-        "logout": "shutdown /l",
-        "hibernate": "shutdown /h",
+        t("shutdown"): "shutdown /s",
+        t("restart"): "shutdown /r",
+        t("logout"): "shutdown /l",
+        t("hibernate"): "shutdown /h",
     },
 }
 
@@ -232,7 +232,7 @@ class EncodingQueue(FlixList):
         self.load_queue_button.setFixedWidth(110)
 
         self.priority_widget = QtWidgets.QComboBox()
-        self.priority_widget.addItems(["Realtime", "High", "Above Normal", "Normal", "Below Normal", "Idle"])
+        self.priority_widget.addItems([t("Realtime"), t("High"), t("Above Normal"), t("Normal"), t("Below Normal"), t("Idle")])
         self.priority_widget.setCurrentIndex(3)
         self.priority_widget.currentIndexChanged.connect(self.set_priority)
 
@@ -266,7 +266,7 @@ class EncodingQueue(FlixList):
         self.ignore_errors.setFixedWidth(150)
 
         self.after_done_combo = QtWidgets.QComboBox()
-        self.after_done_combo.addItem("None")
+        self.after_done_combo.addItem(t("None"))
         actions = set()
         if reusables.win_based:
             actions.update(done_actions["windows"].keys())
@@ -279,7 +279,7 @@ class EncodingQueue(FlixList):
             actions.update(self.app.fastflix.config.custom_after_run_scripts)
 
         self.after_done_combo.addItems(sorted(actions))
-        self.after_done_combo.setToolTip("Run a command after conversion completes")
+        self.after_done_combo.setToolTip(t("Run a command after conversion completes"))
         self.after_done_combo.currentIndexChanged.connect(lambda: self.set_after_done())
         self.after_done_combo.setMaximumWidth(150)
 

@@ -27,7 +27,7 @@ recommended_bitrates = [
     "10000k (2560x1440p @ 60fps)",
     "15000k (3840x2160p @ 30fps)",
     "20000k (3840x2160p @ 60fps)",
-    "Custom",
+    t("Custom"),
 ]
 
 recommended_crfs = [
@@ -46,7 +46,7 @@ recommended_crfs = [
     "16",
     "15",
     "14",
-    "Custom",
+    t("Custom"),
 ]
 
 

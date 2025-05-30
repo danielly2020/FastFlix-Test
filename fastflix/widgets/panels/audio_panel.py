@@ -82,7 +82,7 @@ class Audio(QtWidgets.QTabWidget):
 
         self.widgets.audio_info.setToolTip(Box(audio_track.raw_info).to_yaml())
 
-        self.widgets.language.addItems(["No Language Set"] + language_list)
+        self.widgets.language.addItems([t("No Language Set")] + language_list)
         self.widgets.language.setMaximumWidth(150)
         if audio_track.language:
             try:
@@ -114,7 +114,7 @@ class Audio(QtWidgets.QTabWidget):
         self.widgets.track_number.setFixedWidth(20)
 
         self.disposition_widget = Disposition(
-            app=app, parent=self, track_name=f"Audio Track {index}", track_index=index, audio=True
+            app=app, parent=self, track_name=f"{t('Audio Track')} '{index}'", track_index=index, audio=True
         )
         self.widgets.disposition.clicked.connect(self.disposition_widget.show)
 

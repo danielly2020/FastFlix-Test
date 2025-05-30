@@ -62,7 +62,7 @@ class AudioProfile(QtWidgets.QTabWidget):
         self.match_input_boxes[3].addItems(language_list)
         self.match_input_boxes[3].setCurrentText("English")
         self.match_input_boxes[4].addItems(
-            ["none | unknown", "mono", "stereo", "3 | 2.1", "4", "5", "6 | 5.1", "7", "8 | 7.1", "9", "10"]
+            [t("none | unknown"), t("mono"), t("stereo"), "3 | 2.1", "4", "5", "6 | 5.1", "7", "8 | 7.1", "9", "10"]
         )
 
         self.match_input_boxes[2].view().setFixedWidth(self.match_input_boxes[2].minimumSizeHint().width() + 50)
@@ -86,7 +86,7 @@ class AudioProfile(QtWidgets.QTabWidget):
         self.downmix.view().setFixedWidth(self.downmix.minimumSizeHint().width() + 50)
 
         self.convert_to = QtWidgets.QComboBox()
-        self.convert_to.addItems(["None | Passthrough"] + main.video_options.audio_formats)
+        self.convert_to.addItems([t("None | Passthrough")] + main.video_options.audio_formats)
 
         self.convert_to.view().setFixedWidth(self.convert_to.minimumSizeHint().width() + 50)
         self.bitrate = QtWidgets.QLineEdit()
@@ -440,11 +440,11 @@ class ProfileWindow(QtWidgets.QWidget):
         self.advanced_tab = AdvancedTab(self.advanced_options)
         self.primary_tab = PrimaryOptions(self.main_settings)
         self.encoder_tab = EncoderOptions(self.app, self)
-        self.tab_area.addTab(self.primary_tab, "Primary Settings")
-        self.tab_area.addTab(self.encoder_tab, "Video")
-        self.tab_area.addTab(self.audio_select, "Audio")
-        self.tab_area.addTab(self.subtitle_select, "Subtitles")
-        self.tab_area.addTab(self.advanced_tab, "Advanced Options")
+        self.tab_area.addTab(self.primary_tab, t("Primary Settings"))
+        self.tab_area.addTab(self.encoder_tab, t("Video"))
+        self.tab_area.addTab(self.audio_select, t("Audio"))
+        self.tab_area.addTab(self.subtitle_select, t("Subtitles"))
+        self.tab_area.addTab(self.advanced_tab, t("Advanced Options"))
         # self.tab_area.addTab(self.subtitle_select, "Subtitles")
         # self.tab_area.addTab(SubtitleSelect(self.app, self, "Subtitle Select", "subtitles"), "Subtitle Select")
 
