@@ -30,7 +30,7 @@ AQ Strength:
   fra: AQ Force
   ita: Forza AQ
   spa: Fuerza de AQ
-  chs: AQ强度
+  chs: 自适应量化强度
   jpn: AQの強さ
   rus: Сила AQ
   por: Intensidade de AQ
@@ -60,7 +60,7 @@ Adaptive Quantization:
   fra: Quantification adaptative
   ita: Quantizzazione adattiva
   spa: Cuantificación adaptativa
-  chs: 自适应量化
+  chs: 自适应量化(AQ)
   jpn: 適応型量子化
   rus: Адаптивное Квантование
   por: Quantização adaptativa
@@ -120,7 +120,7 @@ Additional x265 params:
   fra: Paramètres x265 supplémentaires
   ita: Parametri aggiuntivi x265
   spa: Parámetros adicionales x265
-  chs: 额外的x265参数
+  chs: x265附加参数
   jpn: 追加のx265パラメータ
   rus: Дополнительные параметры x265
   por: Parâmetros x265 adicionais
@@ -135,7 +135,7 @@ Advanced:
   fra: Avancé
   ita: Avanzate
   spa: Avanzado
-  chs: 高级
+  chs: 高级选项
   jpn: 高度な設定
   rus: Расширенный
   por: Avançado
@@ -362,7 +362,7 @@ B Frames:
   fra: B Cadres
   ita: B Frames
   spa: Fotogramas B
-  chs: B帧
+  chs: B帧数
   jpn: Bフレーム
   rus: B Рамки
   por: B-frames
@@ -377,7 +377,7 @@ B Ref Mode:
   fra: B Mode Ref
   ita: Modalità B Ref
   spa: Modo B Ref
-  chs: B Ref模式
+  chs: B帧参考模式
   jpn: B リファレンスモード
   rus: B Реф режим
   por: Modo B Ref
@@ -392,7 +392,7 @@ Bit Depth:
   fra: Profondeur de bit
   ita: Profondità (bit)
   spa: Profundidad de bits
-  chs: 位深度
+  chs: 位深
   jpn: ビット深度
   rus: Битовая глубина
   por: Profundidade de bits
@@ -499,7 +499,7 @@ Bufsize:
   fra: Bufsize
   ita: Dim. buffer
   spa: Bufsize
-  chs: Bufsize
+  chs: 缓冲大小
   jpn: Bufsize
   rus: Bufsize
   por: Bufsize
@@ -664,7 +664,7 @@ Cannot remove afterwards!:
   fra: Ne peut pas être retiré par la suite !
   ita: Non può essere rimosso dopo!
   spa: No se puede quitar después!
-  chs: 字幕内嵌之后无法去除！
+  chs: 字幕内嵌之后无法删除！
   jpn: バーンインした字幕は後から削除できない！
   rus: Невозможно потом удалить!
   por: Não é possível remover depois!
@@ -679,7 +679,7 @@ Check for Newer Version of FastFlix:
   fra: Consultez la nouvelle version de FastFlix
   ita: Verifica disponibilità aggiornamenti FastFlix
   spa: Busca la nueva versión de FastFlix
-  chs: 检查FastFlix更新
+  chs: 检查更新
   jpn: 新しいバージョンのFastFlixをチェックする
   rus: Проверьте наличие новой версии FastFlix
   por: Verificar por uma versão mais recente do FastFlix
@@ -754,7 +754,7 @@ Color Primaries:
   fra: Les couleurs primaires
   ita: Colori primari
   spa: Primarias de color
-  chs: 原色
+  chs: 色彩原色
   jpn: カラープライマリー
   rus: Основные цвета
   por: Cores primárias
@@ -784,7 +784,7 @@ Color Transfer:
   fra: Transfert de couleur
   ita: Trasferimento colore
   spa: Transferencia de color
-  chs: 色彩转换
+  chs: 传输特性
   jpn: カラートランスファー
   rus: Передача цвета
   por: Transferência de cor
@@ -978,7 +978,7 @@ Convert:
   fra: Convertir
   ita: Converti
   spa: Convierte
-  chs: 转换
+  chs: 开始编码
   jpn: 変換
   rus: Конвертировать
   por: Converter
@@ -1310,7 +1310,7 @@ Current Profile Settings:
   fra: Paramètres du profil actuel
   ita: Impostazioni profilo attuale
   spa: Configuración del perfil actual
-  chs: 当前配置
+  chs: 查看当前配置
   jpn: 現在のプロファイル設定
   rus: Текущие настройки профиля
   por: Configurações de perfil atuais
@@ -1340,7 +1340,7 @@ Custom NVEncC options:
   fra: Options NVEncC personnalisées
   ita: Opzioni NVEncC personalizzate
   spa: Opciones personalizadas de NVEncC
-  chs: 自定义NVEncC选项
+  chs: NVEncC 附加参数
   jpn: NVEncCのカスタムオプション
   rus: Пользовательские опции NVEncC
   por: Opções NVEncC personalizadas
@@ -1355,7 +1355,7 @@ Custom ffmpeg options:
   fra: Options ffmpeg personnalisées
   ita: Opzioni ffmpeg personalizzate
   spa: Opciones personalizadas de ffmpeg
-  chs: 自定义ffmpeg选项
+  chs: FFmpeg 附加参数
   jpn: ffmpegのカスタムオプション
   rus: Пользовательские параметры ffmpeg
   por: Opções ffmpeg personalizadas
@@ -1980,7 +1980,7 @@ End:
   fra: Fin
   ita: Fine
   spa: Fin
-  chs: 结束
+  chs: 结束时间
   jpn: 終了
   rus: Конец
   por: Fim
@@ -2983,7 +2983,7 @@ Lookahead:
   fra: Lookahead
   ita: Lookahead
   spa: Lookahead
-  chs: 看前面
+  chs: 向前预测帧数
   jpn: 前のフレームを参照
   rus: Опережение
   por: Lookahead
@@ -3054,7 +3054,7 @@ Max Q:
   fra: Max Q
   ita: Q massimo
   spa: Max Q
-  chs: Q的最大值
+  chs: Q最大值
   jpn: Qの最大値
   rus: Макс Q
   por: Max Q
@@ -3069,7 +3069,7 @@ Maximum B frames:
   fra: Cadres B maximum
   ita: B-frame max
   spa: Máximo de cuadros B
-  chs: 最大B帧数量
+  chs: 最大B帧数
   jpn: 最大Bフレーム
   rus: Максимум кадров B
   por: Número máximo de B-frames
@@ -3084,7 +3084,7 @@ Maximum B frames:
   fra: "Nombre maximum d'images B consécutives. "
   ita: 'Numero massimo di b-frame consecutivi. '
   spa: 'Número máximo de fotogramas B consecutivos. '
-  chs: 连续b帧的最大数量。
+  chs: 连续B帧的最大数量。
   jpn: 連続するb-フレームの最大数。
   rus: Максимальное количество последовательных b-кадров.
   por: Número máximo de B-frames consecutivos.
@@ -3099,7 +3099,7 @@ Maxrate:
   fra: Maxrate
   ita: Rate max
   spa: Maxrate
-  chs: Maxrate
+  chs: 最大码率
   jpn: マックスレート
   rus: Максимальная скорость
   por: Maxrate
@@ -3159,7 +3159,7 @@ Multipass:
   fra: Multipass
   ita: Multipass
   spa: Multipass
-  chs: 多次
+  chs: 多重编码
   jpn: 数回
   rus: Многопроходная
   por: Multipass
@@ -3189,7 +3189,7 @@ NVEncC Options:
   fra: Options NVEncC
   ita: Opzioni NVEncC
   spa: Opciones de NVEncC
-  chs: NVEncC选项
+  chs: NVEncC编码指南
   jpn: NVEncCオプション
   rus: Опции NVEncC
   por: Opções NVEncC
@@ -3581,7 +3581,7 @@ Overlay this subtitle track onto the video during conversion.:
   fra: Superposez cette piste de sous-titres sur la vidéo pendant la conversion.
   ita: Sovrapponete questa traccia di sottotitoli al video durante la conversione.
   spa: Superponga esta pista de subtítulos en el vídeo durante la conversión.
-  chs: 在转换时将此字幕轨叠加到视频上。
+  chs: 在编码时将此字幕轨压制叠加到视频上。
   jpn: 変換時にこの字幕トラックを映像に重ねて表示します。
   rus: Наложить эту дорожку субтитров на видео во время конвертирования.
   por: Sobrepor esta faixa de legenda ao vídeo durante a conversão.
@@ -3724,7 +3724,7 @@ Please make sure seek method is set to exact:
   fra: Veuillez vous assurer que la méthode de recherche est réglée sur l'exacte
   ita: Si prega di assicurarsi che il metodo di ricerca sia impostato su
   spa: Por favor, asegúrese de que el método de búsqueda se establece con exactitud
-  chs: 请确保检索方式已设置为exact
+  chs: 请确保检索方式已设置为"exact"
   jpn: seek methodがexactに設定されていることを確認してください。
   rus: Пожалуйста, убедитесь, что метод поиска установлен на точный
   por: Por favor, certifique-se de que o método de busca está definido como exato
@@ -4040,7 +4040,7 @@ RC Lookahead:
   fra: RC Lookahead
   ita: RC Lookahead
   spa: RC Lookahead
-  chs: RC Lookahead
+  chs: RC 向前预测帧数
   jpn: RC Lookahead
   rus: RC Опережение
   por: RC Lookahead
@@ -4081,7 +4081,7 @@ Rate Control:
   fra: Contrôle des tarifs
   ita: Controllo della velocità
   spa: Control de velocidad
-  chs: 速度控制
+  chs: 码率模式
   jpn: レート制御
   rus: Контроль скорости
   por: Controle de taxa
@@ -4161,7 +4161,7 @@ Remove HDR:
   fra: Supprimer le HDR
   ita: Rimuovi HDR
   spa: Eliminar HDR
-  chs: 去除HDR
+  chs: 删除HDR
   jpn: HDRを削除
   rus: Удалить HDR
   por: Remover HDR
@@ -4176,7 +4176,7 @@ Remove Metadata:
   fra: Supprimer les métadonnées
   ita: Rimuovi metadati
   spa: Eliminar los metadatos
-  chs: 去除元数据
+  chs: 删除元数据
   jpn: メタデータを削除
   rus: Удалить метаданные
   por: Remover metadados
@@ -4572,7 +4572,7 @@ Set the encoding tier:
   fra: Définir le niveau d'encodage
   ita: Imposta il livello di codifica
   spa: Establecer el nivel de codificación
-  chs: 设置编码层
+  chs: 设置编码层级
   jpn: エンコーディング層の設定
   rus: Установить уровень кодировки
   por: Definir o nível de codificação
@@ -4809,7 +4809,7 @@ Spatial AQ:
   fra: QA spatiale
   ita: AQ spaziale
   spa: AQ espacial
-  chs: 空间自适应量化
+  chs: 自适应量化(AQ)
   jpn: Spatial AQ
   rus: Пространственный AQ
   por: AQ Espacial
@@ -4839,7 +4839,7 @@ Start:
   fra: Démarrer
   ita: Inizio
   spa: Comienza
-  chs: 开始
+  chs: 开始时间
   jpn: 開始
   rus: Начать
   por: Iniciar
@@ -4854,7 +4854,7 @@ Starting conversion process:
   fra: Iniciando el proceso de conversión
   ita: Avvio del processo di conversione
   spa: Iniciando el proceso de conversión
-  chs: 开始转换过程
+  chs: 执行转换程序
   jpn: 変換処理の開始
   rus: Начало процесса преобразования
   por: Iniciando o processo de conversão
@@ -5186,7 +5186,7 @@ Tier:
   fra: Tier
   ita: Livello
   spa: Tier
-  chs: 层
+  chs: 层级
   jpn: ティア
   rus: Ярус
   por: Nível
@@ -5321,7 +5321,7 @@ Tune:
   fra: Tune
   ita: Sintonia
   spa: Sintoniza
-  chs: 调校
+  chs: 调整
   jpn: チューニング
   rus: Настроить
   por: Ajustar
@@ -5505,7 +5505,7 @@ VBR Target:
   fra: Cible VBR
   ita: Obiettivo VBR
   spa: Objetivo VBR
-  chs: 目标VBR
+  chs: VBR质量
   jpn: VBR目標
   rus: VBR Цель
   por: Target VBR
@@ -6111,7 +6111,7 @@ bframes:
   fra: bframes
   ita: telai b
   spa: bframes
-  chs: b帧
+  chs: B帧数
   jpn: Bフレーム
   rus: bframes
   por: bframes
@@ -6449,7 +6449,7 @@ it will generally just increase memory use.:
     spec)"
   spa: 'keyint: Habilitar la intracodificación forzando los fotogramas clave cada
     1 segundo (Blu-ray spec)'
-  chs: 'keyint: Enable Intra-Encoding by forcing keyframes every 1 second (Blu-ray
+  chs: 'keyint: 通过强制每1秒设置一个关键帧来启用帧内编码 (Blu-ray
     spec)'
   jpn: keyint：1秒ごとにキーフレームを強制的に生成してイントラエンコードを有効にする（Blu-ray仕様）。
   rus: 'keyint: Включить внутреннее кодирование путем принудительного воспроизведения
@@ -7646,7 +7646,7 @@ Track Number:
   fra: Numéro de piste
   ita: Numero di traccia
   spa: Número de pista
-  chs: 轨道编号
+  chs: 编号
   jpn: トラック番号
   rus: Номер дорожки
   por: Número da faixa
@@ -7691,7 +7691,7 @@ Passthrough All:
   fra: Passthrough Tous
   ita: Passthrough Tutti
   spa: Transferencia Todos
-  chs: 所有不更改
+  chs: 所有不转换
   jpn: 全てパススルー
   rus: Пропускная способность Все
   por: Passthrough de Todos
@@ -7706,7 +7706,7 @@ Add Pattern Match:
   fra: Ajouter une correspondance de motifs
   ita: Aggiungere la corrispondenza del modello
   spa: Añadir coincidencia de patrones
-  chs: 添加模式匹配
+  chs: 增加匹配模式
   jpn: パターンマッチの追加
   rus: Добавить сопоставление шаблонов
   por: Adicionar correspondência por padrão
@@ -7736,7 +7736,7 @@ Match:
   fra: Match
   ita: Partita
   spa: Partido
-  chs: 匹配
+  chs: 匹配位置
   jpn: マッチ
   rus: Совпадение
   por: Corresponder
@@ -7751,7 +7751,7 @@ Select By:
   fra: Sélectionner par
   ita: Seleziona per
   spa: Seleccionar por
-  chs: 选择方式
+  chs: 匹配属性
   jpn: 選び方
   rus: Выбрать по
   por: Selecionar por
@@ -7945,7 +7945,7 @@ Verifier:
   fra: Vérificateur
   ita: Verificatore
   spa: Verificador
-  chs: 验证人
+  chs: 验证器
   jpn: 確認者
   rus: Верификатор
   por: Verificador
@@ -8020,7 +8020,7 @@ Please load in a video to configure a new profile:
   fra: 10-bit
   ita: 10-bit
   spa: 10-bit
-  chs: 10位
+  chs: 10位深
   jpn: 10ビット
   rus: 10-бит
   por: 10-bit
@@ -8059,7 +8059,7 @@ Not supported by rigaya's hardware encoders:
   fra: Non supporté par les encodeurs matériels de rigaya
   ita: Non supportato dagli encoder hardware 'rigaya'
   spa: No es compatible con los codificadores de hardware de Rigaya
-  chs: 不被Rigaya的硬件编码器所支持
+  chs: 此标注项Rigaya的硬件编码器不支持
   jpn: Rigayaのハードウェアエンコーダには対応していません。
   rus: Не поддерживается аппаратными кодерами rigaya
   por: Não suportado pelos codificadores de hardware de Rigaya
@@ -8553,7 +8553,7 @@ Default Output Folder:
   fra: Dossier de sortie par défaut
   ita: Cartella destinazione predefinita
   spa: Carpeta de salida por defecto
-  chs: 默认输出文件夹
+  chs: 默认输出路径
   jpn: デフォルトの出力先フォルダ
   rus: Папка вывода по умолчанию
   por: Pasta de saída padrão
@@ -8568,7 +8568,7 @@ Use same output directory as source file:
   fra: Utiliser le même répertoire de sortie que le fichier source
   ita: Usa come cartella destinazione la stessa del file sorgente
   spa: Utilizar el mismo directorio de salida que el archivo de origen
-  chs: 使用与源文件相同的输出目录
+  chs: 使用与源文件相同的输出路径
   jpn: ソースファイルと同じ出力ディレクトリを使用する
   rus: Использовать тот же выходной каталог, что и исходный файл
   por: Usar o mesmo diretório de saída que o arquivo de origem
@@ -8598,7 +8598,7 @@ Default Source Folder:
   fra: Dossier source par défaut
   ita: Cartella sorgente predefinita
   spa: Carpeta de origen por defecto
-  chs: 默认的源文件夹
+  chs: 默认源文件路径
   jpn: デフォルトのソースフォルダ
   rus: Исходная папка по умолчанию
   por: Pasta de origem padrão
@@ -8613,7 +8613,7 @@ No Default Source Folder:
   fra: Pas de dossier source par défaut
   ita: Nessuna cartella sorgente predefinita
   spa: No hay carpeta de origen por defecto
-  chs: 没有默认的源文件夹
+  chs: 无默认源文件路径
   jpn: デフォルトのソースフォルダはありません
   rus: Нет Исходной папки по умолчанию
   por: Nenhuma pasta de origem padrão
@@ -8628,7 +8628,7 @@ Stay on Top:
   fra: Rester au top
   ita: Rimani in primo piano
   spa: Manténgase en la cima
-  chs: 窗口保持在最上方
+  chs: 置顶窗口
   jpn: ウィンドウを最上位にする
   rus: Оставаться поверх
   por: Ficar no topo
@@ -8814,7 +8814,7 @@ Remove GUI logs and compress conversion logs older than 30 days at exit:
     di 30 giorni all'uscita.
   spa: Elimina los registros GUI y comprime los registros de conversión de más de
     30 días al salir.
-  chs: 在退出时删除GUI日志并压缩超过30天的转换日志
+  chs: 在退出时删除GUI日志并打包超过30天的编码日志
   jpn: 終了時にGUIログを削除し、30日以上前の変換ログを圧縮します
   rus: Удаление журналов GUI и сжатие журналов конвертации старше 30 дней при выходе
   por: Remover logs da GUI e comprimir logs de conversão mais antigos que 30 dias
@@ -8833,7 +8833,7 @@ UI Scale:
   fra: Échelle de l'interface utilisateur
   ita: Scala UI
   spa: Escala de IU
-  chs: UI规模
+  chs: UI缩放
   jpn: UIスケール
   rus: Масштаб интерфейса
   por: Escala da UI
@@ -9073,7 +9073,7 @@ Device:
   fra: Dispositif
   ita: Dispositivo
   spa: Dispositivo
-  chs: 设备
+  chs: 显卡设备
   jpn: デバイス
   rus: Устройство
   por: Dispositivo
@@ -9407,7 +9407,7 @@ Lookahead distance:
   fra: Distance d'anticipation
   ita: Distanza di sicurezza
   spa: Distancia de seguridad
-  chs: 向前看的距离
+  chs: 向前预测距离
   jpn: 前向きの距離
   rus: Дистанция опережения
   por: Distância Lookahead
@@ -9422,7 +9422,7 @@ FSkip Max QP:
   fra: FSkip Max QP
   ita: FSkip Max QP
   spa: FSkip Max QP
-  chs: 基金会最大QP
+  chs: 插入跳过帧的阈值
   jpn: FSkip Max QP
   rus: FSkip Max QP
   por: FSkip Max QP
@@ -9647,7 +9647,7 @@ B Depth:
   fra: B Profondeur
   ita: B Profondità
   spa: B Profundidad
-  chs: B深度
+  chs: B帧深度
   jpn: B深度
   rus: B Глубина
   por: B Depth
@@ -9852,7 +9852,7 @@ Forced:
   fra: Forcé
   ita: Costretto
   spa: Forzado
-  chs: 强制的
+  chs: 强制
   jpn: 強制的
   rus: Принудительный
   por: Forçado
@@ -10047,7 +10047,7 @@ Dispositions:
   fra: Dispositions
   ita: Disposizioni
   spa: Disposiciones
-  chs: 处置
+  chs: 设置
   jpn: タグ
   rus: Диспозиции
   por: Disposições
@@ -10107,7 +10107,7 @@ No Extra:
   fra: Pas de supplément
   ita: Nessun extra
   spa: No Extra
-  chs: 没有额外的
+  chs: 无额外
   jpn: 追加なし
   rus: Без доп. затрат
   por: Sem Extra
@@ -10197,7 +10197,7 @@ Output Depth:
   fra: 8 bits seulement
   ita: Solo 8 bit
   spa: Solo 8 bits
-  chs: 仅限8位
+  chs: 仅限8位深
   jpn: 8ビットのみ
   rus: Только 8 бит
   por: Apenas 8 bits
@@ -10212,7 +10212,7 @@ Copy HDR10+:
   fra: Copier HDR10+
   ita: Copia HDR10+
   spa: Copiar HDR10+
-  chs: 复制HDR10+
+  chs: 复制 HDR10+ 元数据
   jpn: HDR10+をコピー
   rus: Копировать HDR10+
   por: Copiar HDR10+
@@ -10242,7 +10242,7 @@ Single Pass:
   fra: Passe unique
   ita: Passaggio singolo
   spa: Pase único
-  chs: 1次
+  chs: 1Pass
   jpn: 1回のみ
   rus: Одиночный проход
   por: Passe único
@@ -10257,7 +10257,7 @@ Single Pass Encoding:
   fra: Encodage à passage unique
   ita: Codifica a passaggio singolo
   spa: Codificación de una sola pasada
-  chs: 1次编码
+  chs: 1Pass编码
   jpn: 1回のみのエンコード
   rus: Однопроходное кодирование
   por: Codificação de uma passagem
@@ -10277,7 +10277,7 @@ Conversion suites:
   por: Suites de conversão
   swe: Sviter för konvertering
   pol: Zestawy do konwersji
-  chs: 改装套件
+  chs: 转换套件
   ukr: Номери для переобладнання
   kor: 전환 제품군
   ron: Suite de conversie
@@ -10307,7 +10307,7 @@ Supporting libraries:
   por: Apoio às bibliotecas
   swe: Stöd till bibliotek
   pol: Wspieranie bibliotek
-  chs: 支持图书馆
+  chs: '支持库:'
   ukr: Підтримка бібліотек
   kor: 지원 라이브러리
   ron: Sprijinirea bibliotecilor
@@ -10322,7 +10322,7 @@ Packaged with:
   por: Embalado com
   swe: Förpackad med
   pol: W zestawie
-  chs: 包装包括
+  chs: 封装
   ukr: У комплекті з
   kor: 함께 제공되는 패키지
   ron: Ambalat cu
@@ -10337,7 +10337,7 @@ Fast Seek:
   por: Procura rápida
   swe: Snabb sökning
   pol: Szybkie wyszukiwanie
-  chs: 快速查找
+  chs: 快速搜寻
   ukr: '"Форсаж'
   kor: 빠른 검색
   ron: Căutare rapidă
@@ -10362,7 +10362,7 @@ Remove Hdr:
   fra: Supprimer le HDR
   ita: Rimuovi HDR
   spa: Eliminar HDR
-  chs: 去除HDR
+  chs: 删除HDR
   jpn: HDRを削除
   rus: Удалить HDR
   por: Remover HDR
@@ -10382,7 +10382,7 @@ Resolution Method:
   por: Método de resolução
   swe: Metod för upplösning
   pol: Metoda rozdzielczości
-  chs: 解决方法
+  chs: 分辨率调整
   ukr: Метод розв'язання
   kor: 해결 방법
   ron: Metoda de rezoluție
@@ -10457,7 +10457,7 @@ Subtitle Select Preferred Language:
   por: Legendas Selecionar o idioma preferido
   swe: Undertexter Välj önskat språk
   pol: Napisy Wybierz preferowany język
-  chs: 字幕 选择首选语言
+  chs: 字幕首选语言
   ukr: Субтитри Виберіть мову субтитрів
   kor: 자막 기본 언어 선택
   ron: Subtitrare Selectați limba preferată
@@ -10472,7 +10472,7 @@ Subtitle Automatic Burn In:
   por: Subtitle Automatic Burn In (Gravação automática de legendas)
   swe: Automatisk inbränning av undertexter
   pol: Automatyczne włączanie napisów
-  chs: 字幕自动烧入
+  chs: 字幕自动内嵌
   ukr: Субтитри Автоматичне вигоряння
   kor: 자막 자동 번인
   ron: Subtitrare Automatic Burn In
@@ -10487,7 +10487,7 @@ Subtitle Select First Matching:
   por: Seleção de legendas Primeira correspondência
   swe: Undertext Välj första matchning
   pol: Wybór napisów Pierwsze dopasowanie
-  chs: 字幕选择首次匹配
+  chs: 字幕首选匹配
   ukr: Субтитри Виберіть перший збіг
   kor: 자막 첫 번째 매칭 선택
   ron: Subtitrare Selectați prima potrivire
@@ -10502,7 +10502,7 @@ Passes:
   por: Passa
   swe: Godkänt
   pol: Przełęcze
-  chs: 通过
+  chs: 编码次数
   ukr: Перепустки
   kor: 패스
   ron: Trece
@@ -10517,7 +10517,7 @@ Custom:
   por: Personalizado
   swe: Anpassad
   pol: Niestandardowe
-  chs: 定制
+  chs: 自定义
   ukr: Нестандартний
   kor: 사용자 지정
   ron: Personalizat
@@ -10532,7 +10532,7 @@ Codec:
   por: Codec
   swe: Kodning
   pol: Kodek
-  chs: 编解码器
+  chs: 编码格式
   ukr: Кодек
   kor: 코덱
   ron: Codec
@@ -10547,7 +10547,7 @@ Near Lossless:
   por: Quase sem perdas
   swe: Nära förlustfri
   pol: Near Lossless
-  chs: 近乎无损
+  chs: 近无损
   ukr: Майже без втрат
   kor: 거의 무손실
   ron: Aproape fără pierderi
@@ -10577,7 +10577,7 @@ Medium Quality:
   por: Qualidade média
   swe: Medelhög kvalitet
   pol: Średnia jakość
-  chs: 中等质量
+  chs: 中质量
   ukr: Середня якість
   kor: 중간 품질
   ron: Calitate medie
@@ -10592,7 +10592,7 @@ Low Quality:
   por: Baixa qualidade
   swe: Låg kvalitet
   pol: Niska jakość
-  chs: 低质量
+  chs: '- 低质量'
   ukr: Низька якість
   kor: 낮은 품질
   ron: Calitate scăzută
@@ -10607,7 +10607,7 @@ Custom Bitrate:
   por: Taxa de bits personalizada
   swe: Anpassad bitrate
   pol: Niestandardowa szybkość transmisji
-  chs: 自定义比特率
+  chs: 自定义
   ukr: Користувацький бітрейт
   kor: 사용자 지정 비트레이트
   ron: Bitrate personalizat
@@ -10637,7 +10637,7 @@ Channel Layout:
   por: Disposição dos canais
   swe: Kanalens layout
   pol: Układ kanałów
-  chs: 通道布局
+  chs: 声道设置
   ukr: Розташування каналів
   kor: 채널 레이아웃
   ron: Canal Layout
@@ -10667,7 +10667,7 @@ Pattern Match:
   por: Correspondência de padrões
   swe: Mönstermatchning
   pol: Dopasowanie wzorca
-  chs: 模式匹配
+  chs: 匹配模式
   ukr: Збіг за зразком
   kor: 패턴 일치
   ron: Potrivire model
@@ -10692,7 +10692,7 @@ Download Nightly FFmpeg:
   fra: Télécharger le dernier FFmpeg
   ita: Scarica il nuovo FFmpeg
   spa: Descargar el nuevo FFmpeg
-  chs: 下载最新版FFmpeg
+  chs: 下载最新版 FFmpeg
   jpn: 最新のFFmpegをダウンロードする
   rus: Скачать новейший FFmpeg
   por: Fazer o download do FFmpeg mais recente
@@ -10828,7 +10828,7 @@ Run Audio Normalize:
   por: Executar normalização de áudio
   swe: Kör ljud Normalisera
   pol: Uruchom normalizację dźwięku
-  chs: 运行音频正常化
+  chs: 音频归一化
   ukr: Запустити нормалізацію звуку
   kor: 오디오 정규화 실행
   ron: Run Audio Normalize
@@ -10858,7 +10858,7 @@ Add Text Based Subtitle Track:
   por: Adicionar faixa de legendas com base em texto
   swe: Lägg till textbaserat undertextspår
   pol: Dodaj tekstową ścieżkę napisów
-  chs: 添加基于文本的字幕轨道
+  chs: 添加基于文本的字幕轨
   ukr: Додавання текстової доріжки субтитрів
   kor: 텍스트 기반 자막 트랙 추가
   ron: Adăugați o pistă de subtitrare bazată pe text
@@ -10873,7 +10873,7 @@ Audio Normalization:
   por: Normalização de áudio
   swe: Normalisering av ljud
   pol: Normalizacja dźwięku
-  chs: 音频正常化
+  chs: 音频归一化
   ukr: Нормалізація звуку
   kor: 오디오 노멀라이제이션
   ron: Normalizare audio
@@ -10889,7 +10889,7 @@ This will run the audio normalization process on all streams of:
   por: Isso executará o processo de normalização de áudio em todos os fluxos de
   swe: Detta kommer att köra ljudnormaliseringsprocessen på alla strömmar av
   pol: Spowoduje to uruchomienie procesu normalizacji dźwięku na wszystkich strumieniach
-  chs: 这将在所有音频流上运行音频规范化程序。
+  chs: 这将在下列视频的所有音轨上进行音频归一化处理：
   ukr: Це запустить процес нормалізації звуку на всіх потоках
   kor: 이렇게 하면 다음의 모든 스트림에서 오디오 정규화 프로세스가 실행됩니다.
   ron: Aceasta va rula procesul de normalizare audio pe toate fluxurile de
@@ -10904,7 +10904,7 @@ This will run the audio normalization process on all streams of:
   por: e criar um ficheiro de saída com o formato de áudio
   swe: och skapa en utdatafil med ljudformat
   pol: i utworzyć plik wyjściowy w formacie audio
-  chs: 并创建音频格式的输出文件
+  chs: 并输出所选音频格式的文件：
   ukr: і створіть вихідний файл у форматі аудіо
   kor: 를 클릭하고 오디오 형식의 출력 파일을 생성합니다.
   ron: și creați un fișier de ieșire cu format audio
@@ -10949,7 +10949,7 @@ Please make sure the source and output files are specified:
   pol: "Czy chcesz, aby FastFlix automatycznie wykrywał twoje procesory graficzne
     i pobierał dla nich opcjonalne kodery?\n\nObejmuje to pobranie programu 7zip na
     platformę Windows."
-  chs: "您希望 FastFlix 自动检测您的 GPU 并为其下载可选编码器吗？\n\n这包括在 Windows 平台上下载 7zip。"
+  chs: "您希望 FastFlix 自动检测您的GPU并为其下载可选编码器吗？\n\n这包括在 Windows 平台上下载 7zip。"
   ukr: "Хочете, щоб FastFlix автоматично визначав ваш графічний процесор і завантажував
     додаткові кодеки для нього?\n\nДля цього потрібно завантажити 7zip на платформі
     Windows."
@@ -10973,3 +10973,52 @@ Allow Optional Downloads:
   ukr: Дозволити додаткові завантаження
   kor: 선택적 다운로드 허용
   ron: Permiteți descărcări opționale
+Keyframe:
+  chs: 关键帧
+Reset:
+  chs: 重置
+Disable interlace check:
+  chs: 禁用交错编码检测
+Both must have values to be enabled:
+  chs: 两者都必须填入数值
+Run a command after conversion completes:
+  chs: 编码完成后运行一条命令
+Primary Settings:
+  chs: 主设置
+Video:
+  chs: 视频
+uses [fast] seek to a rough position ahead of timestamp, vs a specific [exact] frame lookup. (GIF encodings use [fast]):
+  chs: 使用[fast]查找时间戳之前的大致位置，使用[exact]帧进行精确查找。（GIF编码使用[fast]）
+No Language Set:
+  chs: 无语言
+Audio Track:
+  chs: 音轨
+shutdown:
+  chs: 关机
+restart:
+  chs: 重启
+logout:
+  chs: 注销
+hibernate:
+  chs: 睡眠
+Realtime:
+  chs: 实时
+High:
+  chs: 高
+Above Normal:
+  chs: 高于普通
+Normal:
+  chs: 普通
+Below Normal:
+  chs: 低于普通
+Idle:
+  chs: 低
+none | unknown:
+  chs: 无 | 未知
+None | Passthrough:
+  chs: 不转换 | 复制
+mono:
+  chs: 单声道
+stereo:
+  chs: 立体声
+  
