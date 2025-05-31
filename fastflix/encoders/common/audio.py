@@ -5,8 +5,8 @@ import logging
 logger = logging.getLogger("fastflix")
 
 channel_list = {
-    "mono": 1,
-    "stereo": 2,
+    t("mono"): 1,
+    t("stereo"): 2,
     "2.1": 3,
     "3.0": 3,
     "3.0(back)": 3,

@@ -2296,7 +2296,7 @@ FFmpeg updated - Please restart FastFlix:
   fra: FFmpeg mis à jour - Veuillez redémarrer FastFlix
   ita: FFmpeg aggiornato - Si prega di riavviare FastFlix
   spa: FFmpeg actualizado - Por favor, reinicie FastFlix
-  chs: FFmpeg更新完成。请重新启动FastFlix。
+  chs: FFmpeg 更新完成。请重新启动FastFlix。
   jpn: FFmpegのアップデートしました。FastFlixを再起動してください。
   rus: FFmpeg обновлен - пожалуйста, перезапустите FastFlix
   por: FFmpeg atualizado - Por favor, reinicie o FastFlix
@@ -3769,7 +3769,7 @@ Please restart FastFlix to apply settings:
   fra: Por favor, reinicie FastFlix para aplicar la configuración
   ita: Riavviare FastFlix per applicare le impostazioni
   spa: Por favor, reinicie FastFlix para aplicar la configuración
-  chs: 请重新启动FastFlix以应用设置
+  chs: 请重新启动 FastFlix 以应用设置
   jpn: 設定を適用するには、FastFlixを再起動してください。
   rus: Пожалуйста, перезапустите FastFlix для применения настроек
   por: Por favor, reinicie o FastFlix para aplicar as configurações
@@ -5610,7 +5610,7 @@ Video Track:
   fra: Piste vidéo
   ita: Traccia video
   spa: Pista de video
-  chs: 视频轨
+  chs: 视频轨道
   jpn: ビデオトラック
   rus: Видеодорожка
   por: Faixa de vídeo
@@ -6960,8 +6960,8 @@ HDR10+ Parser:
   fra: HDR10+ Parser
   ita: HDR10+ Parser
   spa: Analizador HDR10+
-  chs: HDR10+解析器
-  jpn: HDR10+分析器
+  chs: HDR10+ 解析器
+  jpn: HDR10+ 分析器
   rus: Парсер HDR10+
   por: HDR10+ Parser
   swe: HDR10+ Parser
@@ -8553,7 +8553,7 @@ Default Output Folder:
   fra: Dossier de sortie par défaut
   ita: Cartella destinazione predefinita
   spa: Carpeta de salida por defecto
-  chs: 默认输出路径
+  chs: 默认输出目录
   jpn: デフォルトの出力先フォルダ
   rus: Папка вывода по умолчанию
   por: Pasta de saída padrão
@@ -8568,7 +8568,7 @@ Use same output directory as source file:
   fra: Utiliser le même répertoire de sortie que le fichier source
   ita: Usa come cartella destinazione la stessa del file sorgente
   spa: Utilizar el mismo directorio de salida que el archivo de origen
-  chs: 使用与源文件相同的输出路径
+  chs: 使用与源文件相同的输出目录
   jpn: ソースファイルと同じ出力ディレクトリを使用する
   rus: Использовать тот же выходной каталог, что и исходный файл
   por: Usar o mesmo diretório de saída que o arquivo de origem
@@ -8598,7 +8598,7 @@ Default Source Folder:
   fra: Dossier source par défaut
   ita: Cartella sorgente predefinita
   spa: Carpeta de origen por defecto
-  chs: 默认源文件路径
+  chs: 默认源文件目录
   jpn: デフォルトのソースフォルダ
   rus: Исходная папка по умолчанию
   por: Pasta de origem padrão
@@ -8613,7 +8613,7 @@ No Default Source Folder:
   fra: Pas de dossier source par défaut
   ita: Nessuna cartella sorgente predefinita
   spa: No hay carpeta de origen por defecto
-  chs: 无默认源文件路径
+  chs: 无默认源文件目录
   jpn: デフォルトのソースフォルダはありません
   rus: Нет Исходной папки по умолчанию
   por: Nenhuma pasta de origem padrão
@@ -8733,7 +8733,7 @@ Filename:
   fra: Nom de fichier
   ita: Nome file
   spa: Archivo
-  chs: 文件名
+  chs: 输出名称
   jpn: ファイル名
   rus: Имя файла
   por: Nome do arquivo
@@ -8748,7 +8748,7 @@ Folder:
   fra: Dossier
   ita: Cartella
   spa: Carpeta
-  chs: 文件夹
+  chs: 输出目录
   jpn: フォルダ
   rus: Папка
   por: Pasta
@@ -9972,7 +9972,7 @@ Set:
   fra: Set (jeu de mots)
   ita: Set
   spa: Establecer
-  chs: 设置
+  chs: 确定
   jpn: セット
   rus: Установите
   por: Conjunto
@@ -10592,7 +10592,7 @@ Low Quality:
   por: Baixa qualidade
   swe: Låg kvalitet
   pol: Niska jakość
-  chs: '- 低质量'
+  chs: 低质量
   ukr: Низька якість
   kor: 낮은 품질
   ron: Calitate scăzută
@@ -10977,6 +10977,44 @@ Keyframe:
   chs: 关键帧
 Reset:
   chs: 重置
+uses [fast] seek to a rough position ahead of timestamp, vs a specific [exact] frame lookup. (GIF encodings use [fast]):
+  chs: 使用[fast]查找时间戳之前的大致位置，使用[exact]帧进行精确查找。(GIF编码使用[fast])
+FFmepg location:
+  chs: FFmepg.exe 本地路径
+FFprobe location:
+  chs: FFprobe.exe 本地路径
+Work directory:
+  chs: 工作目录
+Chinese (Simplified):
+  chs: 简体中文
+Debug:
+  chs: 调试
+Info:
+  chs: 消息
+Warning:
+  chs: 警告
+light:
+  chs: 亮色
+dark:
+  chs: 暗色
+system:
+  chs: 系统
+NVEncC location:
+  chs: NVEncC.exe 本地路径
+QSVEncC location:
+  chs: QSVEncC.exe 本地路径
+VCEEncC location:
+  chs: VCEEncC.exe 本地路径
+hdr10+ parser:
+  chs: hdr10+ 解析器的路径
+HDR10+ Parser Tool:
+  chs: HDR10+ 解析器
+Output Directory:
+  chs: 默认输出目录
+Source Directory:
+  chs: 默认源文件目录
+Disable Scaling:
+  chs: 禁用缩放
 Disable interlace check:
   chs: 禁用交错编码检测
 Both must have values to be enabled:
@@ -10987,10 +11025,10 @@ Primary Settings:
   chs: 主设置
 Video:
   chs: 视频
-uses [fast] seek to a rough position ahead of timestamp, vs a specific [exact] frame lookup. (GIF encodings use [fast]):
-  chs: 使用[fast]查找时间戳之前的大致位置，使用[exact]帧进行精确查找。（GIF编码使用[fast]）
 No Language Set:
   chs: 无语言
+Audio Conversion for Track:
+  chs: 音频转换轨道
 Audio Track:
   chs: 音轨
 shutdown:
@@ -11021,4 +11059,9 @@ mono:
   chs: 单声道
 stereo:
   chs: 立体声
-  
+Save Video as:
+  chs: 保存视频为
+Save Directory:
+  chs: 保存目录
+Open Video:
+  chs: 选择视频

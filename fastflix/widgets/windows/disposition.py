@@ -45,7 +45,7 @@ class Disposition(QtWidgets.QWidget):
         self.track_index = track_index
         self.audio = audio
 
-        self.setMinimumWidth(200)
+        self.setMinimumWidth(250)
 
         self.forced = QtWidgets.QCheckBox(t("Forced"))
 

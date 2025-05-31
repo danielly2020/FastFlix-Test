@@ -804,7 +804,7 @@ class Main(QtWidgets.QWidget):
         layout = QtWidgets.QHBoxLayout()
 
         reset = QtWidgets.QPushButton(QtGui.QIcon(self.get_icon("undo")), "")
-        reset.setIconSize(QtCore.QSize(10, 10))
+        reset.setIconSize(QtCore.QSize(12, 12))
         reset.clicked.connect(self.reset_time)
         reset.setFixedWidth(15)
         reset.setStyleSheet(reset_button_style)
@@ -939,7 +939,7 @@ class Main(QtWidgets.QWidget):
         self.buttons.append(auto_crop)
 
         reset = QtWidgets.QPushButton(QtGui.QIcon(self.get_icon("undo")), "")
-        reset.setIconSize(QtCore.QSize(15, 15))
+        reset.setIconSize(QtCore.QSize(13, 13))
         reset.setStyleSheet(reset_button_style)
         reset.setFixedWidth(15)
         reset.clicked.connect(self.reset_crop)
@@ -1100,7 +1100,7 @@ class Main(QtWidgets.QWidget):
     def open_file(self):
         filename = QtWidgets.QFileDialog.getOpenFileName(
             self,
-            caption="Open Video",
+            caption=t("Open Video"),
             filter="Video Files (*.mkv *.mp4 *.m4v *.mov *.avi *.divx *.webm *.mpg *.mp2 *.mpeg *.mpe *.mpv *.ogg *.m4p"
             " *.wmv *.mov *.qt *.flv *.hevc *.gif *.webp *.vob *.ogv *.ts *.mts *.m2ts *.yuv *.rm *.svi *.3gp *.3g2"
             " *.y4m *.avs *.vpy);;"
@@ -1207,7 +1207,7 @@ class Main(QtWidgets.QWidget):
     def save_file(self, extension="mkv"):
         filename = QtWidgets.QFileDialog.getSaveFileName(
             self,
-            caption="Save Video As",
+            caption=t("Save Video As"),
             dir=str(Path(*self.generate_output_filename)) + f"{self.widgets.output_type_combo.currentText()}",
             filter=f"Save File (*.{extension})",
         )
@@ -1219,7 +1219,7 @@ class Main(QtWidgets.QWidget):
 
     def save_directory(self):
         dirname = QtWidgets.QFileDialog.getExistingDirectory(
-            caption="Save Directory",
+            caption=t("Save Directory"),
             dir=str(self.generate_output_filename[0]),
         )
         if dirname:

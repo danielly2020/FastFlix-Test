@@ -30,8 +30,8 @@ logger = logging.getLogger("fastflix")
 # ]
 
 channel_list = {
-    "mono": 1,
-    "stereo": 2,
+    t("mono"): 1,
+    t("stereo"): 2,
     "2.1": 3,
     "3.0": 3,
     "3.0(back)": 3,
@@ -54,8 +54,8 @@ channel_list = {
 }
 
 venc_channels = {
-    "mono": 1,
-    "stereo": 2,
+    t("mono"): 1,
+    t("stereo"): 2,
     "2.1": 3,
     "3.0": 3,
     "3.0(back)": 3,
@@ -77,8 +77,8 @@ venc_channels = {
 }
 
 back_channel_list = {
-    1: "mono",
-    2: "stereo",
+    1: t("mono"),
+    2: t("stereo"),
     3: "2.1",
     4: "3.1",
     5: "5.0",
@@ -93,7 +93,7 @@ class AudioConversion(QtWidgets.QWidget):
         super().__init__(None)
         self.app = app
         self.audio_track_update = audio_track_update
-        self.setWindowTitle(f"Audio Conversion for Track {track_index}")
+        self.setWindowTitle(f"{t('Audio Conversion for Track')} {track_index}")
         self.setMinimumWidth(400)
         self.audio_track: AudioTrack = self.app.fastflix.current_video.audio_tracks[track_index]
 
@@ -121,7 +121,7 @@ class AudioConversion(QtWidgets.QWidget):
                 "3",
                 f"4 - {t('Medium Quality')}",
                 "5",
-                f"6 {t('Low Quality')}",
+                f"6 - {t('Low Quality')}",
                 "7",
                 "8",
                 "9",

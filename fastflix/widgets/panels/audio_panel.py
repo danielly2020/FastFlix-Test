@@ -114,7 +114,7 @@ class Audio(QtWidgets.QTabWidget):
         self.widgets.track_number.setFixedWidth(20)
 
         self.disposition_widget = Disposition(
-            app=app, parent=self, track_name=f"{t('Audio Track')} '{index}'", track_index=index, audio=True
+            app=app, parent=self, track_name=f"{t('Audio Track')} {index}", track_index=index, audio=True
         )
         self.widgets.disposition.clicked.connect(self.disposition_widget.show)
 
