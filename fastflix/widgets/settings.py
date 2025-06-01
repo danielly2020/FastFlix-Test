@@ -18,7 +18,7 @@ language_list = sorted((k for k, v in Lang._data["name"].items() if v["pt2B"] an
 
 known_language_list = [
     "English",
-    t("Chinese (Simplified)"),
+    "Chinese (Simplified)",
     "Italian",
     "French",
     "Spanish",

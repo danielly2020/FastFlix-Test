@@ -10985,8 +10985,6 @@ FFprobe location:
   chs: FFprobe.exe 本地路径
 Work directory:
   chs: 工作目录
-Chinese (Simplified):
-  chs: 简体中文
 Debug:
   chs: 调试
 Info:
@@ -11028,7 +11026,7 @@ Video:
 No Language Set:
   chs: 无语言
 Audio Conversion for Track:
-  chs: 音频转换轨道
+  chs: 音频转换 轨道
 Audio Track:
   chs: 音轨
 shutdown:

@@ -30,8 +30,8 @@ logger = logging.getLogger("fastflix")
 # ]
 
 channel_list = {
-    t("mono"): 1,
-    t("stereo"): 2,
+    f'{t("mono")}': 1,
+    "stereo": 2,
     "2.1": 3,
     "3.0": 3,
     "3.0(back)": 3,
@@ -54,8 +54,8 @@ channel_list = {
 }
 
 venc_channels = {
-    t("mono"): 1,
-    t("stereo"): 2,
+    "mono": 1,
+    "stereo": 2,
     "2.1": 3,
     "3.0": 3,
     "3.0(back)": 3,
@@ -77,8 +77,8 @@ venc_channels = {
 }
 
 back_channel_list = {
-    1: t("mono"),
-    2: t("stereo"),
+    1: "mono",
+    2: "stereo",
     3: "2.1",
     4: "3.1",
     5: "5.0",
