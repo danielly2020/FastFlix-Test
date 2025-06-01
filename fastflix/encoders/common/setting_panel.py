@@ -384,7 +384,7 @@ class SettingPanel(QtWidgets.QWidget):
                 )
             except FastFlixInternalException:
                 custom_bitrate = True
-                self.widgets.bitrate.setCurrentTex("Custom")
+                self.widgets.bitrate.setCurrentTex"Custom"
             else:
                 self.widgets.bitrate.setCurrentIndex(default_bitrate_index)
             self.widgets.custom_bitrate = QtWidgets.QLineEdit("3000" if not custom_bitrate else config_opt)
@@ -423,7 +423,7 @@ class SettingPanel(QtWidgets.QWidget):
         except FastFlixInternalException:
             if not disable_custom_qp:
                 custom_qp = True
-                self.widgets[qp_name].setCurrentTex("Custom")
+                self.widgets[qp_name].setCurrentTex"Custom"
         else:
             if default_qp_index is not None:
                 self.widgets[qp_name].setCurrentIndex(default_qp_index)
@@ -517,7 +517,7 @@ class SettingPanel(QtWidgets.QWidget):
                         self.widgets.bitrate.setCurrentIndex(i)
                         break
                 else:
-                    self.widgets.bitrate.setCurrentTex("Custom")
+                    self.widgets.bitrate.setCurrentTex"Custom"
                     self.widgets.custom_bitrate.setText(bitrate.rstrip("kKmMgGbB"))
             else:
                 self.mode = self.qp_name
@@ -529,7 +529,7 @@ class SettingPanel(QtWidgets.QWidget):
                         self.widgets[self.qp_name].setCurrentIndex(i)
                         break
                 else:
-                    self.widgets[self.qp_name].setCurrentTex("Custom")
+                    self.widgets[self.qp_name].setCurrentTex"Custom"
                     self.widgets[f"custom_{self.qp_name}"].setText(qp)
         ffmpeg_extra_command = self.app.fastflix.config.encoder_opt(self.profile_name, "extra")
         self.ffmpeg_extras_widget.setText(ffmpeg_extra_command)
@@ -578,7 +578,7 @@ class SettingPanel(QtWidgets.QWidget):
                         self.widgets.bitrate.setCurrentIndex(i)
                         break
                 else:
-                    self.widgets.bitrate.setCurrentTex("Custom")
+                    self.widgets.bitrate.setCurrentTex"Custom"
                     self.widgets.custom_bitrate.setText(bitrate.rstrip("k"))
             else:
                 self.mode = self.qp_name
@@ -593,7 +593,7 @@ class SettingPanel(QtWidgets.QWidget):
                         self.widgets[self.qp_name].setCurrentIndex(i)
                         break
                 else:
-                    self.widgets[self.qp_name].setCurrentTex("Custom")
+                    self.widgets[self.qp_name].setCurrentTex"Custom"
                     self.widgets[f"custom_{self.qp_name}"].setText(qp)
         ffmpeg_extra_command = self.app.fastflix.current_video.video_settings.video_encoder_settings.extra
         self.ffmpeg_extras_widget.setText(ffmpeg_extra_command)
