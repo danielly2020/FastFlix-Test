@@ -939,7 +939,7 @@ class Main(QtWidgets.QWidget):
         self.buttons.append(auto_crop)
 
         reset = QtWidgets.QPushButton(QtGui.QIcon(self.get_icon("undo")), "")
-        reset.setIconSize(QtCore.QSize(13, 13))
+        reset.setIconSize(QtCore.QSize(12, 12))
         reset.setStyleSheet(reset_button_style)
         reset.setFixedWidth(15)
         reset.clicked.connect(self.reset_crop)
