@@ -1100,7 +1100,7 @@ class Main(QtWidgets.QWidget):
     def open_file(self):
         filename = QtWidgets.QFileDialog.getOpenFileName(
             self,
-            caption=t("Open Video"),
+            caption="Open Video",
             filter="Video Files (*.mkv *.mp4 *.m4v *.mov *.avi *.divx *.webm *.mpg *.mp2 *.mpeg *.mpe *.mpv *.ogg *.m4p"
             " *.wmv *.mov *.qt *.flv *.hevc *.gif *.webp *.vob *.ogv *.ts *.mts *.m2ts *.yuv *.rm *.svi *.3gp *.3g2"
             " *.y4m *.avs *.vpy);;"
@@ -1207,7 +1207,7 @@ class Main(QtWidgets.QWidget):
     def save_file(self, extension="mkv"):
         filename = QtWidgets.QFileDialog.getSaveFileName(
             self,
-            caption=t("Save Video As"),
+            caption="Save Video As",
             dir=str(Path(*self.generate_output_filename)) + f"{self.widgets.output_type_combo.currentText()}",
             filter=f"Save File (*.{extension})",
         )
@@ -1219,7 +1219,7 @@ class Main(QtWidgets.QWidget):
 
     def save_directory(self):
         dirname = QtWidgets.QFileDialog.getExistingDirectory(
-            caption=t("Save Directory"),
+            caption="Save Directory",
             dir=str(self.generate_output_filename[0]),
         )
         if dirname:
