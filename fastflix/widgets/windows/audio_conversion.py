@@ -54,7 +54,7 @@ channel_list = {
 }
 
 venc_channels = {
-    "mono": 1,
+    f'{t("mono")}': 1,
     "stereo": 2,
     "2.1": 3,
     "3.0": 3,
@@ -77,7 +77,7 @@ venc_channels = {
 }
 
 back_channel_list = {
-    1: "mono",
+    1: f'{t("mono")}',
     2: "stereo",
     3: "2.1",
     4: "3.1",

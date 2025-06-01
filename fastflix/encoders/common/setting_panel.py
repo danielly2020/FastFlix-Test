@@ -40,7 +40,7 @@ recommended_bitrates = [
     "30000k",
     "40000k",
     "50000k",
-    "Custom",
+    t("Custom"),
 ]
 
 recommended_qp = [
@@ -61,7 +61,7 @@ recommended_qp = [
     "30",
     "31",
     "32",
-    "Custom",
+    t("Custom"),
 ]
 
 

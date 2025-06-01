@@ -6,8 +6,8 @@ from fastflix.language import t
 logger = logging.getLogger("fastflix")
 
 channel_list = {
-    t("mono"): 1,
-    t("stereo"): 2,
+    "mono": 1,
+    "stere": 2,
     "2.1": 3,
     "3.0": 3,
     "3.0(back)": 3,

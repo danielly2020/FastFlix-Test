@@ -363,8 +363,8 @@ class NVENCC(RigayaPanel):
         return layout
 
     def mode_update(self):
-        self.widgets.custom_cqp.setDisabled(self.widgets.cqp.currentText() != "Custom")
-        self.widgets.custom_bitrate.setDisabled(self.widgets.bitrate.currentText() != "Custom")
+        self.widgets.custom_cqp.setDisabled(self.widgets.cqp.currentText() != t("Custom"))
+        self.widgets.custom_bitrate.setDisabled(self.widgets.bitrate.currentText() != t("Custom"))
         self.main.build_commands()
 
     def setting_change(self, update=True):
