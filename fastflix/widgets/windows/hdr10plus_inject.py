@@ -119,7 +119,7 @@ class HDR10PlusInjectWindow(QtWidgets.QWidget):
     def set_output_file(self):
         filename = QtWidgets.QFileDialog.getSaveFileName(
             self,
-            caption=t("Save Video As"),
+            caption="Save Video As",
             # dir=str(Path(*self.generate_output_filename)) + f"{self.widgets.output_type_combo.currentText()}",
             # filter=f"Save File (*.{extension})",
         )
