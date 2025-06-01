@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import logging
+from fastflix.language import t
 
 logger = logging.getLogger("fastflix")
 
