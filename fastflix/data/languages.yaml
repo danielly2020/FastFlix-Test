@@ -948,7 +948,7 @@ Conversion cancelled, delete incomplete file:
   fra: Conversion annulée, suppression du dossier incomplet
   ita: Conversione annullata, cancellare il file incompleto
   spa: Conversión cancelada, borrar archivo incompleto
-  chs: 转换已取消，删除不完整的文件
+  chs: 任务已取消，要删除不完整的文件吗
   jpn: 変換がキャンセルされ、不完全なファイルを削除する
   rus: Преобразование отменено, удалите незавершенный файл
   por: Conversão cancelada, apagar arquivo incompleto
@@ -963,7 +963,7 @@ Conversion worker shutting down:
   fra: Fermeture d'une entreprise de reconversion
   ita: Operaio di conversione in chiusura
   spa: El cierre del trabajador de conversión
-  chs: 正在关闭转换程序
+  chs: 正在关闭程序
   jpn: コンバージョンワーカーのシャットダウンしている
   rus: Выключение конвертера
   por: Encerrando o worker de conversão
@@ -8933,7 +8933,7 @@ That video was added with an encoder that is no longer available, unable to load
   fra: 'Ce profil sera appliqué à tous les éléments sélectionnés :'
   ita: 'Questo profilo verrà applicato a tutti gli elementi selezionati:'
   spa: 'Este perfil se aplicará a todos los elementos seleccionados:'
-  chs: 右边选择的配置将被应用于所有选定的项目 -->
+  chs: 右边选择的配置将被应用于所有选定的项目 >>>
   jpn: このプロファイルは、選択されたすべてのアイテムに適用されます。
   rus: 'Этот профиль будет применен ко всем выбранным элементам:'
   por: 'Este perfil será aplicado a todos os itens selecionados:'
@@ -10976,7 +10976,7 @@ Allow Optional Downloads:
 Keyframe:
   chs: 关键帧
 Reset:
-  chs: 重置
+  chs:  重置
 uses [fast] seek to a rough position ahead of timestamp, vs a specific [exact] frame lookup. (GIF encodings use [fast]):
   chs: 使用[fast]查找时间戳之前的大致位置，使用[exact]帧进行精确查找。(GIF编码使用[fast])
 FFmepg location:
@@ -11047,7 +11047,7 @@ none | unknown:
   chs: 无 | 未知
 None | Passthrough:
   chs: 不转换 | 复制
-Save Video as:
+Save Video As:
   chs: 另存为...
 Save Directory:
   chs: 保存目录
@@ -11055,6 +11055,8 @@ Open Video:
   chs: 选择视频
 That output file already exists and is not empty!:
   chs: 输出文件已存在且不为空！
+Overwrite:
+  chs: 覆盖
 Filenames:
   chs: 文件名
 Remove:

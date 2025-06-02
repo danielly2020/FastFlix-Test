@@ -917,7 +917,7 @@ class Main(QtWidgets.QWidget):
         crop_box.setMinimumWidth(400)
         crop_box.setStyleSheet(group_box_style(pt="0", pb="12px"))
         crop_layout = QtWidgets.QVBoxLayout()
-        self.widgets.crop.top, crop_top_layout = self.build_hoz_int_field(f"     {t('Top')} ")
+        self.widgets.crop.top, crop_top_layout = self.build_hoz_int_field(f"{t('Top')} ")
         self.widgets.crop.left, crop_hz_layout = self.build_hoz_int_field(f"{t('Left')} ", right_stretch=False)
         self.widgets.crop.right, crop_hz_layout = self.build_hoz_int_field(
             f"    {t('Right')} ", left_stretch=True, layout=crop_hz_layout
@@ -1879,8 +1879,8 @@ class Main(QtWidgets.QWidget):
         if out_file_path.exists() and out_file_path.stat().st_size > 0:
             sm = QtWidgets.QMessageBox()
             sm.setText(t("That output file already exists and is not empty!"))
-            sm.addButton("Cancel", QtWidgets.QMessageBox.DestructiveRole)
-            sm.addButton("Overwrite", QtWidgets.QMessageBox.RejectRole)
+            sm.addButton(t("Cancel"), QtWidgets.QMessageBox.DestructiveRole)
+            sm.addButton(t("Overwrite"), QtWidgets.QMessageBox.RejectRole)
             sm.exec_()
             if sm.clickedButton().text() == "Cancel":
                 return False
@@ -1984,7 +1984,7 @@ class Main(QtWidgets.QWidget):
         if exists:
             sm = QtWidgets.QMessageBox()
             sm.setWindowTitle(t("Cancelled"))
-            sm.setText(f"{t('Conversion cancelled, delete incomplete file')}\n" f"{video.video_settings.output_path}?")
+            sm.setText(f"{t('Conversion cancelled, delete incomplete file')}\n\n" f"{video.video_settings.output_path} ?")
             sm.addButton(t("Delete"), QtWidgets.QMessageBox.YesRole)
             sm.addButton(t("Keep"), QtWidgets.QMessageBox.NoRole)
             sm.exec_()

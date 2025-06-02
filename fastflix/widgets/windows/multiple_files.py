@@ -57,7 +57,7 @@ class MultipleFilesTable(QtWidgets.QTableView):
         self.setColumnWidth(0, 430)
         self.setColumnWidth(1, 140)
         self.setColumnWidth(2, 80)
-        self.setColumnWidth(3, 50)
+        self.setColumnWidth(3, 40)
 
     def update_items(self, items):
         self.model.clear()
@@ -69,7 +69,7 @@ class MultipleFilesTable(QtWidgets.QTableView):
         self.setColumnWidth(0, 420)
         self.setColumnWidth(1, 140)
         self.setColumnWidth(2, 80)
-        self.setColumnWidth(3, 50)
+        self.setColumnWidth(3, 40)
 
     def add_item(self, name, resolution, codec):
         filename = QtGui.QStandardItem(name)

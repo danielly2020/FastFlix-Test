@@ -57,7 +57,7 @@ class ConcatTable(QtWidgets.QTableView):
         self.setColumnWidth(0, 430)
         self.setColumnWidth(1, 140)
         self.setColumnWidth(2, 80)
-        self.setColumnWidth(3, 50)
+        self.setColumnWidth(3, 40)
 
     def update_items(self, items):
         self.model.clear()
@@ -69,7 +69,7 @@ class ConcatTable(QtWidgets.QTableView):
         self.setColumnWidth(0, 430)
         self.setColumnWidth(1, 140)
         self.setColumnWidth(2, 80)
-        self.setColumnWidth(3, 50)
+        self.setColumnWidth(3, 40)
 
     def add_item(self, name, resolution, codec):
         filename = QtGui.QStandardItem(name)
@@ -126,6 +126,7 @@ class ConcatScroll(QtWidgets.QScrollArea):
         self.setMinimumWidth(700)
         self.setMinimumHeight(500)
         self.table = ConcatTable(None)
+		self.table.setSortingEnabled(True)
         self.setWidget(self.table)
 
 
