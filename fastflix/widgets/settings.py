@@ -134,7 +134,7 @@ class Settings(QtWidgets.QWidget):
         self.logger_level_widget.setCurrentIndex(int(self.app.fastflix.config.logging_level // 10) - 1)
 
         self.theme = QtWidgets.QComboBox()
-        self.theme.addItems(["onyx", t("light"), t("dark"), t("system")])
+        self.theme.addItems(["onyx", "light", "dark", "system"])
         self.theme.setCurrentText(self.app.fastflix.config.theme)
 
         self.crop_detect_points_widget = QtWidgets.QComboBox()
@@ -381,7 +381,7 @@ class Settings(QtWidgets.QWidget):
         dirname = Path(self.ffmpeg_path.text()).parent
         if not dirname.exists():
             dirname = Path()
-        filename = QtWidgets.QFileDialog.getOpenFileName(self, caption="FFmepg location", dir=str(dirname))
+        filename = QtWidgets.QFileDialog.getOpenFileName(self, caption=t("FFmepg location"), dir=str(dirname))
         if not filename or not filename[0]:
             return
         self.ffmpeg_path.setText(str(Path(filename[0]).absolute()))
@@ -390,7 +390,7 @@ class Settings(QtWidgets.QWidget):
         dirname = Path(self.nvencc_path.text()).parent
         if not dirname.exists():
             dirname = Path()
-        filename = QtWidgets.QFileDialog.getOpenFileName(self, caption="NVEncC location", dir=str(dirname))
+        filename = QtWidgets.QFileDialog.getOpenFileName(self, caption=t("NVEncC location"), dir=str(dirname))
         if not filename or not filename[0]:
             return
         self.nvencc_path.setText(str(Path(filename[0]).absolute()))
@@ -399,7 +399,7 @@ class Settings(QtWidgets.QWidget):
         dirname = Path(self.qsvenc_path.text()).parent
         if not dirname.exists():
             dirname = Path()
-        filename = QtWidgets.QFileDialog.getOpenFileName(self, caption="QSVEncC location", dir=str(dirname))
+        filename = QtWidgets.QFileDialog.getOpenFileName(self, caption=t("QSVEncC location"), dir=str(dirname))
         if not filename or not filename[0]:
             return
         self.qsvenc_path.setText(str(Path(filename[0]).absolute()))
@@ -408,7 +408,7 @@ class Settings(QtWidgets.QWidget):
         dirname = Path(self.vceenc_path.text()).parent
         if not dirname.exists():
             dirname = Path()
-        filename = QtWidgets.QFileDialog.getOpenFileName(self, caption="VCEEncC location", dir=str(dirname))
+        filename = QtWidgets.QFileDialog.getOpenFileName(self, caption=t("VCEEncC location"), dir=str(dirname))
         if not filename or not filename[0]:
             return
         self.vceenc_path.setText(str(Path(filename[0]).absolute()))
@@ -417,7 +417,7 @@ class Settings(QtWidgets.QWidget):
         dirname = Path(self.hdr10_parser_path.text()).parent
         if not dirname.exists():
             dirname = Path()
-        filename = QtWidgets.QFileDialog.getOpenFileName(self, caption="hdr10+ parser", dir=str(dirname))
+        filename = QtWidgets.QFileDialog.getOpenFileName(self, caption=t("hdr10+ parser"), dir=str(dirname))
         if not filename or not filename[0]:
             return
         self.hdr10_parser_path.setText(str(Path(filename[0]).absolute()))
@@ -426,7 +426,7 @@ class Settings(QtWidgets.QWidget):
         dirname = Path(self.output_path_line_edit.text()).parent
         if not dirname.exists():
             dirname = Path()
-        filename = QtWidgets.QFileDialog.getExistingDirectory(self, caption="Output Directory", dir=str(dirname))
+        filename = QtWidgets.QFileDialog.getExistingDirectory(self, caption=t("Output Directory"), dir=str(dirname))
         if not filename:
             return
         self.output_path_line_edit.setText(filename)
@@ -435,7 +435,7 @@ class Settings(QtWidgets.QWidget):
         dirname = Path(self.source_path_line_edit.text()).parent
         if not dirname.exists():
             dirname = Path()
-        filename = QtWidgets.QFileDialog.getExistingDirectory(self, caption="Source Directory", dir=str(dirname))
+        filename = QtWidgets.QFileDialog.getExistingDirectory(self, caption=t("Source Directory"), dir=str(dirname))
         if not filename:
             return
         self.source_path_line_edit.setText(filename)
@@ -465,7 +465,7 @@ class Settings(QtWidgets.QWidget):
         dirname = Path(self.ffprobe_path.text()).parent
         if not dirname.exists():
             dirname = Path()
-        filename = QtWidgets.QFileDialog.getOpenFileName(self, caption="FFprobe location", dir=str(dirname))
+        filename = QtWidgets.QFileDialog.getOpenFileName(self, caption=t("FFprobe location"), dir=str(dirname))
         if not filename or not filename[0]:
             return
         self.ffprobe_path.setText(filename[0])
@@ -485,7 +485,7 @@ class Settings(QtWidgets.QWidget):
         dialog = QtWidgets.QFileDialog()
         dialog.setFileMode(QtWidgets.QFileDialog.Directory)
         dialog.setOption(QtWidgets.QFileDialog.ShowDirsOnly)
-        work_path = dialog.getExistingDirectory(dir=str(dirname), caption="Work directory")
+        work_path = dialog.getExistingDirectory(dir=str(dirname), caption=t("Work directory"))
         if not work_path:
             return
         self.work_dir.setText(work_path)

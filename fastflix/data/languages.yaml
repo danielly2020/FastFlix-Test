@@ -10991,12 +10991,6 @@ Info:
   chs: 消息
 Warning:
   chs: 警告
-light:
-  chs: 亮色
-dark:
-  chs: 暗色
-system:
-  chs: 系统
 NVEncC location:
   chs: NVEncC.exe 本地路径
 QSVEncC location:
@@ -11053,13 +11047,11 @@ none | unknown:
   chs: 无 | 未知
 None | Passthrough:
   chs: 不转换 | 复制
-mono:
-  chs: 单声道
-stereo:
-  chs: 立体声
 Save Video as:
   chs: 保存视频为
 Save Directory:
   chs: 保存目录
 Open Video:
   chs: 选择视频
+That output file already exists and is not empty!:
+  chs: 输出文件已存在且不为空！

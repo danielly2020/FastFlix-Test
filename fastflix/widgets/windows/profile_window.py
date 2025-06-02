@@ -62,7 +62,7 @@ class AudioProfile(QtWidgets.QTabWidget):
         self.match_input_boxes[3].addItems(language_list)
         self.match_input_boxes[3].setCurrentText("English")
         self.match_input_boxes[4].addItems(
-            [t("none | unknown"), t("mono"), t("stereo"), "3 | 2.1", "4", "5", "6 | 5.1", "7", "8 | 7.1", "9", "10"]
+            [t("none | unknown"), "mono", "stereo", "3 | 2.1", "4", "5", "6 | 5.1", "7", "8 | 7.1", "9", "10"]
         )
 
         self.match_input_boxes[2].view().setFixedWidth(self.match_input_boxes[2].minimumSizeHint().width() + 50)

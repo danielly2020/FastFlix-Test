@@ -1878,7 +1878,7 @@ class Main(QtWidgets.QWidget):
         out_file_path = Path(self.output_video)
         if out_file_path.exists() and out_file_path.stat().st_size > 0:
             sm = QtWidgets.QMessageBox()
-            sm.setText("That output file already exists and is not empty!")
+            sm.setText(t("That output file already exists and is not empty!"))
             sm.addButton("Cancel", QtWidgets.QMessageBox.DestructiveRole)
             sm.addButton("Overwrite", QtWidgets.QMessageBox.RejectRole)
             sm.exec_()
