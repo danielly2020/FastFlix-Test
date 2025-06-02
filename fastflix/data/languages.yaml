@@ -407,7 +407,7 @@ Bitrate:
   fra: Bitrate
   ita: Bitrate
   spa: Bitrate
-  chs: 比特率
+  chs: 码率
   jpn: ビットレート
   rus: Битрейт
   por: Taxa de bits
@@ -709,7 +709,7 @@ Clear Completed:
   fra: Clair Terminé
   ita: Azzera coda
   spa: Claro Completado
-  chs: 清理已完成的项目
+  chs: 删除已完成任务
   jpn: 完了したタスクを削除
   rus: Очистка завершена
   por: Limpar completados
@@ -2055,7 +2055,7 @@ Estimated file size based on bitrate:
   fra: Estimation de la taille du fichier en fonction du débit binaire
   ita: Dimensione stimata del file in base al bitrate
   spa: Tamaño estimado del archivo basado en la tasa de bits
-  chs: 基于比特率的估计文件大小
+  chs: 基于码率的估计文件大小
   jpn: ビットレートに応じたファイルサイズの目安
   rus: Расчетный размер файла на основе битрейта
   por: Tamanho do arquivo estimado com base na taxa de bits
@@ -2070,7 +2070,7 @@ Estimated time left for current command:
   fra: Estimation du temps restant pour le commandement en cours
   ita: Tempo stimato rimasto per il comando corrente
   spa: Tiempo estimado para el comando actual
-  chs: 当前命令的估计剩余时间
+  chs: 当前任务的估计剩余时间
   jpn: 現在のコマンドの残り時間の目安
   rus: Расчетное время, оставшееся до завершения текущей команды
   por: Tempo estimado restante para o comando atual
@@ -3664,7 +3664,7 @@ Pause / Resume the current command:
   fra: Pause / Reprise de la commande en cours
   ita: Pausa / Riprendere il comando corrente
   spa: Pausa / Reanudar el comando actual
-  chs: 暂停/恢复当前命令
+  chs: 暂停/恢复当前任务
   jpn: 現在のコマンドを一時停止／再開する
   rus: Приостановить / возобновить выполнение текущей команды
   por: Pausar / Retomar o comando atual
@@ -4633,7 +4633,7 @@ Single Pass (Bitrate):
   fra: Passage unique (Bitrate)
   ita: Passaggio singolo (Bitrato)
   spa: Pase único (Bitrate)
-  chs: 一遍编码（比特率）
+  chs: 一遍编码（码率）
   jpn: 1回のみ（ビットレート）
   rus: Однократный проход (битрейт)
   por: Passe único (Bitrate)
@@ -5141,7 +5141,7 @@ This is used for ultra-high bitrates with zero loss of quality.:
     a zero.
   spa: Se utiliza para velocidades de transmisión ultra altas con cero pérdida de
     calidad.
-  chs: 用于实现无质量损失的超高比特率编码。
+  chs: 用于实现无质量损失的超高码率编码。
   jpn: これは、超高ビットレートで品質を損なうことなく使用されます。
   rus: Используется для сверхвысоких битрейтов с нулевой потерей качества.
   por: Isso é usado para taxas de bits ultra-altas sem perda de qualidade.
@@ -5693,7 +5693,7 @@ Wait for the current command to finish, and stop the next command from processin
     comando successivo
   spa: Espere a que termine el comando actual y detenga el procesamiento del siguiente
     comando...
-  chs: 等待当前命令完成，之后暂不处理后面的命令
+  chs: 等待当前任务完成，之后暂不处理后面的任务。
   jpn: 現在のコマンドが終了するのを待ち、次のコマンドの処理を停止する
   rus: Дождитесь завершения выполнения текущей команды и остановите обработку следующей
     команды
@@ -7277,7 +7277,7 @@ Concatenation Builder:
   fra: Créateur de concaténation
   ita: Unisci file
   spa: Constructor de Concatenación
-  chs: 创建合并序列
+  chs: 合并视频
   jpn: 連結ビルダー
   rus: Конструктор конкатенации
   por: Construtor de concatenação
@@ -7412,7 +7412,7 @@ Load:
   fra: Charger
   ita: Carica
   spa: Cargar
-  chs: 载入
+  chs: 加载
   jpn: ロード
   rus: Загрузка
   por: Carregar
@@ -7431,7 +7431,7 @@ Drag and Drop to reorder - All items need to be same dimensions:
     dimensioni
   spa: Arrastrar y soltar para reordenar - Todos los elementos deben tener las mismas
     dimensiones
-  chs: 拖放来重新排序 - 所有项目的尺寸都需要相同
+  chs: 拖动可重新排序 - 所有视频的分辨率都需要相同
   jpn: ドラッグ＆ドロップで並び替え - すべてのアイテムが同じ寸法である必要があります。
   rus: Перетаскивание для изменения порядка - все элементы должны иметь одинаковые
     размеры
@@ -7535,7 +7535,7 @@ does not support concatenating files together:
   fra: ne supporte pas la concaténation de fichiers ensemble
   ita: non supporta la concatenazione di file
   spa: no admite la concatenación de archivos
-  chs: 不支持将文件合并起来
+  chs: 不支持合并文件
   jpn: は、ファイルの連結をサポートしていません。
   rus: не поддерживает конкатенацию файлов вместе
   por: não suporta a concatenação de arquivos
@@ -8658,7 +8658,7 @@ Bitrate Mode:
   fra: Mode de débit binaire
   ita: Modalità Bitrate
   spa: Modo Bitrate
-  chs: 比特率模式
+  chs: 码率模式
   jpn: ビットレートモード
   rus: Режим битрейта
   por: Modo Bitrate
@@ -8688,7 +8688,7 @@ Multiple Files:
   fra: Fichiers multiples
   ita: File multipli
   spa: Varios archivos
-  chs: 多个文件
+  chs: 选择多个文件
   jpn: 複数のファイル
   rus: Множество файлов
   por: Vários arquivos
@@ -8703,7 +8703,7 @@ Drag and Drop to reorder:
   fra: Glisser et déposer pour réorganiser
   ita: Per riordinare trascina e rilascia
   spa: Arrastrar y soltar para reordenar
-  chs: 拖放重新排序
+  chs: 拖动可重新排序
   jpn: ドラッグ＆ドロップで並び替え
   rus: Перетаскивание для изменения порядка
   por: Arraste e solte para reordenar
@@ -8933,7 +8933,7 @@ That video was added with an encoder that is no longer available, unable to load
   fra: 'Ce profil sera appliqué à tous les éléments sélectionnés :'
   ita: 'Questo profilo verrà applicato a tutti gli elementi selezionati:'
   spa: 'Este perfil se aplicará a todos los elementos seleccionados:'
-  chs: 这个配置文件将被应用于所有选定的项目。
+  chs: 右边选择的配置将被应用于所有选定的项目 -->
   jpn: このプロファイルは、選択されたすべてのアイテムに適用されます。
   rus: 'Этот профиль будет применен ко всем выбранным элементам:'
   por: 'Este perfil será aplicado a todos os itens selecionados:'
@@ -11048,10 +11048,14 @@ none | unknown:
 None | Passthrough:
   chs: 不转换 | 复制
 Save Video as:
-  chs: 保存视频为
+  chs: 另存为...
 Save Directory:
   chs: 保存目录
 Open Video:
   chs: 选择视频
 That output file already exists and is not empty!:
   chs: 输出文件已存在且不为空！
+Filenames:
+  chs: 文件名
+Remove:
+  chs: 移除

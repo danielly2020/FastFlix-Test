@@ -500,7 +500,7 @@ class EncodingQueue(FlixList):
     def set_after_done(self):
         option = self.after_done_combo.currentText()
 
-        if option == "None":
+        if option == t("None"):
             command = None
         elif option in self.app.fastflix.config.custom_after_run_scripts:
             command = self.app.fastflix.config.custom_after_run_scripts[option]

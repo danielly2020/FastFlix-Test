@@ -50,17 +50,26 @@ class ConcatTable(QtWidgets.QTableView):
 
         # Set our custom model - this prevents row "shifting"
         self.model = MyModel()
-        self.model.setHorizontalHeaderLabels(["Filename", "Resolution", "Codec", "Remove"])
+        self.model.setHorizontalHeaderLabels([t("Filenames"), t("Resolution"), t("Codec"), t("Remove")])
 
         self.setModel(self.model)
         self.buttons = []
+        self.setColumnWidth(0, 430)
+        self.setColumnWidth(1, 140)
+        self.setColumnWidth(2, 80)
+        self.setColumnWidth(3, 50)
 
     def update_items(self, items):
         self.model.clear()
-        self.model.setHorizontalHeaderLabels(["Filename", "Resolution", "Codec", "Remove"])
+        self.model.setHorizontalHeaderLabels([t("Filenames"), t("Resolution"), t("Codec"), t("Remove")])
         self.buttons = []
         for item in items:
             self.add_item(*item)
+
+        self.setColumnWidth(0, 430)
+        self.setColumnWidth(1, 140)
+        self.setColumnWidth(2, 80)
+        self.setColumnWidth(3, 50)
 
     def add_item(self, name, resolution, codec):
         filename = QtGui.QStandardItem(name)
@@ -114,7 +123,7 @@ class ConcatScroll(QtWidgets.QScrollArea):
     def __init__(self, parent):
         super().__init__(parent)
         self.setWidgetResizable(True)
-        self.setMinimumWidth(500)
+        self.setMinimumWidth(700)
         self.setMinimumHeight(500)
         self.table = ConcatTable(None)
         self.setWidget(self.table)

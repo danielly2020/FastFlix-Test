@@ -202,7 +202,7 @@ class NVENCC(RigayaPanel):
             label="AQ Strength",
             tooltip="",
             widget_name="aq_strength",
-            options=[t("Auto")] + [str(x) for x in range(1, 16)],
+            options=["Auto"] + [str(x) for x in range(1, 16)],
             opt="aq_strength",
         )
 
@@ -211,7 +211,7 @@ class NVENCC(RigayaPanel):
             label="Multipass",
             tooltip="",
             widget_name="multipass",
-            options=[t("None"), "2pass-quarter", "2pass-full"],
+            options=["None", "2pass-quarter", "2pass-full"],
             opt="multipass",
         )
 
@@ -220,7 +220,7 @@ class NVENCC(RigayaPanel):
             label="Motion vector accuracy",
             tooltip="Q-pel is highest precision",
             widget_name="mv_precision",
-            options=[t("Auto"), "Q-pel", "half-pel", "full-pel"],
+            options=["Auto", "Q-pel", "half-pel", "full-pel"],
             opt="mv_precision",
         )
 

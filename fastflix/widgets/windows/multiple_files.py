@@ -50,18 +50,18 @@ class MultipleFilesTable(QtWidgets.QTableView):
 
         # Set our custom model - this prevents row "shifting"
         self.model = MyModel()
-        self.model.setHorizontalHeaderLabels(["Filename", "Resolution", "Codec", ""])
+        self.model.setHorizontalHeaderLabels([t("Filenames"), t("Resolution"), t("Codec"), t("Remove")])
 
         self.setModel(self.model)
         self.buttons = []
         self.setColumnWidth(0, 430)
         self.setColumnWidth(1, 140)
         self.setColumnWidth(2, 80)
-        self.setColumnWidth(3, 40)
+        self.setColumnWidth(3, 50)
 
     def update_items(self, items):
         self.model.clear()
-        self.model.setHorizontalHeaderLabels(["Filename", "Resolution", "Codec", ""])
+        self.model.setHorizontalHeaderLabels([t("Filenames"), t("Resolution"), t("Codec"), t("Remove")])
         self.buttons = []
         for item in items:
             self.add_item(*item)
@@ -69,7 +69,7 @@ class MultipleFilesTable(QtWidgets.QTableView):
         self.setColumnWidth(0, 420)
         self.setColumnWidth(1, 140)
         self.setColumnWidth(2, 80)
-        self.setColumnWidth(3, 40)
+        self.setColumnWidth(3, 50)
 
     def add_item(self, name, resolution, codec):
         filename = QtGui.QStandardItem(name)

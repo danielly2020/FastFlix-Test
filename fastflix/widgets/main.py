@@ -917,7 +917,7 @@ class Main(QtWidgets.QWidget):
         crop_box.setMinimumWidth(400)
         crop_box.setStyleSheet(group_box_style(pt="0", pb="12px"))
         crop_layout = QtWidgets.QVBoxLayout()
-        self.widgets.crop.top, crop_top_layout = self.build_hoz_int_field(f"       {t('Top')} ")
+        self.widgets.crop.top, crop_top_layout = self.build_hoz_int_field(f"     {t('Top')} ")
         self.widgets.crop.left, crop_hz_layout = self.build_hoz_int_field(f"{t('Left')} ", right_stretch=False)
         self.widgets.crop.right, crop_hz_layout = self.build_hoz_int_field(
             f"    {t('Right')} ", left_stretch=True, layout=crop_hz_layout
@@ -1100,7 +1100,7 @@ class Main(QtWidgets.QWidget):
     def open_file(self):
         filename = QtWidgets.QFileDialog.getOpenFileName(
             self,
-            caption="Open Video",
+            caption=t("Open Video"),
             filter="Video Files (*.mkv *.mp4 *.m4v *.mov *.avi *.divx *.webm *.mpg *.mp2 *.mpeg *.mpe *.mpv *.ogg *.m4p"
             " *.wmv *.mov *.qt *.flv *.hevc *.gif *.webp *.vob *.ogv *.ts *.mts *.m2ts *.yuv *.rm *.svi *.3gp *.3g2"
             " *.y4m *.avs *.vpy);;"
