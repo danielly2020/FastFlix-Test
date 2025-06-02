@@ -1207,7 +1207,7 @@ class Main(QtWidgets.QWidget):
     def save_file(self, extension="mkv"):
         filename = QtWidgets.QFileDialog.getSaveFileName(
             self,
-            caption="Save Video As",
+            caption=t("Save Video As"),
             dir=str(Path(*self.generate_output_filename)) + f"{self.widgets.output_type_combo.currentText()}",
             filter=f"Save File (*.{extension})",
         )
@@ -1219,7 +1219,7 @@ class Main(QtWidgets.QWidget):
 
     def save_directory(self):
         dirname = QtWidgets.QFileDialog.getExistingDirectory(
-            caption="Save Directory",
+            caption=t("Save Directory"),
             dir=str(self.generate_output_filename[0]),
         )
         if dirname:

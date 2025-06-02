@@ -27,7 +27,7 @@ recommended_bitrates = [
     "10000k (2560x1440p @ 60fps)",
     "15000k (3840x2160p @ 30fps)",
     "20000k (3840x2160p @ 60fps)",
-    t("Custom"),
+    "Custom",
 ]
 
 recommended_crfs = [
@@ -46,7 +46,7 @@ recommended_crfs = [
     "16",
     "15",
     "14",
-    t("Custom"),
+    "Custom",
 ]
 
 
@@ -202,7 +202,7 @@ class NVENCC(RigayaPanel):
             label="AQ Strength",
             tooltip="",
             widget_name="aq_strength",
-            options=["Auto"] + [str(x) for x in range(1, 16)],
+            options=[t("Auto")] + [str(x) for x in range(1, 16)],
             opt="aq_strength",
         )
 
@@ -211,7 +211,7 @@ class NVENCC(RigayaPanel):
             label="Multipass",
             tooltip="",
             widget_name="multipass",
-            options=["None", "2pass-quarter", "2pass-full"],
+            options=[t("None"), "2pass-quarter", "2pass-full"],
             opt="multipass",
         )
 
@@ -220,7 +220,7 @@ class NVENCC(RigayaPanel):
             label="Motion vector accuracy",
             tooltip="Q-pel is highest precision",
             widget_name="mv_precision",
-            options=["Auto", "Q-pel", "half-pel", "full-pel"],
+            options=[t("Auto"), "Q-pel", "half-pel", "full-pel"],
             opt="mv_precision",
         )
 
@@ -363,8 +363,8 @@ class NVENCC(RigayaPanel):
         return layout
 
     def mode_update(self):
-        self.widgets.custom_cqp.setDisabled(self.widgets.cqp.currentText() != t("Custom"))
-        self.widgets.custom_bitrate.setDisabled(self.widgets.bitrate.currentText() != t("Custom"))
+        self.widgets.custom_cqp.setDisabled(self.widgets.cqp.currentText() != "Custom")
+        self.widgets.custom_bitrate.setDisabled(self.widgets.bitrate.currentText() != "Custom")
         self.main.build_commands()
 
     def setting_change(self, update=True):
