@@ -95,6 +95,7 @@ def error_message(msg, details=None, traceback=False, title=None):
 
         em.setDetailedText(traceback.format_exc())
     em.setStandardButtons(QtWidgets.QMessageBox.Close)
+	em.button(QtWidgets.QMessageBox.Close).setText(t("Close"))
     em.exec_()
 
 

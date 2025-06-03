@@ -6071,7 +6071,7 @@ bad micro value:
   fra: mauvaise micro valeur
   ita: micro valore negativo
   spa: mal valor micro
-  chs: bad micro value
+  chs: 不良微值
   jpn: バッドマイクロバリュー
   rus: плохое микрозначение
   por: mau microvalor
@@ -10976,7 +10976,7 @@ Allow Optional Downloads:
 Keyframe:
   chs: 关键帧
 Reset:
-  chs:  重置
+  chs:   重置
 uses [fast] seek to a rough position ahead of timestamp, vs a specific [exact] frame lookup. (GIF encodings use [fast]):
   chs: 使用[fast]查找时间戳之前的大致位置，使用[exact]帧进行精确查找。(GIF编码使用[fast])
 FFmepg location:
@@ -11023,6 +11023,8 @@ Audio Conversion for Track:
   chs: 音频转换 轨道
 Audio Track:
   chs: 音轨
+'Custom:':
+  chs: 自定义
 shutdown:
   chs: 关机
 restart:
@@ -11061,3 +11063,7 @@ Filenames:
   chs: 文件名
 Remove:
   chs: 移除
+This encoder:
+  chs: 此编码器
+Close:
+  chs: 关闭

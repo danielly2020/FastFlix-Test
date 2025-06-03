@@ -436,7 +436,7 @@ class SettingPanel(QtWidgets.QWidget):
             self.widgets[f"custom_{qp_name}"].textChanged.connect(lambda: self.main.build_commands())
 
         if not disable_bitrate and config_opt:
-            self.mode = t("Bitrate")
+            self.mode = "Bitrate"
             self.qp_radio.setChecked(False)
             self.bitrate_radio.setChecked(True)
         if not disable_bitrate:
@@ -450,7 +450,7 @@ class SettingPanel(QtWidgets.QWidget):
         if disable_custom_qp:
             qp_box_layout.addStretch(1)
         else:
-            qp_box_layout.addWidget(QtWidgets.QLabel(t("Custom") + ":"))
+            qp_box_layout.addWidget(QtWidgets.QLabel(t("Custom:")))
             qp_box_layout.addWidget(self.widgets[f"custom_{qp_name}"])
         qp_box_layout.addWidget(QtWidgets.QLabel("  "))
 
@@ -509,7 +509,7 @@ class SettingPanel(QtWidgets.QWidget):
             pass
         else:
             if bitrate:
-                self.mode = t("Bitrate")
+                self.mode = "Bitrate"
                 self.qp_radio.setChecked(False)
                 self.bitrate_radio.setChecked(True)
                 for i, rec in enumerate(self.recommended_bitrates):
@@ -570,7 +570,7 @@ class SettingPanel(QtWidgets.QWidget):
         if getattr(self, "mode", None):
             bitrate = getattr(self.app.fastflix.current_video.video_settings.video_encoder_settings, "bitrate", None)
             if bitrate:
-                self.mode = t("Bitrate")
+                self.mode = "Bitrate"
                 self.qp_radio.setChecked(False)
                 self.bitrate_radio.setChecked(True)
                 for i, rec in enumerate(self.recommended_bitrates):
