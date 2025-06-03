@@ -126,7 +126,6 @@ class ConcatScroll(QtWidgets.QScrollArea):
         self.setMinimumWidth(700)
         self.setMinimumHeight(500)
         self.table = ConcatTable(None)
-		self.table.setSortingEnabled(True)
         self.setWidget(self.table)
 
 
