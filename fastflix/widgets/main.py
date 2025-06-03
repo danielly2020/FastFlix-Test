@@ -1882,7 +1882,7 @@ class Main(QtWidgets.QWidget):
             sm.addButton(t("Cancel"), QtWidgets.QMessageBox.DestructiveRole)
             sm.addButton(t("Overwrite"), QtWidgets.QMessageBox.RejectRole)
             sm.exec_()
-            if sm.clickedButton().text() == "Cancel":
+            if sm.clickedButton().text() == t("Cancel"):
                 return False
         return True
 

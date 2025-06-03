@@ -368,7 +368,8 @@ class SettingPanel(QtWidgets.QWidget):
         )
         config_opt = None
         if not disable_bitrate:
-            self.bitrate_radio = QtWidgets.QRadioButton(t("Bitrate"))
+            self.bitrate_radio = QtWidgets.QRadioButton(t("Bitrates"))
+            self.bitrate_radio.setObjectName("Bitrate")
             self.bitrate_radio.setFixedWidth(80)
             self.widgets.mode.addButton(self.bitrate_radio)
             self.widgets.bitrate = QtWidgets.QComboBox()
@@ -450,7 +451,7 @@ class SettingPanel(QtWidgets.QWidget):
         if disable_custom_qp:
             qp_box_layout.addStretch(1)
         else:
-            qp_box_layout.addWidget(QtWidgets.QLabel(t("Custom:")))
+            qp_box_layout.addWidget(QtWidgets.QLabel(t("Custom") + ":"))
             qp_box_layout.addWidget(self.widgets[f"custom_{qp_name}"])
         qp_box_layout.addWidget(QtWidgets.QLabel("  "))
 
