@@ -41,7 +41,7 @@ class ConcatTable(QtWidgets.QTableView):
         super().__init__(parent)
         self.verticalHeader().hide()
         # self.horizontalHeader().hide()
-        self.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        # self.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         self.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
         self.setShowGrid(False)
@@ -66,7 +66,7 @@ class ConcatTable(QtWidgets.QTableView):
         for item in items:
             self.add_item(*item)
 
-        self.setColumnWidth(0, 430)
+        self.setColumnWidth(0, 420)
         self.setColumnWidth(1, 140)
         self.setColumnWidth(2, 80)
         self.setColumnWidth(3, 40)
