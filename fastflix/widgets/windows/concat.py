@@ -86,7 +86,7 @@ class ConcatTable(QtWidgets.QTableView):
 
         remove = QtGui.QStandardItem("X")
         remove.setEditable(False)
-        remove.setDropEnabled(False)
+        remove.setDropEnabled(True)
         remove.option_name = name
 
         self.model.appendRow([filename, res, form, remove])
@@ -126,6 +126,7 @@ class ConcatScroll(QtWidgets.QScrollArea):
         self.setMinimumWidth(700)
         self.setMinimumHeight(500)
         self.table = ConcatTable(None)
+        self.table.setSortingEnabled(True)
         self.setWidget(self.table)
 
 
