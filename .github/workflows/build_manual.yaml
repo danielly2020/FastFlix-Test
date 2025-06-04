@@ -1,0 +1,89 @@
+
+name: Build executables
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run tests against)'
+        required: true
+        default: 'dev'
+
+jobs:
+
+  build-windows-2022:
+
+    runs-on: windows-2022
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Gather build version
+      shell: powershell
+      run: |
+        mkdir dist
+        New-Item -Path Env: -Name VERSION -Value $(python.exe scripts\get_version.py)
+        New-Item -Path Env: -Name EXACT_VERSION -Value $(python.exe scripts\get_version.py exact)
+        New-Item -Path Env: -Name PRODUCT_VERSION -Value $(python.exe scripts\get_version.py nsis)
+        echo "Building branch $env:GITHUB_REF - version $env:VERSION"
+        echo "::set-env name=VERSION::$env:VERSION"
+        echo "::set-env name=EXACT_VERSION::$env:EXACT_VERSION"
+        echo "::set-env name=PRODUCT_VERSION::$env:PRODUCT_VERSION"
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
+    - name: Install Python Dependencies
+      run: |
+        python -m pip install --upgrade pip "setuptools<81.0.0" --force-reinstal
+        pip install .
+        pip install .[develop]
+
+
+    - name: Grab iso-639 lists
+      shell: powershell
+      run: |
+        copy $(python -c "import iso639; print(iso639.mapping.TABLE_PATH)") iso-639-3.tab
+        copy $(python -c "import iso639; print(iso639.mapping.MAPPING_PATH)") iso-639-3.json
+
+    - name: Build single executable
+      shell: cmd
+      run: pyinstaller FastFlix_Windows_OneFile.spec
+
+    - name: Build installer executable
+      shell: cmd
+      run: pyinstaller FastFlix_Windows_Installer.spec
+
+
+    - name: Package installer
+      shell: cmd
+      run: |
+        makensis.exe /INPUTCHARSET UTF8 /DVERSION=${{ env.EXACT_VERSION }} /DPRODUCT_VERSION=${{ env.PRODUCT_VERSION }} FastFlix.nsi
+        move FastFlix_installer.exe dist\FastFlix_${{ env.VERSION }}_installer.exe
+
+
+    - name: Test executable
+      run: |
+        dist\FastFlix.exe --version
+        dist\FastFlix.exe --test
+
+    - name: Package single executable
+      shell: cmd
+      run: |
+        move dist\*.exe .
+        move docs\build-licenses.txt LICENSE
+
+    - name: Upload standalone executable artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: FastFlix_${{ env.VERSION }}_win64
+        path: |
+          FastFlix.exe
+          LICENSE
+
+    - name: Upload installer artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: FastFlix_${{ env.VERSION }}_installer
+        path: FastFlix_${{ env.VERSION }}_installer.exe
