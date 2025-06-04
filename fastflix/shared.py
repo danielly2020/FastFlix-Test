@@ -97,7 +97,7 @@ class CustomLineEdit(QLineEdit):
         elif action == cut_action:
             self.cut()
         elif action == delete_action:
-            self.textCursor().removeSelectedText()
+            self.setCursor().removeSelectedText()
         elif action == select_all_action:
             self.selectAll()
 

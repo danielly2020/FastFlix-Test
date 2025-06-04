@@ -48,12 +48,12 @@ class HDR10PlusInjectWindow(QtWidgets.QWidget):
         self.output_file.textChanged.connect(self.prep_command)
 
         line_1 = QtWidgets.QHBoxLayout()
-        line_1.addWidget(QtWidgets.QLabel("Movie File"))
+        line_1.addWidget(QtWidgets.QLabel(t("Movie File")))
         line_1.addWidget(self.movie_file)
         line_1.addWidget(self.movie_file_button)
 
         line_3 = QtWidgets.QHBoxLayout()
-        line_3.addWidget(QtWidgets.QLabel("HDR10+ File"))
+        line_3.addWidget(QtWidgets.QLabel(t("HDR10+ File")))
         line_3.addWidget(self.hdr10p_file)
         line_3.addWidget(self.hdr10p_file_button)
 
@@ -66,15 +66,15 @@ class HDR10PlusInjectWindow(QtWidgets.QWidget):
         layout = QtWidgets.QVBoxLayout()
 
         output_lin = QtWidgets.QHBoxLayout()
-        output_lin.addWidget(QtWidgets.QLabel("Output File"))
+        output_lin.addWidget(QtWidgets.QLabel(t("Output File")))
         output_lin.addWidget(self.output_file)
         output_lin.addWidget(self.output_file_button)
 
         bottom_line = QtWidgets.QHBoxLayout()
-        cancel = QtWidgets.QPushButton("Cancel")
+        cancel = QtWidgets.QPushButton(t("Cancel"))
         cancel.clicked.connect(self.hide)
         bottom_line.addWidget(cancel)
-        start = QtWidgets.QPushButton("Start")
+        start = QtWidgets.QPushButton(t("Start"))
         start.clicked.connect(self.start)
         bottom_line.addWidget(start)
 
@@ -95,7 +95,7 @@ class HDR10PlusInjectWindow(QtWidgets.QWidget):
         try:
             results = probe(self.app, movie_name[0])
         except Exception as err:
-            error_message(f"Invalid file: {err}")
+            error_message(f"{t('Invalid file')}: {err}")
             return
         for result in results["streams"]:
             if result["codec_type"] == "video":
@@ -103,9 +103,9 @@ class HDR10PlusInjectWindow(QtWidgets.QWidget):
                     self.selected_stream = result
                     break
         if not self.selected_stream:
-            error_message("No HEVC video stream found")
+            error_message(t("No HEVC video stream found"))
             return
-        self.info_bubble.setText(f"Selected stream index: {self.selected_stream['index']}")
+        self.info_bubble.setText(f"{t('Selected stream index')}: {self.selected_stream['index']}")
         self.movie_file.setText(movie_name[0])
         self.prep_command()
 
@@ -119,7 +119,7 @@ class HDR10PlusInjectWindow(QtWidgets.QWidget):
     def set_output_file(self):
         filename = QtWidgets.QFileDialog.getSaveFileName(
             self,
-            caption="Save Video As",
+            caption=t("Save Video As"),
             # dir=str(Path(*self.generate_output_filename)) + f"{self.widgets.output_type_combo.currentText()}",
             # filter=f"Save File (*.{extension})",
         )
@@ -145,4 +145,4 @@ class HDR10PlusInjectWindow(QtWidgets.QWidget):
 
     def start(self):
         run(self.command_bubble.text(), shell=True)
-        error_message("Done")
+        error_message(t("Done"))
