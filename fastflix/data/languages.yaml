@@ -11065,5 +11065,17 @@ This encoder:
   chs: 此编码器
 Close:
   chs: 关闭
-Bitrates:
-  chs: 码率
+Undo:
+  chs: 撤销
+Redo:
+  chs: 重做
+Copy:
+  chs: 复制
+Paste:
+  chs: 粘贴
+Cut:
+  chs: 剪切
+Delete:
+  chs: 删除
+Select All:
+  chs: 全选

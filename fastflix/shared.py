@@ -67,6 +67,37 @@ class MyMessageBox(QtWidgets.QMessageBox):
 
         return result
 
+class CustomLineEdit(QLineEdit):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+    
+    def contextMenuEvent(self, event: QContextMenuEvent):
+        menu = QMenu(self)
+        
+        undo_action = menu.addAction(t("Undo"))
+        redo_action = menu.addAction(t("Redo"))
+        copy_action = menu.addAction(t("Copy"))
+        paste_action = menu.addAction(t("Paste"))
+        cut_action = menu.addAction(t("Cut"))
+        delete_action = menu.addAction(t("Delete"))
+        select_all_action = menu.addAction(t("Select All"))
+        
+        action = menu.exec(event.globalPos())
+        
+        if action == undo_action:
+            self.undo()
+        elif action == redo_action:
+            self.redo()
+        elif action == copy_action:
+            self.copy()
+        elif action == paste_action:
+            self.paste()
+        elif action == cut_action:
+            self.cut()
+        elif action == delete_action:
+            self.textCursor().removeSelectedText()
+        elif action == select_all_action:
+            self.selectAll()
 
 def message(msg, title=None):
     sm = QtWidgets.QMessageBox()

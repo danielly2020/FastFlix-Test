@@ -11,6 +11,7 @@ from fastflix.language import t
 from fastflix.models.fastflix_app import FastFlixApp
 from fastflix.widgets.background_tasks import ExtractHDR10
 from fastflix.resources import group_box_style, get_icon
+from fastflix.shared import CustomLineEdit
 
 
 logger = logging.getLogger("fastflix")
@@ -261,7 +262,8 @@ class SettingPanel(QtWidgets.QWidget):
         self.labels.ffmpeg_options = QtWidgets.QLabel(t(title))
         self.labels.ffmpeg_options.setToolTip(t("Extra flags or options, cannot modify existing settings"))
         layout.addWidget(self.labels.ffmpeg_options)
-        self.ffmpeg_extras_widget = QtWidgets.QLineEdit()
+#        self.ffmpeg_extras_widget = QtWidgets.QLineEdit()
+        self.ffmpeg_extras_widget = CustomLineEdit()
         self.ffmpeg_extras_widget.setText(ffmpeg_extra_command)
         self.widgets["extra_both_passes"] = QtWidgets.QCheckBox(t("Both Passes"))
         self.opts["extra_both_passes"] = "extra_both_passes"
@@ -368,8 +370,8 @@ class SettingPanel(QtWidgets.QWidget):
         )
         config_opt = None
         if not disable_bitrate:
-            self.bitrate_radio = QtWidgets.QRadioButton(t("Bitrates"))
-            self.bitrate_radio.setObjectName("Bitrate")
+            bitrate_text = t("Bitrate")
+            self.bitrate_radio = QtWidgets.QRadioButton(bitrate_text)
             self.bitrate_radio.setFixedWidth(80)
             self.widgets.mode.addButton(self.bitrate_radio)
             self.widgets.bitrate = QtWidgets.QComboBox()
