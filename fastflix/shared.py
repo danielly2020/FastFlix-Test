@@ -26,6 +26,8 @@ except AttributeError:
     pyinstaller = False
 
 from PySide6 import QtCore, QtGui, QtWidgets
+from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QMenu
+from PySide6.QtGui import QContextMenuEvent
 
 from fastflix.language import t
 from fastflix.resources import get_bool_env
