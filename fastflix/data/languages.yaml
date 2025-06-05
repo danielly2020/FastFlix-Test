@@ -75,7 +75,7 @@ Add current video to queue?:
   fra: Ajouter la vidéo actuelle à la file d'attente?
   ita: Aggiungere il video corrente alla coda?
   spa: ¿Añadir el vídeo actual a la cola?
-  chs: 将当前视频添加到队列中？
+  chs: 将当前视频添加到队列中吗？
   jpn: 現在のビデオをキューに追加しますか？
   rus: Добавить текущее видео в очередь?
   por: Adicionar vídeo atual à fila de espera?
@@ -180,7 +180,7 @@ All queue items have completed:
   fra: Tous les éléments de la file d'attente sont terminés
   ita: Tutte le voci della coda sono state completate
   spa: Todos los artículos de la cola se han completado
-  chs: 所有排队项目已完成
+  chs: 所有队列任务已完成
   jpn: キューにあるアイテムが全て完了しました
   rus: Все пункты очереди завершены
   por: Todos os itens da fila foram completados
@@ -589,7 +589,7 @@ Cancel Conversion:
   fra: Annuler la conversion
   ita: Annullare la conversione
   spa: Cancelar la conversión
-  chs: 取消转换
+  chs: 取消编码
   jpn: 変換をキャンセルする
   rus: Отменить преобразование
   por: Cancelar Conversão
@@ -799,7 +799,7 @@ Command has completed:
   fra: Le commandement a terminé
   ita: Il comando ha completato
   spa: El comando ha completado
-  chs: 命令已完成。
+  chs: 命令已完成
   jpn: コマンドが完了しました。
   rus: Команда выполнена
   por: Comando completado
@@ -835,7 +835,7 @@ Command worker received request to pause encoding after the current item complet
     dopo il completamento della voce corrente
   spa: El trabajador del comando recibió la solicitud de pausar la codificación después
     de que el elemento actual complete
-  chs: 命令执行程序收到了在当前项目完成后暂停编码的请求
+  chs: 命令执行程序收到了在当前任务完成后暂停编码的请求
   jpn: コマンドワーカーが、現在のアイテムが完了した後にエンコードを一時停止するリクエストを受信しました
   rus: Оператор получил запрос на приостановку кодирования после завершения текущего
     элемента
@@ -1980,7 +1980,7 @@ End:
   fra: Fin
   ita: Fine
   spa: Fin
-  chs: 结束时间
+  chs: 结束
   jpn: 終了
   rus: Конец
   por: Fim
@@ -1989,6 +1989,8 @@ End:
   ukr: Кінець
   kor: 종료
   ron: Sfârșitul
+EndTime:
+  chs: 结束时间
 Enforce an encode profile:
   deu: Erzwingen eines Kodiererprofils
   eng: Enforce an encode profile
@@ -2583,7 +2585,7 @@ HDR10+ Metadata:
   fra: Métadonnées HDR10
   ita: HDR10+ Metadati
   spa: Metadatos HDR10+
-  chs: HDR10+元数据
+  chs: HDR10+ 元数据
   jpn: HDR10+メタデータ
   rus: Метаданные HDR10+
   por: Metadados HDR10+
@@ -2598,7 +2600,7 @@ HDR10+ Metadata Extraction:
   fra: Extraction de métadonnées HDR10+.
   ita: Estrazione metadati HDR10+
   spa: Extracción de metadatos HDR10+
-  chs: HDR10+元数据提取指南（英文）
+  chs: HDR10+ 元数据提取指南（英文）
   jpn: HDR10+メタデータの抽出
   rus: Извлечение метаданных HDR10+
   por: Extração de metadados HDR10+
@@ -3174,7 +3176,7 @@ NVEncC Encoder support is still experimental!:
   fra: Le support des encodeurs NVEncC est encore expérimental !
   ita: Il supporto NVEncC Encoder è ancora sperimentale!
   spa: La compatibilidad con el codificador NVEncC es todavía experimental.
-  chs: NVEncC编码器支持仍然是实验性的!
+  chs: NVEncC 编码器支持仍然是实验性的!
   jpn: NVEncCエンコーダのサポートはまだ実験的なものです。
   rus: Поддержка NVEncC Encoder все еще является экспериментальной!
   por: O suporte para o codificador NVEncC ainda é experimental!
@@ -3189,7 +3191,7 @@ NVEncC Options:
   fra: Options NVEncC
   ita: Opzioni NVEncC
   spa: Opciones de NVEncC
-  chs: NVEncC编码指南
+  chs: NVEncC 编码指南
   jpn: NVEncCオプション
   rus: Опции NVEncC
   por: Opções NVEncC
@@ -4839,7 +4841,7 @@ Start:
   fra: Démarrer
   ita: Inizio
   spa: Comienza
-  chs: 开始时间
+  chs: 开始
   jpn: 開始
   rus: Начать
   por: Iniciar
@@ -4848,13 +4850,15 @@ Start:
   ukr: Старт
   kor: 시작
   ron: Start
+StartTime:
+  chs: 开始时间
 Starting conversion process:
   deu: Konvertierungsprozess starten
   eng: Starting conversion process
   fra: Iniciando el proceso de conversión
   ita: Avvio del processo di conversione
   spa: Iniciando el proceso de conversión
-  chs: 执行转换程序
+  chs: 开始编码转换
   jpn: 変換処理の開始
   rus: Начало процесса преобразования
   por: Iniciando o processo de conversão
@@ -5045,7 +5049,7 @@ There was an error during conversion and the queue has stopped:
   fra: Il y a eu une erreur lors de la conversion et la file d'attente s'est arrêtée
   ita: C'è stato un errore durante la conversione e la coda si è fermata
   spa: Hubo un error durante la conversión y la cola se ha detenido
-  chs: 转换过程中出现错误，队列已经停止
+  chs: 编码过程中出现错误，队列已经停止。
   jpn: 変換中にエラーが発生し、キューが停止されました
   rus: Во время преобразования произошла ошибка, и очередь остановилась
   por: Ocorreu um erro durante a conversão e a fila parou
@@ -5117,8 +5121,7 @@ This is intended for use when you do not have a container to keep the stream hea
     le intestazioni dello stream per voi
   spa: Está pensado para ser utilizado cuando no se dispone de un contenedor para
     guardar los encabezados de la corriente para usted
-  chs: This is intended for use when you do not have a container to keep the stream
-    headers for you.
+  chs: 这是在您没有容器为您保存流头时使用的。
   jpn: ストリームヘッダーを保持してくれるコンテナがない場合に使用することを想定しています。
   rus: Это предназначено для использования, когда у вас нет контейнера для хранения
     заголовков потока.
@@ -6879,7 +6882,7 @@ There are no videos to start converting:
   fra: Il n'y a pas de vidéos à convertir
   ita: Non ci sono video da convertire
   spa: No hay vídeos para empezar a convertir
-  chs: 没有视频可以开始转换
+  chs: 没有视频可以开始编码
   jpn: 変換する動画はありません
   rus: Нет видео, чтобы начать конвертацию
   por: Não há vídeos para começar a converter
@@ -7020,7 +7023,7 @@ There is already a video being processed:
   fra: Il y a déjà une vidéo en cours de traitement
   ita: C'è già un video in elaborazione
   spa: Ya hay un vídeo en proceso
-  chs: 已经有一个视频正在处理中
+  chs: 已经有一个视频正在编码中
   jpn: すでに処理中の動画があります
   rus: Видео уже обрабатывается
   por: Já existe um vídeo sendo processado
@@ -11077,3 +11080,47 @@ Cut:
   chs: 剪切
 Select All:
   chs: 全选
+Autocrop tried to crop too much:
+  chs: 自动裁切尝试裁切过多
+ignoring:
+  chs: 忽略
+Top must be positive number:
+  chs: 上端必须为正数
+Height must be smaller than video height:
+  chs: 高度必须小于视频高度
+Width must be smaller than video width:
+  chs: 宽度必须小于视频宽度
+Could not find selected track:
+  chs: 无法找到选定的视频轨
+in:
+  chs: 在
+Could not properly read the files:
+  chs: 无法正确读取文件
+This video has been detected to have an interlaced video.:
+  chs: 检测到该视频为隔行扫描视频。
+Not deinterlacing will result in banding after encoding.:
+  chs: 不进行去隔行扫描(反交错)将导致编码后出现条带。
+Please specify output video:
+  chs: 请指定输出视频
+Output video path is same as source!:
+  chs: 输出视频路径与源路径相同！
+Queue is currently paused:
+  chs: 队列目前已暂停
+File does not exist:
+  chs: 文件不存在：
+Could not load video:
+  chs: 不能加载视频：
+Updating queue from command worker:
+  chs: 从命令执行程序更新队列
+GUI received ask to exit:
+  chs: GUI 收到退出请求
+'dhdr10_info: Path to HDR10+ JSON metadata file':
+  chs: HDR10+ 元数据的JSON文件路径
+'WARNING: This only works on a few FFmpeg builds, and it will not raise error on failure!':
+  chs: 警告：这仅适用于少数 FFmpeg 版本，并且不会在失败时引发错误！
+Specifically, FFmpeg needs the x265 ENABLE_HDR10_PLUS option enabled on compile.:
+  chs: 具体来说，FFmpeg 需要在编译时启用 x265 ENABLE_HDR10_PLUS 选项。
+The latest windows builds from BtbN should have this feature.:
+  chs: BtbN 的最新 Windows 版本应该具有此功能。
+I do not know of any public Linux/Mac ones that do.:
+  chs: 据我所知，目前还没有哪个 Linux/Mac 版本包含此功能。

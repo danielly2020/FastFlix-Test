@@ -26,7 +26,7 @@ except AttributeError:
     pyinstaller = False
 
 from PySide6 import QtCore, QtGui, QtWidgets
-from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QMenu
+from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QTextEdit, QMenu
 from PySide6.QtGui import QContextMenuEvent
 
 from fastflix.language import t
@@ -97,7 +97,7 @@ class CustomLineEdit(QLineEdit):
         elif action == cut_action:
             self.cut()
         elif action == delete_action:
-            self.setCursor().removeSelectedText()
+            self.textCursor().removeSelectedText()
         elif action == select_all_action:
             self.selectAll()
 

@@ -75,6 +75,9 @@ class SettingPanel(QtWidgets.QWidget):
         self.labels = Box()
         self.opts = Box()
         self.only_int = QtGui.QIntValidator()
+        self.mode_name = {
+            "bitrate": t("Bitrate")
+        }
 
     def close(self) -> bool:
         for widget, item in self.widgets.items():
@@ -370,7 +373,7 @@ class SettingPanel(QtWidgets.QWidget):
         )
         config_opt = None
         if not disable_bitrate:
-            self.bitrate_radio = QtWidgets.QRadioButton(t("Bitrate"))
+            self.bitrate_radio = QtWidgets.QRadioButton(self.mode_name["bitrate"])
             self.bitrate_radio.setFixedWidth(80)
             self.widgets.mode.addButton(self.bitrate_radio)
             self.widgets.bitrate = QtWidgets.QComboBox()
@@ -438,7 +441,7 @@ class SettingPanel(QtWidgets.QWidget):
             self.widgets[f"custom_{qp_name}"].textChanged.connect(lambda: self.main.build_commands())
 
         if not disable_bitrate and config_opt:
-            self.mode = t("Bitrate")
+            self.mode = "Bitrate"
             self.qp_radio.setChecked(False)
             self.bitrate_radio.setChecked(True)
         if not disable_bitrate:
@@ -511,7 +514,7 @@ class SettingPanel(QtWidgets.QWidget):
             pass
         else:
             if bitrate:
-                self.mode = t("Bitrate")
+                self.mode = "Bitrate"
                 self.qp_radio.setChecked(False)
                 self.bitrate_radio.setChecked(True)
                 for i, rec in enumerate(self.recommended_bitrates):
@@ -572,7 +575,7 @@ class SettingPanel(QtWidgets.QWidget):
         if getattr(self, "mode", None):
             bitrate = getattr(self.app.fastflix.current_video.video_settings.video_encoder_settings, "bitrate", None)
             if bitrate:
-                self.mode = t("Bitrate")
+                self.mode = "Bitrate"
                 self.qp_radio.setChecked(False)
                 self.bitrate_radio.setChecked(True)
                 for i, rec in enumerate(self.recommended_bitrates):

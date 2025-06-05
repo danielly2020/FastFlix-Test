@@ -811,13 +811,13 @@ class Main(QtWidgets.QWidget):
         self.buttons.append(reset)
 
         self.widgets.start_time, start_layout = self.build_hoz_int_field(
-            f"{t('Start')} ",
+            f"{t('StartTime')} ",
             right_stretch=False,
             left_stretch=True,
             time_field=True,
         )
         self.widgets.end_time, end_layout = self.build_hoz_int_field(
-            f"  {t('End')} ", left_stretch=True, right_stretch=True, time_field=True
+            f"  {t('EndTime')} ", left_stretch=True, right_stretch=True, time_field=True
         )
 
         self.widgets.start_time.textChanged.connect(lambda: self.page_update())
@@ -1304,7 +1304,7 @@ class Main(QtWidgets.QWidget):
                 bottom=int(self.widgets.crop.bottom.text()),
             )
         except (ValueError, AttributeError):
-            logger.error("Invalid crop")
+            logger.error(t("Invalid crop"))
             return None
         else:
             crop.width = self.app.fastflix.current_video.width - crop.right - crop.left
@@ -1452,8 +1452,8 @@ class Main(QtWidgets.QWidget):
                 break
         else:
             logger.warning(
-                f"Could not find selected track {self.app.fastflix.current_video.video_settings.selected_track} "
-                f"in {text_video_tracks}"
+                f"{t('Could not find selected track')} {self.app.fastflix.current_video.video_settings.selected_track} "
+                f"{t('in')} {text_video_tracks}"
             )
 
         end_time = self.app.fastflix.current_video.video_settings.end_time or video.duration
@@ -1524,9 +1524,9 @@ class Main(QtWidgets.QWidget):
             self.clear_current_video()
             return
         except Exception:
-            logger.exception(f"Could not properly read the files {self.input_video}")
+            logger.exception(f"{t('Could not properly read the files')} {self.input_video}")
             self.clear_current_video()
-            error_message(f"Could not properly read the file {self.input_video}")
+            error_message(f"{t('Could not properly read the files')} {self.input_video}")
             return
 
         hdr10_indexes = [x.index for x in self.app.fastflix.current_video.hdr10_streams]
@@ -1912,12 +1912,12 @@ class Main(QtWidgets.QWidget):
             return
 
         if self.app.fastflix.conversion_paused:
-            return error_message("Queue is currently paused")
+            return error_message(t("Queue is currently paused"))
 
         if not self.app.fastflix.conversion_list or self.app.fastflix.current_video:
             add_current = True
             if self.app.fastflix.conversion_list and self.app.fastflix.current_video:
-                add_current = yes_no_message("Add current video to queue?", yes_text="Yes", no_text="No")
+                add_current = yes_no_message(t("Add current video to queue?"), yes_text=t("Yes"), no_text=t("No"))
             if add_current:
                 if not self.add_to_queue():
                     return
@@ -2017,7 +2017,7 @@ class Main(QtWidgets.QWidget):
         except (ValueError, IndexError):
             return event.ignore()
         if not self.input_video.exists():
-            logger.error(f"File does not exist {self.input_video}")
+            logger.error(f"{t('File does not exist')} {self.input_video}")
             return event.ignore()
 
         self.source_video_path_widget.setText(str(self.input_video))
@@ -2025,7 +2025,7 @@ class Main(QtWidgets.QWidget):
         try:
             self.update_video_info()
         except Exception:
-            logger.exception(f"Could not load video {self.input_video}")
+            logger.exception(f"{t('Could not load video')} {self.input_video}")
             self.video_path_widget.setText("")
             self.output_video_path_widget.setText("")
             self.output_video_path_widget.setDisabled(True)
@@ -2041,7 +2041,7 @@ class Main(QtWidgets.QWidget):
 
     def status_update(self, status_response):
         response = Response(*status_response)
-        logger.debug(f"Updating queue from command worker: {response}")
+        logger.debug(f"{t('Updating queue from command worker')}: {response}")
 
         video_to_send: Optional[Video] = None
         errored = False
@@ -2167,7 +2167,7 @@ class Notifier(QtCore.QThread):
             status = self.status_queue.get()
             self.app.processEvents()
             if status[0] == "exit":
-                logger.debug("GUI received ask to exit")
+                logger.debug(t("GUI received ask to exit"))
                 try:
                     self.terminate()
                 finally:
