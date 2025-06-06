@@ -171,10 +171,10 @@ class HEVC(SettingPanel):
     def init_dhdr10_warning_and_opt(self):
         label = QtWidgets.QLabel()
         label.setToolTip(
-            t("WARNING: This only works on a few FFmpeg builds, and it will not raise error on failure!\n")
-            t("Specifically, FFmpeg needs the x265 ENABLE_HDR10_PLUS option enabled on compile.\n")
-            t("The latest windows builds from BtbN should have this feature.\n")
-            t("I do not know of any public Linux/Mac ones that do.")
+            t("WARNING: This only works on a few FFmpeg builds, and it will not raise error on failure!\n"
+            "Specifically, FFmpeg needs the x265 ENABLE_HDR10_PLUS option enabled on compile.\n"
+            "The latest windows builds from BtbN should have this feature.\n"
+            "I do not know of any public Linux/Mac ones that do.")
         )
         icon = QtGui.QIcon(get_icon("onyx-warning", self.app.fastflix.config.theme))
         label.setPixmap(icon.pixmap(22))
