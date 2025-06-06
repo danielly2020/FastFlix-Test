@@ -97,6 +97,7 @@ class CustomLineEdit(QLineEdit):
         elif action == cut_action:
             self.cut()
         elif action == delete_action:
+            print("Type of self in delete_action:", type(self))
             cursor = self.textCursor()
             cursor.removeSelectedText()
             self.setTextCursor(cursor)

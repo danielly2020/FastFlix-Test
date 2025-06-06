@@ -71,7 +71,7 @@ class NVENCC(RigayaPanel):
 
         self.widgets = Box(mode=None)
 
-        self.mode = "bitrate"
+        self.mode = "Bitrate"
         self.updating_settings = False
 
         grid.addLayout(self.init_modes(), 0, 2, 4, 4)
