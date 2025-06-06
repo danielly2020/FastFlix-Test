@@ -75,9 +75,9 @@ class SettingPanel(QtWidgets.QWidget):
         self.labels = Box()
         self.opts = Box()
         self.only_int = QtGui.QIntValidator()
-        self.mode_name = {
-            t("bitrate"): "Bitrate"
-        }
+        #        self.mode_name = {
+        #            t("bitrate"): "Bitrate"
+        #        }
 
     def close(self) -> bool:
         for widget, item in self.widgets.items():
@@ -373,9 +373,11 @@ class SettingPanel(QtWidgets.QWidget):
         )
         config_opt = None
         if not disable_bitrate:
-            self.bitrate_radio = QtWidgets.QRadioButton(self.mode_name["Bitrate"])
+            self.bitrate_radio = QtWidgets.QRadioButton("Bitrate")
             self.bitrate_radio.setFixedWidth(80)
+            self.bitrate_radio.setProperty("mode_key", "bitrate")
             self.widgets.mode.addButton(self.bitrate_radio)
+            self.bitrate_radio.setText(t("Bitrate"))
             self.widgets.bitrate = QtWidgets.QComboBox()
             self.widgets.bitrate.addItems(recommended_bitrates)
             self.widgets.bitrate_passes = QtWidgets.QComboBox()
@@ -473,6 +475,14 @@ class SettingPanel(QtWidgets.QWidget):
         return layout
 
     def set_mode(self):
+        selected_button = self.widgets.mode.checkedButton()
+        if selected_button:
+            mode_key = selected_button.property("mode_key")
+            if mode_key == "bitrate":
+                self.mode = "bitrate"
+            else:
+                self.mode = "qp"
+        self.main.page_update(build_thumbnail=False)
         raise NotImplementedError("Child must implement this function")
 
     @property
