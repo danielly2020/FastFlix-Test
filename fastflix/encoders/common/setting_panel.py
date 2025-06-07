@@ -65,11 +65,6 @@ recommended_qp = [
     "Custom",
 ]
 
-from enum import Enum
-
-class EncodeMode(Enum):
-    BitRate = "bitrate"
-    # QP = "qp"
 
 class SettingPanel(QtWidgets.QWidget):
     def __init__(self, parent, main, app: FastFlixApp, *args, **kwargs):
@@ -267,7 +262,7 @@ class SettingPanel(QtWidgets.QWidget):
         self.labels.ffmpeg_options = QtWidgets.QLabel(t(title))
         self.labels.ffmpeg_options.setToolTip(t("Extra flags or options, cannot modify existing settings"))
         layout.addWidget(self.labels.ffmpeg_options)
-#        self.ffmpeg_extras_widget = QtWidgets.QLineEdit()
+        # self.ffmpeg_extras_widget = QtWidgets.QLineEdit()
         self.ffmpeg_extras_widget = CustomLineEdit()
         self.ffmpeg_extras_widget.setText(ffmpeg_extra_command)
         self.widgets["extra_both_passes"] = QtWidgets.QCheckBox(t("Both Passes"))
@@ -375,10 +370,9 @@ class SettingPanel(QtWidgets.QWidget):
         )
         config_opt = None
         if not disable_bitrate:
-            self.bitrate_radio = QtWidgets.QRadioButton(t("Bitrate"))
+            self.bitrate_radio = QtWidgets.QRadioButton("Bitrate")
             self.bitrate_radio.setFixedWidth(80)
             self.widgets.mode.addButton(self.bitrate_radio)
-            self.bitrate_radio.toggled.connect(lambda checked: self.set_mode(EncodeMode.BitRate) if checked else None)
             self.widgets.bitrate = QtWidgets.QComboBox()
             self.widgets.bitrate.addItems(recommended_bitrates)
             self.widgets.bitrate_passes = QtWidgets.QComboBox()
@@ -416,7 +410,6 @@ class SettingPanel(QtWidgets.QWidget):
             bitrate_box_layout.addWidget(QtWidgets.QLabel("k"))
 
             self.qp_radio = QtWidgets.QRadioButton(qp_display_name)
-            self.qp_radio.setProperty("mode_key", qp_name)
             self.qp_radio.setChecked(True)
             self.qp_radio.setFixedWidth(80)
             self.qp_radio.setToolTip(qp_help)
@@ -609,20 +602,17 @@ class SettingPanel(QtWidgets.QWidget):
         self.updating_settings = False
 
     def get_mode_settings(self) -> Tuple[str, Union[float, int, str]]:
-        # if self.mode.lower() == "bitrate":
-        if self.mode == EncodeMode.BitRate:
+        if self.mode.lower() == "bitrate":
             bitrate = self.widgets.bitrate.currentText()
             if bitrate.lower() == "custom":
                 if not bitrate:
                     logger.error("No custom bitrate provided, defaulting to 3000k")
-                    # return "bitrate", "3000k"
-                    return EncodeMode.BitRate, "3000k"
+                    return "bitrate", "3000k"
                 bitrate = self.widgets.custom_bitrate.text().lower().rstrip("k")
                 bitrate += "k"
             else:
                 bitrate = bitrate.split(" ", 1)[0]
-            # return "bitrate", bitrate
-            return EncodeMode.BitRate, bitrate
+            return "bitrate", bitrate
         else:
             qp_text = self.widgets[self.qp_name].currentText()
             if qp_text.lower() == "custom":

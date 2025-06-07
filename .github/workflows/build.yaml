@@ -46,9 +46,9 @@ jobs:
         copy $(python -c "import iso639; print(iso639.mapping.TABLE_PATH)") iso-639-3.tab
         copy $(python -c "import iso639; print(iso639.mapping.MAPPING_PATH)") iso-639-3.json
 
-    - name: Build single executable
-      shell: cmd
-      run: pyinstaller FastFlix_Windows_OneFile.spec
+#    - name: Build single executable
+#      shell: cmd
+#      run: pyinstaller FastFlix_Windows_OneFile.spec
 
     - name: Build installer executable
       shell: cmd
@@ -85,19 +85,19 @@ jobs:
         dist\FastFlix.exe --version
         dist\FastFlix.exe --test
 
-    - name: Package single executable
-      shell: cmd
-      run: |
-        move dist\*.exe .
-        move docs\build-licenses.txt LICENSE
+#    - name: Package single executable
+#      shell: cmd
+#      run: |
+#        move dist\*.exe .
+#        move docs\build-licenses.txt LICENSE
 
-    - name: Upload standalone executable artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: FastFlix_${{ env.VERSION }}_win64
-        path: |
-          FastFlix.exe
-          LICENSE
+#    - name: Upload standalone executable artifact
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: FastFlix_${{ env.VERSION }}_win64
+#        path: |
+#          FastFlix.exe
+#          LICENSE
 
     - name: Upload installer artifact
       uses: actions/upload-artifact@v4

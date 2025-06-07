@@ -36,7 +36,8 @@ jobs:
 
     - name: Install Python Dependencies
       run: |
-        python -m pip install --upgrade pip "setuptools<81.0.0" --force-reinstal
+        python -m pip install --upgrade pip setuptools==75.8 --ignore-installed
+        python -m pip install --upgrade pytest
         pip install .
         pip install .[develop]
 
@@ -47,14 +48,23 @@ jobs:
         copy $(python -c "import iso639; print(iso639.mapping.TABLE_PATH)") iso-639-3.tab
         copy $(python -c "import iso639; print(iso639.mapping.MAPPING_PATH)") iso-639-3.json
 
-    - name: Build single executable
-      shell: cmd
-      run: pyinstaller FastFlix_Windows_OneFile.spec
+#    - name: Build single executable
+#      shell: cmd
+#      run: pyinstaller FastFlix_Windows_OneFile.spec
 
     - name: Build installer executable
       shell: cmd
       run: pyinstaller FastFlix_Windows_Installer.spec
 
+#    - uses: skymatic/code-sign-action@v1
+#      with:
+#        certificate: '${{ secrets.CODE_CERT_B64 }}'
+#        password: '${{ secrets.CODE_CERT_PASS }}'
+#        certificatesha1: '${{ secrets.CODE_CERT_THUMB }}'
+#        description: 'FastFlix'
+#        timestampUrl: 'http://timestamp.sectigo.com'
+#        folder: 'dist\FastFlix'
+#        recursive: false
 
     - name: Package installer
       shell: cmd
@@ -62,25 +72,34 @@ jobs:
         makensis.exe /INPUTCHARSET UTF8 /DVERSION=${{ env.EXACT_VERSION }} /DPRODUCT_VERSION=${{ env.PRODUCT_VERSION }} FastFlix.nsi
         move FastFlix_installer.exe dist\FastFlix_${{ env.VERSION }}_installer.exe
 
+#    - uses: skymatic/code-sign-action@v1
+#      with:
+#        certificate: '${{ secrets.CODE_CERT_B64 }}'
+#        password: '${{ secrets.CODE_CERT_PASS }}'
+#        certificatesha1: '${{ secrets.CODE_CERT_THUMB }}'
+#        description: 'FastFlix'
+#        timestampUrl: 'http://timestamp.sectigo.com'
+#        folder: 'dist'
+#        recursive: false
 
     - name: Test executable
       run: |
         dist\FastFlix.exe --version
         dist\FastFlix.exe --test
 
-    - name: Package single executable
-      shell: cmd
-      run: |
-        move dist\*.exe .
-        move docs\build-licenses.txt LICENSE
+#    - name: Package single executable
+#      shell: cmd
+#      run: |
+#        move dist\*.exe .
+#        move docs\build-licenses.txt LICENSE
 
-    - name: Upload standalone executable artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: FastFlix_${{ env.VERSION }}_win64
-        path: |
-          FastFlix.exe
-          LICENSE
+#    - name: Upload standalone executable artifact
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: FastFlix_${{ env.VERSION }}_win64
+#        path: |
+#          FastFlix.exe
+#          LICENSE
 
     - name: Upload installer artifact
       uses: actions/upload-artifact@v4
