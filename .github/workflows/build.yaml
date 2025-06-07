@@ -34,7 +34,7 @@ jobs:
 
     - name: Install Python Dependencies
       run: |
-        python -m pip install --upgrade pip setuptools==75.8 --force-reinstall
+        python -m pip install --upgrade pip setuptools==75.8 --ignore-installed
         python -m pip install --upgrade pytest
         pip install .
         pip install .[develop]

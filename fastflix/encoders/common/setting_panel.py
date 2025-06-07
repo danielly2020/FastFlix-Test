@@ -414,6 +414,7 @@ class SettingPanel(QtWidgets.QWidget):
             bitrate_box_layout.addWidget(QtWidgets.QLabel("k"))
 
             self.qp_radio = QtWidgets.QRadioButton(qp_display_name)
+            self.qp_radio.setProperty("mode_key", qp_name)
             self.qp_radio.setChecked(True)
             self.qp_radio.setFixedWidth(80)
             self.qp_radio.setToolTip(qp_help)
@@ -476,8 +477,13 @@ class SettingPanel(QtWidgets.QWidget):
     def set_mode(self):
         selected_button = self.widgets.mode.checkedButton()
         if selected_button:
-            self.mode = selected_button.property("mode_key") or selected_button.text()
-        self.main.page_update(build_thumbnail=False)
+            mode_key = selected_button.property("mode_key")
+            if mode_key == "bitrate":
+                self.mode = "bitrate"
+            elif mode_key == "qp":
+                self.mode = "qp"
+            self.main.page_update(build_thumbnail=False)
+
         raise NotImplementedError("Child must implement this function")
 
     @property

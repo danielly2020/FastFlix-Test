@@ -117,7 +117,7 @@ class CustomLineEdit(QLineEdit):
         delete_action = QAction(t("Delete"), self)
         delete_action.setShortcut(QKeySequence.Delete)
         delete_action.setEnabled(self.hasSelectedText())
-        delete_action.triggered.connect(self.deleteSelectedText)
+        delete_action.triggered.connect(self.del_)
         delete_action.setIcon(QIcon.fromTheme("edit-delete"))
         menu.addAction(delete_action)
 
@@ -131,8 +131,13 @@ class CustomLineEdit(QLineEdit):
 
         menu.exec(event.globalPos())
 
-    def deleteSelectedText(self):
-        self.del_()
+if __name__ == "__main__":
+    import sys
+    app = QApplication(sys.argv)
+    line_edit = CustomLineEdit()
+    line_edit.resize(400, 30)
+    line_edit.show()
+    sys.exit(app.exec())
 
 def message(msg, title=None):
     sm = QtWidgets.QMessageBox()
