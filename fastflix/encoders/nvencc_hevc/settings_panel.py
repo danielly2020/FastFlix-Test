@@ -5,6 +5,8 @@ from box import Box
 from PySide6 import QtCore, QtWidgets, QtGui
 
 from fastflix.encoders.common.setting_panel import RigayaPanel
+from fastflix.encoders.common.setting_panel import EncodeMode
+
 from fastflix.language import t
 from fastflix.models.encode import NVEncCSettings
 from fastflix.models.fastflix_app import FastFlixApp
@@ -71,7 +73,8 @@ class NVENCC(RigayaPanel):
 
         self.widgets = Box(mode=None)
 
-        self.mode = "Bitrate"
+        # self.mode = "Bitrate"
+        self.mode = EncodeMode.BitRate
         self.updating_settings = False
 
         grid.addLayout(self.init_modes(), 0, 2, 4, 4)
@@ -420,12 +423,16 @@ class NVENCC(RigayaPanel):
         settings.bitrate = q_value if encode_type == "bitrate" else None
         self.app.fastflix.current_video.video_settings.video_encoder_settings = settings
 
-    def set_mode(self, x):
-        self.mode = x.text()
+    # def set_mode(self, x):
+        # self.mode = x.text()
+    def set_mode(self, mode):
+        self.mode = mode
         for group in ("init", "max", "min"):
             for frame_type in ("i", "p", "b"):
-                self.widgets[f"{group}_q_{frame_type}"].setEnabled(self.mode.lower() == "bitrate")
-        self.widgets.vbr_target.setEnabled(self.mode.lower() == "bitrate")
+                # self.widgets[f"{group}_q_{frame_type}"].setEnabled(self.mode.lower() == "bitrate")
+        # self.widgets.vbr_target.setEnabled(self.mode.lower() == "bitrate")
+                self.widgets[f"{group}_q_{frame_type}"].setEnabled(self.mode == EncodeMode.BitRate)
+        self.widgets.vbr_target.setEnabled(self.mode == EncodeMode.BitRate)
         self.main.build_commands()
 
     def new_source(self):

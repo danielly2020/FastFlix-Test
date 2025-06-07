@@ -26,8 +26,8 @@ except AttributeError:
     pyinstaller = False
 
 from PySide6 import QtCore, QtGui, QtWidgets
-from PySide6.QtWidgets import QApplication, QLineEdit, QMenu
-from PySide6.QtGui import QAction, QKeySequence, QIcon
+from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QMenu
+from PySide6.QtGui import QAction, QContextMenuEvent, QKeySequence, QIcon
 from PySide6.QtCore import Qt
 
 from fastflix.language import t
@@ -74,7 +74,7 @@ class CustomLineEdit(QLineEdit):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-    def contextMenuEvent(self, event):
+    def contextMenuEvent(self, event: QContextMenuEvent):
         menu = QMenu(self)
 
         undo_action = QAction(t("Undo"), self)
