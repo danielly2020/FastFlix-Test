@@ -26,8 +26,9 @@ except AttributeError:
     pyinstaller = False
 
 from PySide6 import QtCore, QtGui, QtWidgets
-from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QMenu
-from PySide6.QtGui import QContextMenuEvent
+from PySide6.QtWidgets import QApplication, QLineEdit, QMenu
+from PySide6.QtGui import QAction, QKeySequence, QIcon
+from PySide6.QtCore import Qt
 
 from fastflix.language import t
 from fastflix.resources import get_bool_env
@@ -72,37 +73,66 @@ class MyMessageBox(QtWidgets.QMessageBox):
 class CustomLineEdit(QLineEdit):
     def __init__(self, parent=None):
         super().__init__(parent)
-    
-    def contextMenuEvent(self, event: QContextMenuEvent):
+
+    def contextMenuEvent(self, event):
         menu = QMenu(self)
-        
-        undo_action = menu.addAction(t("Undo"))
-        redo_action = menu.addAction(t("Redo"))
-        copy_action = menu.addAction(t("Copy"))
-        paste_action = menu.addAction(t("Paste"))
-        cut_action = menu.addAction(t("Cut"))
-        delete_action = menu.addAction(t("Delete"))
-        select_all_action = menu.addAction(t("Select All"))
-        
-        action = menu.exec(event.globalPos())
-        
-        if action == undo_action:
-            self.undo()
-        elif action == redo_action:
-            self.redo()
-        elif action == copy_action:
-            self.copy()
-        elif action == paste_action:
-            self.paste()
-        elif action == cut_action:
-            self.cut()
-        elif action == delete_action:
-            print("Type of self in delete_action:", type(self))
-            cursor = self.textCursor()
-            cursor.removeSelectedText()
-            self.setTextCursor(cursor)
-        elif action == select_all_action:
-            self.selectAll()
+
+        undo_action = QAction(t("Undo"), self)
+        undo_action.setShortcut(QKeySequence.Undo)
+        undo_action.setEnabled(self.isUndoAvailable())
+        undo_action.triggered.connect(self.undo)
+        undo_action.setIcon(QIcon.fromTheme("edit-undo"))
+        menu.addAction(undo_action)
+
+        redo_action = QAction(t("Redo"), self)
+        redo_action.setShortcut(QKeySequence.Redo)
+        redo_action.setEnabled(self.isRedoAvailable())
+        redo_action.triggered.connect(self.redo)
+        redo_action.setIcon(QIcon.fromTheme("edit-redo"))
+        menu.addAction(redo_action)
+
+        menu.addSeparator()
+
+        cut_action = QAction(t("Cut"), self)
+        cut_action.setShortcut(QKeySequence.Cut)
+        cut_action.setEnabled(self.hasSelectedText())
+        cut_action.triggered.connect(self.cut)
+        cut_action.setIcon(QIcon.fromTheme("edit-cut"))
+        menu.addAction(cut_action)
+
+        copy_action = QAction(t("Copy"), self)
+        copy_action.setShortcut(QKeySequence.Copy)
+        copy_action.setEnabled(self.hasSelectedText())
+        copy_action.triggered.connect(self.copy)
+        copy_action.setIcon(QIcon.fromTheme("edit-copy"))
+        menu.addAction(copy_action)
+
+        paste_action = QAction(t("Paste"), self)
+        paste_action.setShortcut(QKeySequence.Paste)
+        paste_action.setEnabled(self.isPasteEnabled())
+        paste_action.triggered.connect(self.paste)
+        paste_action.setIcon(QIcon.fromTheme("edit-paste"))
+        menu.addAction(paste_action)
+
+        delete_action = QAction(t("Delete"), self)
+        delete_action.setShortcut(QKeySequence.Delete)
+        delete_action.setEnabled(self.hasSelectedText())
+        delete_action.triggered.connect(self.deleteSelectedText)
+        delete_action.setIcon(QIcon.fromTheme("edit-delete"))
+        menu.addAction(delete_action)
+
+        menu.addSeparator()
+
+        select_all_action = QAction(t("Select All"), self)
+        select_all_action.setShortcut(QKeySequence.SelectAll)
+        select_all_action.triggered.connect(self.selectAll)
+        select_all_action.setIcon(QIcon.fromTheme("edit-select-all"))
+        menu.addAction(select_all_action)
+
+        menu.exec(event.globalPos())
+
+    def deleteSelectedText(self):
+        self.del_()
 
 def message(msg, title=None):
     sm = QtWidgets.QMessageBox()
