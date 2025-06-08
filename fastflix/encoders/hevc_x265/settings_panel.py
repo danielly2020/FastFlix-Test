@@ -184,7 +184,8 @@ class HEVC(SettingPanel):
 
         self.hdr10plus_metadata_edit.setToolTip(t("dhdr10_info: Path to HDR10+ JSON metadata file"))
 
-    return layout
+        return layout
+
     def init_dhdr10_warning_and_opt(self):
         label = QtWidgets.QLabel()
         label.setToolTip(
