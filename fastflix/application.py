@@ -178,7 +178,7 @@ def app_setup(
     if upgraded:
         # No translation will be possible in this case
         message(
-            f"{t('Your config file has been upgraded to FastFlix's new YAML config format')}\n"
+            f"{t('Your config file has been upgraded to FastFlix new YAML config format')}\n"
             f"{app.fastflix.config.config_path}",
             title="Upgraded",
         )

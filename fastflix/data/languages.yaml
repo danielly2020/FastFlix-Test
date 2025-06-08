@@ -11148,7 +11148,7 @@ Could not create GUI Process, please report this error!:
   chs: 无法创建 GUI 进程，请报告此错误！
 Exception occurred while running FastFlix core:
   chs: 运行 FastFlix 核心时发生异常
-Your config file has been upgraded to FastFlix's new YAML config format:
+Your config file has been upgraded to FastFlix new YAML config format:
   chs: 您的配置文件已升级为FastFlix的新YAML配置格式
 Could not find:
   chs: 没有找到

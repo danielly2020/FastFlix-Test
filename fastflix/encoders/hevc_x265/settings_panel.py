@@ -169,7 +169,7 @@ class HEVC(SettingPanel):
         # self.labels["hdr10plus_metadata"].setFixedWidth(200)
         # return layout
     def init_dhdr10_info(self):
-        layout = QHBoxLayout()
+        layout = QtWidgets.QHBoxLayout()
 
         self.hdr10plus_metadata_edit = CustomLineEdit()
         self.hdr10plus_metadata_edit.setFixedWidth(200)
