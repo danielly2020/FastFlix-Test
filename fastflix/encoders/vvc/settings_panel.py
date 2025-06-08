@@ -8,7 +8,7 @@ from fastflix.encoders.common.setting_panel import SettingPanel
 from fastflix.language import t
 from fastflix.models.encode import VVCSettings
 from fastflix.models.fastflix_app import FastFlixApp
-
+from fastflix.shared import CustomLineEdit
 
 logger = logging.getLogger("fastflix")
 
@@ -194,7 +194,8 @@ class VVC(SettingPanel):
         )
         self.labels.vvc_params.setToolTip(tool_tip)
         layout.addWidget(self.labels.vvc_params)
-        self.widgets.vvc_params = QtWidgets.QLineEdit()
+        # self.widgets.vvc_params = QtWidgets.QLineEdit()
+        self.widgets.vvc_params = CustomLineEdit()
         self.widgets.vvc_params.setToolTip(tool_tip)
         self.widgets.vvc_params.setText(":".join(self.app.fastflix.config.encoder_opt(self.profile_name, "vvc_params")))
         self.opts["vvc_params"] = "vvc_params"

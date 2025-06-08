@@ -3,6 +3,7 @@ import logging
 import sys
 import traceback
 from multiprocessing import Process, Queue, freeze_support, Manager, Lock
+from fastflix.language import t
 
 try:
     import coloredlogs
@@ -145,7 +146,7 @@ def main(portable_mode=False):
     logger.addHandler(reusables.get_stream_handler(level=logging.DEBUG))
     logger.setLevel(logging.DEBUG)
     coloredlogs.install(level="DEBUG", logger=logger)
-    logger.info(f"Starting FastFlix {__version__}")
+    logger.info(f"{t('Starting FastFlix')} {__version__}")
 
     worker_queue = Queue()
     status_queue = Queue()
@@ -157,21 +158,21 @@ def main(portable_mode=False):
         exit_status = 1
 
         try:
-            logger.info("Preparing separate process for GUI - this may take a moment")
+            logger.info(t("Preparing separate process for GUI - this may take a moment"))
             gui_proc = Process(
                 target=separate_app_process,
                 args=(worker_queue, status_queue, log_queue, queue_list, queue_lock, portable_mode),
             )
             gui_proc.start()
         except Exception:
-            logger.exception("Could not create GUI Process, please report this error!")
+            logger.exception(t("Could not create GUI Process, please report this error!"))
             return exit_status
 
         try:
             queue_worker(gui_proc, worker_queue, status_queue, log_queue)
             exit_status = 0
         except Exception:
-            logger.exception("Exception occurred while running FastFlix core")
+            logger.exception(t("Exception occurred while running FastFlix core"))
         finally:
             gui_proc.kill()
             return exit_status

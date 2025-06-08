@@ -11124,3 +11124,35 @@ The latest windows builds from BtbN should have this feature.:
   chs: BtbN 的最新 Windows 版本应该具有此功能。
 I do not know of any public Linux/Mac ones that do.:
   chs: 据我所知，目前还没有哪个 Linux/Mac 版本包含此功能。
+hdr10_metadata:
+  chs: 导入HDR10+ 元数据
+Audio normalization done:
+  chs: 音频归一化结果
+Select Audio Track:
+  chs: 选择音频文件
+Audio Files (*.mp3 *.aac *.wav *.flac);;All Files (*):
+  chs: 音频文件 (*.mp3 *.aac *.wav *.flac);;All Files (*)
+Select Subtitle Track:
+  chs: 选择字幕文件
+Subtitle Files (*.srt *.ass *.vtt *.ssa);;All Files (*):
+  chs: 字幕文件 (*.srt *.ass *.vtt *.ssa);;All Files (*)
+Starting FastFlix:
+  chs: 正在启动 FastFlix
+Preparing separate process for GUI - this may take a moment:
+  chs: 正在为 GUI 准备单独的进程 - 这可能需要一些时间
+GUI logging initialized, saving to:
+  chs: GUI 日志记录已初始化，保存到
+Using config file:
+  chs: 使用配置文件
+Could not create GUI Process, please report this error!:
+  chs: 无法创建 GUI 进程，请报告此错误！
+Exception occurred while running FastFlix core:
+  chs: 运行 FastFlix 核心时发生异常
+Your config file has been upgraded to FastFlix's new YAML config format:
+  chs: 您的配置文件已升级为FastFlix的新YAML配置格式
+Could not find:
+  chs: 没有找到
+location, please manually set in:
+  chs: 的位置，请手动设置到
+Error while running FastFlix:
+  chs: 运行 FastFlix 时出错

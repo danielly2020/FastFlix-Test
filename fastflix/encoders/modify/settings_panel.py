@@ -118,4 +118,4 @@ class Modify(SettingPanel):
         self.movie.stop()
         self.extract_label.hide()
         self.audio_normalize.setDisabled(False)
-        message(f"Audio normalization done: {status}")
+        message(f"{t('Audio normalization done')}: {status}")

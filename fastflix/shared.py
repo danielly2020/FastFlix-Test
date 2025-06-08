@@ -80,6 +80,9 @@ class CustomLineEdit(QLineEdit):
         undo_action.setIcon(QIcon.fromTheme("edit-undo"))
         redo_action = menu.addAction(t("Redo"))
         redo_action.setIcon(QIcon.fromTheme("edit-redo"))
+
+        menu.addSeparator()
+
         copy_action = menu.addAction(t("Copy"))
         copy_action.setIcon(QIcon.fromTheme("edit-copy"))
         paste_action = menu.addAction(t("Paste"))
@@ -88,6 +91,9 @@ class CustomLineEdit(QLineEdit):
         cut_action.setIcon(QIcon.fromTheme("edit-cut"))
         delete_action = menu.addAction(t("Delete"))
         delete_action.setIcon(QIcon.fromTheme("edit-delete"))
+
+        menu.addSeparator()
+
         select_all_action = menu.addAction(t("Select All"))
         select_all_action.setIcon(QIcon.fromTheme("edit-select-all"))
 

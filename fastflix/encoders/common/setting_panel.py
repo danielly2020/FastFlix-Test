@@ -332,7 +332,7 @@ class SettingPanel(QtWidgets.QWidget):
         if not dirname.exists():
             dirname = Path()
         filename = QtWidgets.QFileDialog.getOpenFileName(
-            self, caption="hdr10_metadata", dir=str(dirname), filter="HDR10+ Metadata (*.json)"
+            self, caption=t("hdr10_metadata"), dir=str(dirname), filter="HDR10+ Metadata (*.json)"
         )
         if not filename or not filename[0]:
             return

@@ -22,6 +22,7 @@ from fastflix.models.encode import (
 from fastflix.models.profiles import Profile, AudioMatch, MatchItem, MatchType
 from fastflix.version import __version__
 from fastflix.rigaya_helpers import get_all_encoder_formats_and_devices
+from fastflix.language import t
 
 logger = logging.getLogger("fastflix")
 ffmpeg_folder = Path(user_data_dir("FFmpeg", appauthor=False, roaming=True))
@@ -263,7 +264,7 @@ class Config(BaseModel):
                 # Try one last time to find snap packaged versions
                 self.ffprobe = find_ffmpeg_file("ffmpeg.ffprobe", raise_on_missing=True)
             return
-        logger.debug(f"Using config file {self.config_path}")
+        logger.debug(f"{t('Using config file')} {self.config_path}")
         try:
             data = Box.from_yaml(filename=self.config_path)
         except BoxError as err:
