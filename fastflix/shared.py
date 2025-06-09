@@ -176,7 +176,7 @@ def latest_fastflix(app, show_new_dialog=False):
     #     theme=app.fastflix.config.theme,
     # )
 
-    logger.debug("Checking for newer versions of FastFlix")
+    logger.debug(t("Checking for newer versions of FastFlix"))
 
     try:
         response = requests.get(url, timeout=15 if not show_new_dialog else 3)
@@ -198,17 +198,17 @@ def latest_fastflix(app, show_new_dialog=False):
         try:
             win_ver = int(platform.platform().lower().split("-")[1])
         except Exception:
-            logger.warning(f"Could not extract Windows version from {platform.platform()}, please report this message")
+            logger.warning(f"{t('Could not extract Windows version from')} {platform.platform()}, {t('please report this message')}")
             win_ver = 0
 
         if win_ver < 10:
-            logger.debug(f"Detected legacy Windows version {win_ver}, looking for 4.x builds only")
+            logger.debug(f"{t('Detected legacy Windows version')} {win_ver}, {t('looking for 4.x builds only')}")
             for version in versions:
                 if version[0] == 4:
                     use_version = ".".join(str(x) for x in version)
                     break
             else:
-                logger.warning("No 4.x Versions found for legacy Windows")
+                logger.warning(t("No 4.x Versions found for legacy Windows"))
                 return
 
     release = [x for x in data if x["tag_name"] == use_version][0]
@@ -241,13 +241,13 @@ def latest_fastflix(app, show_new_dialog=False):
             download_link = link(
                 url=html_link, text=f"{t('View')} FastFlix {use_version}", theme=app.fastflix.config.theme
             )
-        logger.debug(f"Newer version found: {use_version}")
+        logger.debug(f"{t('Newer version found')}: {use_version}")
         message(
             f"{t('There is a newer version of FastFlix available!')} <br><br> {download_link} <br>",  # <br> {contrib} 💓<br>
             title=t("New Version"),
         )
         return
-    logger.debug("FastFlix is up to date")
+    logger.debug(t("FastFlix is up to date"))
     if show_new_dialog:
         message(t(f"You are using the latest version of FastFlix") + f" <br>")  # <br> {contrib} 💓 <br>
 
@@ -295,7 +295,7 @@ def open_folder(path):
         else:
             run(["xdg-open", path])
     except FileNotFoundError:
-        logger.error(f"Do not know which command to use to open: {path}")
+        logger.error(f"{t('Do not know which command to use to open')}: {path}")
 
 
 def clean_logs(signal, app, **_):
@@ -312,7 +312,7 @@ def clean_logs(signal, app, **_):
             is_old = True
         if file.name.startswith("flix_gui"):
             if is_old:
-                logger.debug(f"Deleting {file.name}")
+                logger.debug(f"{t('Deleting')} {file.name}")
                 file.unlink(missing_ok=True)
         if file.name.startswith("flix_conversion") or file.name.startswith("flix_2"):
             original = file.read_text(encoding="utf-8", errors="ignore")
@@ -328,10 +328,10 @@ def clean_logs(signal, app, **_):
                 pass
             else:
                 if (len(condensed) + 100) < len(original):
-                    logger.debug(f"Compressed {file.name} from {len(original)} characters to {len(condensed)}")
+                    logger.debug(f"{t('Compressed')} {file.name} {t('from')} {len(original)} {t('characters to')} {len(condensed)}")
                     file.write_text(condensed, encoding="utf-8")
             if is_old:
-                logger.debug(f"Adding {file.name} to be compress")
+                logger.debug(f"{t('Adding')} {file.name} {t('to be compress')}")
                 compress.append(file)
     if compress:
         reusables.pushd(app.fastflix.log_path)
@@ -350,7 +350,7 @@ def clean_logs(signal, app, **_):
 
 def timedelta_to_str(delta):
     if not isinstance(delta, (timedelta,)):
-        logger.warning(f"Wanted timedelta found but found {type(delta)}")
+        logger.warning(f"{t('Wanted timedelta found but found')} {type(delta)}")
         return "N/A"
 
     output_string = str(delta)
@@ -375,9 +375,9 @@ def quoted_path(source):
         .replace("\r", "")
     )
     if " " in cleaned_string[0:4]:
-        logger.warning(f"Unexpected space at start of quoted path, attempting to fix: {cleaned_string}")
+        logger.warning(f"{t('Unexpected space at start of quoted path, attempting to fix')}: {cleaned_string}")
         cleaned_string = cleaned_string[0:4].replace(" ", "") + cleaned_string[4:]
-        logger.warning(f"New path set to: {cleaned_string}")
+        logger.warning(f"{t('New path set to')}: {cleaned_string}")
     return cleaned_string
 
 

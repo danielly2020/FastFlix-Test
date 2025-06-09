@@ -1145,7 +1145,7 @@ Could not connect to github to check for newer versions:
   ita: Impossibile connettersi a github per verificare la presenza di versioni più
     recenti
   spa: No se pudo conectar a github para comprobar las nuevas versiones
-  chs: 无法连接到github检查更新
+  chs: 无法连接到 Github 检查更新
   jpn: 新しいバージョンを確認するためにgithubに接続できませんでした。
   rus: Не удалось подключиться к github для проверки наличия новых версий
   por: Não foi possível conectar ao github para verificar por versões mais recentes
@@ -5899,7 +5899,7 @@ You are using the latest version of FastFlix:
   fra: Vous utilisez la dernière version de FastFlix
   ita: State utilizzando l'ultima versione di FastFlix
   spa: Está usando la última versión de FastFlix
-  chs: 当前FastFlix为最新版本
+  chs: 当前 FastFlix 为最新版本
   jpn: FastFlixは最新版です。
   rus: Вы используете последнюю версию FastFlix
   por: Você está usando a versão mais recente do FastFlix
@@ -11156,3 +11156,87 @@ location, please manually set in:
   chs: 的位置，请手动设置到
 Error while running FastFlix:
   chs: 运行 FastFlix 时出错
+Could not load FastFlix properly!:
+  chs: 无法正确加载 Fastflix！
+Please report this issue on:
+  chs: 请到这里报告此问题
+press any key to exit:
+  chs: （按任意键退出）
+Could not start GUI process - Error:
+  chs: 不能启动GUI进程 - 错误
+COULD NOT DETERMINE WINDOWS VERSION FROM:
+  chs: 无法确定 Windows 版本
+Upgrading profile:
+  chs: 升级配置文件
+to version 2:
+  chs: 到版本2
+Corrupt config file. Please fix or remove:
+  chs: 损坏的配置文件。请修复或删除：
+This FastFlix version:
+  chs: 此版本
+is older:
+  chs: 比
+than the one that generated the config file:
+  chs: 生成的配置文件旧
+there may be non-recoverable errors while loading it.:
+  chs: 加载时可能会出现不可恢复的错误。
+Checking for available NVEncC encoders:
+  chs: 检查可用的 NVEncC 编码器
+Errored while checking for available NVEncC formats:
+  chs: 检查可用的 NVEncC 编码器时出错
+Checking for available VCEEncC encoders:
+  chs: 检查可用的 VCEEncC 编码器
+Errored while checking for available VCEEncC formats:
+  chs: 检查可用的 VCEEncC 编码器时出错
+Checking for available QSVEncC encoders:
+  chs: 检查可用的 QSVEncC 编码器
+Errored while checking for available QSVEncC formats:
+  chs: 检查可用的 QSVEncC 编码器时出错
+You are an unsupported Windows version, and may not be able to run FastFlix properly.:
+  chs: 您的系统版本是不支持此版FastFlix的，可能无法正确运行。
+Download FastFlix 4.x versions for Windows 7/8 support [press enter to continue]:
+  chs: 请下载支持 Windows 7/8 的 FastFlix 4.x 版本。[按 Enter 键继续]
+Progress bar RUN called without any tasks:
+  chs: 在没有任何任务的情况下调用进度条 RUN
+Running task:
+  chs: 运行任务：
+Could not run task:
+  chs: 不能运行任务
+with config:
+  chs: 如果用此配置
+Checking for newer versions of FastFlix:
+  chs: 正在检查 FastFlix 的新版本
+Could not extract Windows version from:
+  chs: 无法从中提取Windows版本
+please report this message:
+  chs: 请报告此问题
+Detected legacy Windows version:
+  chs: 检测到旧版 Windows
+looking for 4.x builds only:
+  chs: 仅查找受支持的 4.x 版本
+No 4.x Versions found for legacy Windows:
+  chs: 没有找到支持旧版 Windows 的 4.x 版本
+Newer version found:
+  chs: 找到新的版本
+FastFlix is up to date:
+  chs: FastFlix 已是最新版本
+Do not know which command to use to open:
+  chs: 不知道使用哪个命令打开
+Deleting:
+  chs: 正在删除
+Compressed:
+  chs: 将
+from:
+  chs: 从
+characters to:
+  chs: 字符压缩到
+Adding:
+  chs: 正在添加的文件
+to be compress:
+  chs: 将被压缩打包
+Wanted timedelta found but found:
+  chs: 找到 Wanted timedelta 但也找到：
+Unexpected space at start of quoted path, attempting to fix:
+  chs: 带引号的路径开头出现意外的空格，正在尝试修复
+New path set to:
+  chs: 新路径设置为

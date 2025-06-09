@@ -37,7 +37,7 @@ def create_app(enable_scaling):
     main_app.allWindows()
     main_app.setApplicationDisplayName("FastFlix")
     # my_font = QtGui.QFont("Microsoft Yahei" if "Microsoft Yahei" in QtGui.QFontDatabase().families() else "Segoe UI", 10)
-    my_fonts = ["OPPO Sans 4.0", "Î¢ÈíÑÅºÚ", "Microsoft Yahei UI", "Microsoft Yahei", "Segoe UI", "Arial"]
+    my_fonts = ["OPPO Sans 4.0", "\u5fae\u8f6f\u96c5\u9ed1", "Microsoft Yahei UI", "Microsoft Yahei", "Segoe UI", "Arial"]
     available_fonts = QtGui.QFontDatabase().families()
     for font_family in my_fonts:
         if font_family in available_fonts:

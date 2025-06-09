@@ -20,8 +20,8 @@ try:
 
 except ImportError as err:
     traceback.print_exc()
-    print("Could not load FastFlix properly!", file=sys.stderr)
-    input("Please report this issue on https://github.com/cdgriffith/FastFlix/issues (press any key to exit)")
+    print(t("Could not load FastFlix properly!"), file=sys.stderr)
+    input(f"{t('Please report this issue on')} https://github.com/cdgriffith/FastFlix/issues {t('press any key to exit')}")
     sys.exit(1)
 
 
@@ -45,7 +45,7 @@ def separate_app_process(worker_queue, status_queue, log_queue, queue_list, queu
             enable_scaling=settings.get("enable_scaling", True),
         )
     except Exception as err:
-        print(f"Could not start GUI process - Error: {err}", file=sys.stderr)
+        print(f"{t('Could not start GUI process - Error')}: {err}", file=sys.stderr)
         raise err
 
 
@@ -109,9 +109,9 @@ def startup_options():
             import fastflix.widgets.settings
             import fastflix.widgets.video_options
         except Exception as err:
-            print(f"Error: {err}")
+            print(f"{t('Error')}: {err}")
             return 1
-        print("Success")
+        print(t("Success"))
         return 0
     if "--version" in options:
         print(__version__)
@@ -131,12 +131,12 @@ def main(portable_mode=False):
             else:
                 win_ver = int(windows_version_string)
         except Exception as error:
-            print(f"COULD NOT DETERMINE WINDOWS VERSION FROM: {platform.platform()} - {error}")
+            print(f"{t('COULD NOT DETERMINE WINDOWS VERSION FROM')}: {platform.platform()} - {error}")
             win_ver = 0
         if win_ver < 10:
             input(
-                "You are an unsupported Windows version, and may not be able to run FastFlix properly.\n"
-                "Download FastFlix 4.x versions for Windows 7/8 support [press enter to continue]"
+                f"{t('You are an unsupported Windows version, and may not be able to run FastFlix properly.')}\n"
+                f"{t('Download FastFlix 4.x versions for Windows 7/8 support [press enter to continue]')}"
             )
 
     exit_code = startup_options()
