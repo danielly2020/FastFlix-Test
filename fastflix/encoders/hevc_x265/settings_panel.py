@@ -175,7 +175,7 @@ class HEVC(SettingPanel):
         self.hdr10plus_metadata_edit.setFixedWidth(200)
         self.labels["hdr10plus_metadata"] = self.hdr10plus_metadata_edit
 
-        browse_button = QPushButton("...")
+        browse_button = QtWidgets.QPushButton("...")
         browse_button.setFixedWidth(30)
         browse_button.clicked.connect(lambda: self.dhdr10_update())
 
@@ -183,7 +183,6 @@ class HEVC(SettingPanel):
         layout.addWidget(browse_button)
 
         self.hdr10plus_metadata_edit.setToolTip(t("dhdr10_info: Path to HDR10+ JSON metadata file"))
-
         return layout
 
     def init_dhdr10_warning_and_opt(self):
