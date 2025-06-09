@@ -70,7 +70,8 @@ def get_text_color(theme: str):
 def group_box_style(pt="-10px", pb="5px", mt="5px", mb="0", bb="1px solid #bab9b8"):
     return (
         f"QGroupBox{{padding-top: {pt}; padding-bottom: {pb}; margin-bottom: {mb}; "
-        f"margin-top: {mt}; border: none; border-bottom: {bb}; border-radius: 0.09em; }}"
+        # f"margin-top: {mt}; border: none; border-bottom: {bb}; border-radius: 0; }}"
+        f"margin-top: {mt}; border: none; border-bottom: {bb}; }}"
     )
 
 

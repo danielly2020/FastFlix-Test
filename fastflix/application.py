@@ -36,7 +36,7 @@ def create_app(enable_scaling):
     main_app = FastFlixApp(sys.argv)
     main_app.allWindows()
     main_app.setApplicationDisplayName("FastFlix")
-    my_font = QtGui.QFont("Microsoft Yahei UI" if "Microsoft Yahei UI" in QtGui.QFontDatabase().families() else "Sans Serif", 9)
+    my_font = QtGui.QFont("Microsoft Yahei" if "Microsoft Yahei" in QtGui.QFontDatabase().families() else "Segoe UI", 10)
     main_app.setFont(my_font)
     main_app.setWindowIcon(QtGui.QIcon(main_icon))
     return main_app
