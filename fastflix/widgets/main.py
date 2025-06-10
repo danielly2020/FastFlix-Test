@@ -103,10 +103,14 @@ resolutions = {
 
 
 class CropWidgets(BaseModel):
-    top: QtWidgets.QLineEdit = None
-    bottom: QtWidgets.QLineEdit = None
-    left: QtWidgets.QLineEdit = None
-    right: QtWidgets.QLineEdit = None
+    # top: QtWidgets.QLineEdit = None
+    # bottom: QtWidgets.QLineEdit = None
+    # left: QtWidgets.QLineEdit = None
+    # right: QtWidgets.QLineEdit = None
+    top: CustomLineEdit = None
+    bottom: CustomLineEdit = None
+    left: CustomLineEdit = None
+    right: CustomLineEdit = None
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
@@ -117,8 +121,8 @@ class ScaleWidgets(BaseModel):
 
 
 class MainWidgets(BaseModel):
-    start_time: QtWidgets.QLineEdit = None
-    end_time: QtWidgets.QLineEdit = None
+    start_time: CustomLineEdit = None
+    end_time: CustomLineEdit = None
     video_track: QtWidgets.QComboBox = None
     rotate: QtWidgets.QComboBox = None
     flip: QtWidgets.QComboBox = None
@@ -865,7 +869,8 @@ class Main(QtWidgets.QWidget):
         self.widgets.resolution_drop_down.addItems(list(resolutions.keys()))
         self.widgets.resolution_drop_down.currentIndexChanged.connect(self.update_resolution)
 
-        self.widgets.resolution_custom = QtWidgets.CustomLineEdit()
+        # self.widgets.resolution_custom = QtWidgets.QLineEdit()
+        self.widgets.resolution_custom = CustomLineEdit()
         self.widgets.resolution_custom.setFixedWidth(150)
         self.widgets.resolution_custom.textChanged.connect(self.custom_res_update)
 

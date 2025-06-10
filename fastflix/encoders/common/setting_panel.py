@@ -199,7 +199,7 @@ class SettingPanel(QtWidgets.QWidget):
             self.labels[widget_name].setToolTip(self.translate_tip(tooltip))
 
         # self.widgets[widget_name] = QtWidgets.QLineEdit()
-        self.widgets[widget_name] = QtWidgets.CustomLineEdit()
+        self.widgets[widget_name] = CustomLineEdit()
 
         if placeholder:
             self.widgets[widget_name].setPlaceholderText(placeholder)
@@ -391,7 +391,7 @@ class SettingPanel(QtWidgets.QWidget):
             else:
                 self.widgets.bitrate.setCurrentIndex(default_bitrate_index)
             # self.widgets.custom_bitrate = QtWidgets.QLineEdit("3000" if not custom_bitrate else config_opt)
-            self.widgets.custom_bitrate = QtWidgets.CustomLineEdit("3000" if not custom_bitrate else config_opt)
+            self.widgets.custom_bitrate = CustomLineEdit("3000" if not custom_bitrate else config_opt)
             self.widgets.custom_bitrate.setValidator(QtGui.QDoubleValidator())
             self.widgets.custom_bitrate.setFixedWidth(100)
             self.widgets.custom_bitrate.setEnabled(custom_bitrate)
@@ -434,7 +434,7 @@ class SettingPanel(QtWidgets.QWidget):
 
         if not disable_custom_qp:
             # self.widgets[f"custom_{qp_name}"] = QtWidgets.QLineEdit("30" if not custom_qp else str(qp_value))
-            self.widgets[f"custom_{qp_name}"] = QtWidgets.CustomLineEdit("30" if not custom_qp else str(qp_value))
+            self.widgets[f"custom_{qp_name}"] = CustomLineEdit("30" if not custom_qp else str(qp_value))
             self.widgets[f"custom_{qp_name}"].setFixedWidth(100)
             self.widgets[f"custom_{qp_name}"].setValidator(QtGui.QDoubleValidator())
             self.widgets[f"custom_{qp_name}"].setEnabled(custom_qp)

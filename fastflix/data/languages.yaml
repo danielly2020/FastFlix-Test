@@ -963,7 +963,7 @@ Conversion worker shutting down:
   fra: Fermeture d'une entreprise de reconversion
   ita: Operaio di conversione in chiusura
   spa: El cierre del trabajador de conversión
-  chs: 正在关闭程序
+  chs: 正在关闭编码程序
   jpn: コンバージョンワーカーのシャットダウンしている
   rus: Выключение конвертера
   por: Encerrando o worker de conversão
@@ -11033,7 +11033,7 @@ restart:
 logout:
   chs: 注销
 hibernate:
-  chs: 睡眠
+  chs: 休眠
 Realtime:
   chs: 实时
 High:
@@ -11254,3 +11254,35 @@ ERROR trying to use OpenCL for thumbnail generation:
   chs: 尝试使用 OpenCL 生成缩略图时出错
 This should not be possible, but you somehow put in not an integer:
   chs: 这应该是不可能的，但您以某种方式输入的不是整数。
+Reorder queue called while encoding:
+  chs: 对编码时调用的队列重新排序
+Could not prevent system from possibly going to sleep during conversion:
+  chs: 无法阻止系统在编码过程中可能进入睡眠状态
+System has been asked to not sleep:
+  chs: 已要求系统不睡眠
+Could not allow system to resume sleep mode:
+  chs: 无法允许系统恢复睡眠模式
+System has been allowed to enter sleep mode again:
+  chs: 已允许系统再次进入睡眠模式
+Using work dir:
+  chs: 使用工作目录
+command output file set to:
+  chs: 命令输出文件设置到
+command error output file set to:
+  chs: 命令错误输出文件设置到
+Could not encode video due to permissions error.:
+  chs: 由于权限错误无法对视频进行编码。
+Please make sure encoder is executable and you have permissions to run it.:
+  chs: 请确保编码器是可执行的，并且您有运行它的权限。
+Otherwise try running FastFlix as an administrator.:
+  chs: 否则，请尝试以管理员身份运行 FastFlix。
+Could not start worker process:
+  chs: 无法启动命令执行程序进程
+Set command priority to:
+  chs: 将命令优先级设置为
+Could not set process priority to:
+  chs: 无法将进程优先级设置为
+Killing worker process:
+  chs: 终止命令执行程序进程
+Could not terminate process:
+  chs: 无法终止进程

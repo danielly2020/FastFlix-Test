@@ -51,7 +51,8 @@ class AudioProfile(QtWidgets.QTabWidget):
 
         self.match_input_boxes = [
             QtWidgets.QLineEdit("*"),
-            QtWidgets.CustomLineEdit(""),
+            # QtWidgets.QLineEdit(""),
+            CustomLineEdit(""),
             QtWidgets.QComboBox(),
             QtWidgets.QComboBox(),
             QtWidgets.QComboBox(),
@@ -90,7 +91,8 @@ class AudioProfile(QtWidgets.QTabWidget):
         self.convert_to.addItems([t("None | Passthrough")] + main.video_options.audio_formats)
 
         self.convert_to.view().setFixedWidth(self.convert_to.minimumSizeHint().width() + 50)
-        self.bitrate = QtWidgets.CustomLineEdit()
+        # self.bitrate = QtWidgets.QLineEdit()
+        self.bitrate = CustomLineEdit()
         self.bitrate.setPlaceholderText("128k")
         self.bitrate.setFixedWidth(self.bitrate.minimumSizeHint().width() + 50)
 
@@ -393,7 +395,8 @@ class ProfileWindow(QtWidgets.QWidget):
 
         profile_name_label = QtWidgets.QLabel(t("Profile Name"))
         profile_name_label.setFixedHeight(40)
-        self.profile_name = QtWidgets.CustomLineEdit()
+        # self.profile_name = QtWidgets.QLineEdit()
+        self.profile_name = CustomLineEdit()
         if self.app.fastflix.config.theme == "onyx":
             self.profile_name.setStyleSheet("background-color: #707070; border-radius: 10px; color: black")
         self.profile_name.setFixedWidth(300)

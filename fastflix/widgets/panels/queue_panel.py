@@ -379,7 +379,7 @@ class EncodingQueue(FlixList):
     def reorder(self, update=True):
         if self.app.fastflix.currently_encoding:
             # TODO error?
-            logger.warning("Reorder queue called while encoding")
+            logger.warning(t("Reorder queue called while encoding"))
             return
         super().reorder(update=update)
         # TODO find better reorder method
