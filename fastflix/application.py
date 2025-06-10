@@ -41,7 +41,7 @@ def create_app(enable_scaling):
     available_fonts = QtGui.QFontDatabase().families()
     for font_family in my_fonts:
         if font_family in available_fonts:
-            my_fonts = QtGui.QFont(font_family)
+            my_fonts = QtGui.QFont(font_family, 10)
             break
     else:
         my_fonts = QtGui.QFont("Sans Serif", 10)

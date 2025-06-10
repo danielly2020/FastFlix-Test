@@ -55,6 +55,7 @@ from fastflix.widgets.background_tasks import ThumbnailCreator
 from fastflix.widgets.progress_bar import ProgressBar, Task
 from fastflix.widgets.video_options import VideoOptions
 from fastflix.widgets.windows.large_preview import LargePreview
+from fastflix.shared import CustomLineEdit
 
 logger = logging.getLogger("fastflix")
 
@@ -102,10 +103,10 @@ resolutions = {
 
 
 class CropWidgets(BaseModel):
-    top: QtWidgets.QLineEdit = None
-    bottom: QtWidgets.QLineEdit = None
-    left: QtWidgets.QLineEdit = None
-    right: QtWidgets.QLineEdit = None
+    top: QtWidgets.CustomLineEdit = None
+    bottom: QtWidgets.CustomLineEdit = None
+    left: QtWidgets.CustomLineEdit = None
+    right: QtWidgets.CustomLineEdit = None
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
@@ -116,8 +117,8 @@ class ScaleWidgets(BaseModel):
 
 
 class MainWidgets(BaseModel):
-    start_time: QtWidgets.QLineEdit = None
-    end_time: QtWidgets.QLineEdit = None
+    start_time: QtWidgets.CustomLineEdit = None
+    end_time: QtWidgets.CustomLineEdit = None
     video_track: QtWidgets.QComboBox = None
     rotate: QtWidgets.QComboBox = None
     flip: QtWidgets.QComboBox = None
@@ -864,7 +865,7 @@ class Main(QtWidgets.QWidget):
         self.widgets.resolution_drop_down.addItems(list(resolutions.keys()))
         self.widgets.resolution_drop_down.currentIndexChanged.connect(self.update_resolution)
 
-        self.widgets.resolution_custom = QtWidgets.QLineEdit()
+        self.widgets.resolution_custom = QtWidgets.CustomLineEdit()
         self.widgets.resolution_custom.setFixedWidth(150)
         self.widgets.resolution_custom.textChanged.connect(self.custom_res_update)
 
@@ -1086,7 +1087,7 @@ class Main(QtWidgets.QWidget):
                 value = int(widget.text())
                 value = int(value + (value % modifier))
             except ValueError:
-                logger.exception("This shouldn't be possible, but you somehow put in not an integer")
+                logger.exception(t("This should not be possible, but you somehow put in not an integer"))
                 return
 
         modifier = modifier if method == "add" else -modifier

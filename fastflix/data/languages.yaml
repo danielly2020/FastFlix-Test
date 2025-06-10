@@ -11252,3 +11252,5 @@ Resuming FFmpeg conversion:
   chs: 恢复FFmpeg编码
 ERROR trying to use OpenCL for thumbnail generation:
   chs: 尝试使用 OpenCL 生成缩略图时出错
+This should not be possible, but you somehow put in not an integer:
+  chs: 这应该是不可能的，但您以某种方式输入的不是整数。

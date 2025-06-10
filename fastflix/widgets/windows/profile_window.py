@@ -15,6 +15,7 @@ from fastflix.models.encode import x265Settings, setting_types
 from fastflix.models.profiles import AudioMatch, Profile, MatchItem, MatchType, AdvancedOptions
 from fastflix.shared import error_message
 from fastflix.encoders.common.audio import channel_list
+from fastflix.shared import CustomLineEdit
 
 language_list = sorted((k for k, v in Lang._data["name"].items() if v["pt2B"] and v["pt1"]), key=lambda x: x.lower())
 
@@ -50,7 +51,7 @@ class AudioProfile(QtWidgets.QTabWidget):
 
         self.match_input_boxes = [
             QtWidgets.QLineEdit("*"),
-            QtWidgets.QLineEdit(""),
+            QtWidgets.CustomLineEdit(""),
             QtWidgets.QComboBox(),
             QtWidgets.QComboBox(),
             QtWidgets.QComboBox(),
@@ -89,7 +90,7 @@ class AudioProfile(QtWidgets.QTabWidget):
         self.convert_to.addItems([t("None | Passthrough")] + main.video_options.audio_formats)
 
         self.convert_to.view().setFixedWidth(self.convert_to.minimumSizeHint().width() + 50)
-        self.bitrate = QtWidgets.QLineEdit()
+        self.bitrate = QtWidgets.CustomLineEdit()
         self.bitrate.setPlaceholderText("128k")
         self.bitrate.setFixedWidth(self.bitrate.minimumSizeHint().width() + 50)
 
@@ -392,7 +393,7 @@ class ProfileWindow(QtWidgets.QWidget):
 
         profile_name_label = QtWidgets.QLabel(t("Profile Name"))
         profile_name_label.setFixedHeight(40)
-        self.profile_name = QtWidgets.QLineEdit()
+        self.profile_name = QtWidgets.CustomLineEdit()
         if self.app.fastflix.config.theme == "onyx":
             self.profile_name.setStyleSheet("background-color: #707070; border-radius: 10px; color: black")
         self.profile_name.setFixedWidth(300)
