@@ -435,13 +435,13 @@ class Main(QtWidgets.QWidget):
             self.app.fastflix.worker_queue.put(["pause"])
             self.widgets.pause_resume.setText("Resume")
             self.widgets.pause_resume.setStyleSheet("background-color: green;")
-            logger.info("Pausing FFmpeg conversion via pustils")
+            logger.info(t("Pausing FFmpeg conversion via pustils"))
         else:
             self.paused = False
             self.app.fastflix.worker_queue.put(["resume"])
             self.widgets.pause_resume.setText("Pause")
             self.widgets.pause_resume.setStyleSheet("background-color: orange;")
-            logger.info("Resuming FFmpeg conversion")
+            logger.info(t("Resuming FFmpeg conversion"))
 
     def config_update(self):
         self.thumb_file = Path(self.app.fastflix.config.work_path, "thumbnail_preview.jpg")
@@ -1582,7 +1582,7 @@ class Main(QtWidgets.QWidget):
 
         self.widgets.deinterlace.setChecked(self.app.fastflix.current_video.video_settings.deinterlace)
 
-        logger.info("Updating video info")
+        logger.info(t("Updating video info"))
         self.video_options.new_source()
         self.enable_all()
         # self.widgets.convert_button.setDisabled(False)

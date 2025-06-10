@@ -11199,7 +11199,7 @@ Download FastFlix 4.x versions for Windows 7/8 support [press enter to continue]
 Progress bar RUN called without any tasks:
   chs: 在没有任何任务的情况下调用进度条 RUN
 Running task:
-  chs: 运行任务：
+  chs: '运行任务:'
 Could not run task:
   chs: 不能运行任务
 with config:
@@ -11240,3 +11240,15 @@ Unexpected space at start of quoted path, attempting to fix:
   chs: 带引号的路径开头出现意外的空格，正在尝试修复
 New path set to:
   chs: 新路径设置为
+Using HDR10 parser version:
+  chs: 使用HDR10解析器版本
+Checking for hdr10+ in stream:
+  chs: 检查hdr10+ 在媒体流
+Updating video info:
+  chs: 更新视频信息
+Pausing FFmpeg conversion via pustils:
+  chs: 通过 pustils 暂停FFmpeg编码
+Resuming FFmpeg conversion:
+  chs: 恢复FFmpeg编码
+ERROR trying to use OpenCL for thumbnail generation:
+  chs: 尝试使用 OpenCL 生成缩略图时出错

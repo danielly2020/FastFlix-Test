@@ -198,7 +198,8 @@ class SettingPanel(QtWidgets.QWidget):
         if tooltip:
             self.labels[widget_name].setToolTip(self.translate_tip(tooltip))
 
-        self.widgets[widget_name] = QtWidgets.QLineEdit()
+        # self.widgets[widget_name] = QtWidgets.QLineEdit()
+        self.widgets[widget_name] = QtWidgets.CustomLineEdit()
 
         if placeholder:
             self.widgets[widget_name].setPlaceholderText(placeholder)

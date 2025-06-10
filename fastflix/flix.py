@@ -593,7 +593,7 @@ def get_hdr10_parser_version(config: Config) -> version:
 
     _, version_string = HDR10_parser_version_output.rsplit(sep=" ", maxsplit=1)
     HDR10_parser_version = version.parse(version_string)
-    logger.debug(f"Using HDR10 parser version {str(HDR10_parser_version).strip()}")
+    logger.debug(f"{t('Using HDR10 parser version')} {str(HDR10_parser_version).strip()}")
     return HDR10_parser_version
 
 
@@ -606,7 +606,7 @@ def detect_hdr10_plus(app: FastFlixApp, config: Config, **_):
     parser_version = get_hdr10_parser_version(config)
 
     for stream in app.fastflix.current_video.streams.video:
-        logger.debug(f"Checking for hdr10+ in stream {stream.index}")
+        logger.debug(f"{t('Checking for hdr10+ in stream')} {stream.index}")
         process = Popen(
             [
                 str(config.ffmpeg),
