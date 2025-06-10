@@ -103,10 +103,10 @@ resolutions = {
 
 
 class CropWidgets(BaseModel):
-    top: QtWidgets.CustomLineEdit() = None
-    bottom: QtWidgets.CustomLineEdit() = None
-    left: QtWidgets.CustomLineEdit() = None
-    right: QtWidgets.CustomLineEdit() = None
+    top: QtWidgets.QLineEdit = None
+    bottom: QtWidgets.QLineEdit = None
+    left: QtWidgets.QLineEdit = None
+    right: QtWidgets.QLineEdit = None
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
@@ -117,8 +117,8 @@ class ScaleWidgets(BaseModel):
 
 
 class MainWidgets(BaseModel):
-    start_time: QtWidgets.CustomLineEdit() = None
-    end_time: QtWidgets.CustomLineEdit() = None
+    start_time: QtWidgets.QLineEdit = None
+    end_time: QtWidgets.QLineEdit = None
     video_track: QtWidgets.QComboBox = None
     rotate: QtWidgets.QComboBox = None
     flip: QtWidgets.QComboBox = None
