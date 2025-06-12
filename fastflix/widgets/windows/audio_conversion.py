@@ -8,6 +8,7 @@ from fastflix.models.fastflix_app import FastFlixApp
 from fastflix.models.encode import AudioTrack
 from fastflix.shared import error_message
 from fastflix.language import t
+from fastflix.shared import CustomLineEdit
 
 __all__ = ["AudioConversion"]
 
@@ -130,7 +131,8 @@ class AudioConversion(QtWidgets.QWidget):
         )
         self.aq.setMinimumWidth(100)
         self.aq.currentIndexChanged.connect(self.set_aq)
-        self.bitrate = QtWidgets.QLineEdit()
+        # self.bitrate = QtWidgets.QLineEdit()
+        self.bitrate = CustomLineEdit()
         self.bitrate.setFixedWidth(50)
         self.bitrate.setValidator(QtGui.QDoubleValidator())
 

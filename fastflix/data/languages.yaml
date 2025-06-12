@@ -6009,7 +6009,7 @@ attachment tracks found:
   fra: pistes d'attache trouvées
   ita: tracce di attacco trovate
   spa: pistas de adjuntos encontradas
-  chs: 发现附件轨
+  chs: 条附件轨被找到
   jpn: 添付トラックが見つかりました
   rus: найдены следы прикрепления
   por: faixas de anexo encontradas
@@ -6024,7 +6024,7 @@ audio tracks found:
   fra: pistes audio trouvées
   ita: tracce audio trovate
   spa: pistas de audio encontradas
-  chs: 发现音频轨
+  chs: 条音频轨被找到
   jpn: オーディオトラックが見つかりました
   rus: найдены звуковые дорожки
   por: faixas de áudio encontradas
@@ -6234,7 +6234,7 @@ data tracks found:
   fra: pistes de données trouvées
   ita: tracce di dati trovati
   spa: pistas de datos encontradas
-  chs: 找到数据轨
+  chs: 条数据轨被找到
   jpn: データトラックが見つかりました
   rus: найдены дорожки данных
   por: faixas de dados encontradas
@@ -6767,7 +6767,7 @@ subtitle tracks found:
   fra: Les pistes de sous-titres trouvées
   ita: tracce sottotitoli trovati
   spa: pistas de subtítulos encontradas
-  chs: 找到字幕轨
+  chs: 条字幕轨被找到
   jpn: 字幕トラックが見つかりました
   rus: найдены дорожки субтитров
   por: faixas de legendas encontradas
@@ -6852,7 +6852,7 @@ video tracks found:
   fra: pistas de vídeo encontradas
   ita: tracce video trovate
   spa: pistas de vídeo encontradas
-  chs: 发现视频轨
+  chs: 条视频轨被找到
   jpn: ビデオトラック発見
   rus: найдены видеодорожки
   por: faixas de vídeo encontradas
@@ -11286,3 +11286,17 @@ Killing worker process:
   chs: 终止命令执行程序进程
 Could not terminate process:
   chs: 无法终止进程
+Update reload called:
+  chs: 更新重新加载调用
+Could not set default for:
+  chs: 无法为
+to:
+  chs: 设置默认值
+as it's not in the list:
+  chs: 因为它不在列表中
+No custom bitrate provided, defaulting to 3000k:
+  chs: 没有提供自定义码率，设为默认值 3000k
+No value provided for custom QP/CRF value, defaulting to 30:
+  chs: 没有提供自定义 QP/CRF 值，设为默认值 30
+Custom QP/CRF value is not a number, defaulting to 30:
+  chs: 自定义 QP/CRF 值不是数字, 设为默认值 30

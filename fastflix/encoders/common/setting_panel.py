@@ -116,7 +116,7 @@ class SettingPanel(QtWidgets.QWidget):
                 if raise_error:
                     raise FastFlixInternalException
                 else:
-                    logger.error(f"Could not set default for {widget_name} to {opt} as it's not in the list: {items}")
+                    logger.error(f"{t('Could not set default for')} {widget_name} {t('to')} {opt} {t('as it's not in the list')}: {items}")
                 return 0
         if isinstance(opt, bool):
             return int(opt)
@@ -551,7 +551,7 @@ class SettingPanel(QtWidgets.QWidget):
     def reload(self):
         """This will reset the current settings to what is set in "current_video", useful for return from queue"""
         global ffmpeg_extra_command
-        logger.debug("Update reload called")
+        logger.debug(t("Update reload called"))
         self.updating_settings = True
         for widget_name, opt in self.opts.items():
             data = getattr(self.app.fastflix.current_video.video_settings.video_encoder_settings, opt)
@@ -609,7 +609,7 @@ class SettingPanel(QtWidgets.QWidget):
             bitrate = self.widgets.bitrate.currentText()
             if bitrate.lower() == "custom":
                 if not bitrate:
-                    logger.error("No custom bitrate provided, defaulting to 3000k")
+                    logger.error(t("No custom bitrate provided, defaulting to 3000k"))
                     return "bitrate", "3000k"
                 bitrate = self.widgets.custom_bitrate.text().lower().rstrip("k")
                 bitrate += "k"
@@ -621,12 +621,12 @@ class SettingPanel(QtWidgets.QWidget):
             if qp_text.lower() == "custom":
                 custom_value = self.widgets[f"custom_{self.qp_name}"].text()
                 if not custom_value:
-                    logger.error("No value provided for custom QP/CRF value, defaulting to 30")
+                    logger.error(t("No value provided for custom QP/CRF value, defaulting to 30"))
                     return "qp", 30
                 try:
                     custom_value = float(self.widgets[f"custom_{self.qp_name}"].text().rstrip("."))
                 except ValueError:
-                    logger.error("Custom QP/CRF value is not a number, defaulting to 30")
+                    logger.error(t("Custom QP/CRF value is not a number, defaulting to 30"))
                     return "qp", 30
                 if custom_value.is_integer():
                     custom_value = int(custom_value)
