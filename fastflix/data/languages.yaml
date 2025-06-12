@@ -11292,7 +11292,7 @@ Could not set default for:
   chs: 无法为
 to:
   chs: 设置默认值
-as it's not in the list:
+as it is not in the list:
   chs: 因为它不在列表中
 No custom bitrate provided, defaulting to 3000k:
   chs: 没有提供自定义码率，设为默认值 3000k

@@ -116,7 +116,7 @@ class SettingPanel(QtWidgets.QWidget):
                 if raise_error:
                     raise FastFlixInternalException
                 else:
-                    logger.error(f"{t('Could not set default for')} {widget_name} {t('to')} {opt} {t('as it's not in the list')}: {items}")
+                    logger.error(f"{t('Could not set default for')} {widget_name} {t('to')} {opt} {t('as it is not in the list')}: {items}")
                 return 0
         if isinstance(opt, bool):
             return int(opt)
