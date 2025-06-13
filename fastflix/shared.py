@@ -126,15 +126,18 @@ class CustomTextBrowser(QtWidgets.QTextBrowser):
     def show_context_menu(self, position):
         menu = QtWidgets.QMenu(self)
 
-        copy_action = menu.addAction(self.copy_icon, t("Copy"))
+        copy_action = menu.addAction(t("Copy"))
+        copy_action.setIcon(QIcon.fromTheme("edit-copy"))
         copy_action.triggered.connect(self.copy_selected_text)
 
-        copy_link_action = menu.addAction(self.copy_link_icon, t("Copy Link Location"))
+        copy_link_action = menu.addAction(t("Copy Link Location"))
+        copy_link_action.setIcon(QIcon.fromTheme("edit-copy-link-location"))
         copy_link_action.triggered.connect(self.copy_link_location)
 
         menu.addSeparator()
 
-        select_all_action = menu.addAction(self.select_all_icon, t("Select All"))
+        select_all_action = menu.addAction(t("Select All"))
+        select_all_action.setIcon(QIcon.fromTheme("edit-select-all"))
         select_all_action.triggered.connect(self.select_all_text)
 
         menu.exec_(self.viewport().mapToGlobal(position))
