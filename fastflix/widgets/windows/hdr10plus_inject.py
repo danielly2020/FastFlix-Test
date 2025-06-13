@@ -13,6 +13,7 @@ from fastflix.flix import probe
 from fastflix.shared import yes_no_message, error_message
 from fastflix.widgets.progress_bar import ProgressBar, Task
 from fastflix.resources import group_box_style, get_icon
+from fastflix.shared import CustomLineEdit
 
 logger = logging.getLogger("fastflix")
 
@@ -24,7 +25,8 @@ class HDR10PlusInjectWindow(QtWidgets.QWidget):
         self.main = main
         self.selected_stream = None
 
-        self.movie_file = QtWidgets.QLineEdit()
+        # self.movie_file = QtWidgets.QLineEdit()
+        self.movie_file = CustomLineEdit()
         self.movie_file.setEnabled(False)
         self.movie_file.setFixedWidth(400)
         self.movie_file_button = QtWidgets.QPushButton(
@@ -32,14 +34,16 @@ class HDR10PlusInjectWindow(QtWidgets.QWidget):
         )
         self.movie_file_button.clicked.connect(self.movie_open)
 
-        self.hdr10p_file = QtWidgets.QLineEdit()
+        # self.hdr10p_file = QtWidgets.QLineEdit()
+        self.hdr10p_file = CustomLineEdit()
         self.hdr10p_file.setEnabled(False)
         self.hdr10p_file_button = QtWidgets.QPushButton(
             icon=QtGui.QIcon(get_icon("onyx-output", self.app.fastflix.config.theme))
         )
         self.hdr10p_file_button.clicked.connect(self.hdr10p_open)
 
-        self.output_file = QtWidgets.QLineEdit()
+        # self.output_file = QtWidgets.QLineEdit()
+        self.output_file = CustomLineEdit()
         self.output_file.setFixedWidth(400)
         self.output_file_button = QtWidgets.QPushButton(
             icon=QtGui.QIcon(get_icon("onyx-output", self.app.fastflix.config.theme))
@@ -58,7 +62,8 @@ class HDR10PlusInjectWindow(QtWidgets.QWidget):
         line_3.addWidget(self.hdr10p_file_button)
 
         self.info_bubble = QtWidgets.QLabel("")
-        self.command_bubble = QtWidgets.QLineEdit("")
+        # self.command_bubble = QtWidgets.QLineEdit("")
+        self.command_bubble = CustomLineEdit("")
         self.command_bubble.setFixedWidth(400)
         # self.command_bubble.setWordWrap(True)
         # self.command_bubble.setFixedHeight(400)

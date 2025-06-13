@@ -15,6 +15,7 @@ from fastflix.models.encode import AttachmentTrack
 from fastflix.models.fastflix_app import FastFlixApp
 from fastflix.models.video import Video
 from fastflix.shared import link
+from fastflix.shared import CustomTextBrowser
 
 logger = logging.getLogger("fastflix")
 
@@ -38,7 +39,8 @@ class InfoPanel(QtWidgets.QTabWidget):
             all_stream.extend(x)
 
         for stream in sorted(all_stream, key=lambda z: z["index"]):
-            widget = QtWidgets.QTextBrowser(self)
+            # widget = QtWidgets.QTextBrowser(self)
+            widget = CustomTextBrowser(self)
             widget.setReadOnly(True)
             widget.setDisabled(False)
             widget.setText(Box(stream).to_yaml(default_flow_style=False))

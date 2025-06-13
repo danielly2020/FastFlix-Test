@@ -12,6 +12,7 @@ from fastflix.models.fastflix_app import FastFlixApp
 from fastflix.shared import message, yes_no_message
 from fastflix.widgets.background_tasks import AudioNoramlize
 from fastflix.resources import loading_movie, get_icon
+from fastflix.shared import CustomLineEdit
 
 logger = logging.getLogger("fastflix")
 
@@ -46,13 +47,15 @@ class Modify(SettingPanel):
 
         add_audio_track = QtWidgets.QPushButton(t("Add Audio Track"))
         add_audio_track.clicked.connect(self.select_audio_file)
-        self.add_audio_track_file_path = QtWidgets.QLineEdit()
+        # self.add_audio_track_file_path = QtWidgets.QLineEdit()
+        self.add_audio_track_file_path = CustomLineEdit()
         grid.addWidget(add_audio_track, 3, 0, 1, 1)
         grid.addWidget(self.add_audio_track_file_path, 3, 1, 1, 2)
 
         add_sub_track = QtWidgets.QPushButton(t("Add Text Based Subtitle Track"))
         add_sub_track.clicked.connect(self.select_subtitle_file)
-        self.add_sub_track_file_path = QtWidgets.QLineEdit()
+        # self.add_sub_track_file_path = QtWidgets.QLineEdit()
+        self.add_sub_track_file_path = CustomLineEdit()
         grid.addWidget(add_sub_track, 4, 0, 1, 1)
         grid.addWidget(self.add_sub_track_file_path, 4, 1, 1, 2)
 

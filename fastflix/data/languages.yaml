@@ -11300,3 +11300,11 @@ No value provided for custom QP/CRF value, defaulting to 30:
   chs: 没有提供自定义 QP/CRF 值，设为默认值 30
 Custom QP/CRF value is not a number, defaulting to 30:
   chs: 自定义 QP/CRF 值不是数字, 设为默认值 30
+Copy Link Location:
+  chs: 复制链接地址
+Profile cannot be saved! Unknown encoder type:
+  chs: 无法保存配置！未知编码器类型
+Internal error, what do we do sir?:
+  chs: 内部错误，我们该咋办 先生？
+No Bitrate:
+  chs: 没有码率

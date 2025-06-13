@@ -13,6 +13,7 @@ from fastflix.language import t
 from fastflix.models.fastflix_app import FastFlixApp
 from fastflix.models.video import Video
 from fastflix.shared import time_to_number, timedelta_to_str
+from fastflix.shared import CustomTextBrowser
 
 logger = logging.getLogger("fastflix")
 
@@ -160,7 +161,7 @@ class StatusPanel(QtWidgets.QWidget):
         super().close()
 
 
-class Logs(QtWidgets.QTextBrowser):
+class Logs(CustomTextBrowser):
     log_signal = QtCore.Signal(str)
     clear_window = QtCore.Signal(str)
     timer_signal = QtCore.Signal(str)

@@ -37,6 +37,9 @@ class FlixList(QtWidgets.QWidget):
         self.tracks = []
         self.setLayout(layout)
 
+        default_font = QtGui.QFont("Consolas", 9)
+        self.set_list_font(default_font)
+
     def init_inner(self):
         sp = QtWidgets.QSizePolicy()
         sp.setHorizontalPolicy(QtWidgets.QSizePolicy.Policy.Maximum)
@@ -138,3 +141,8 @@ class FlixList(QtWidgets.QWidget):
 
     def refresh(self):
         self.reorder(update=False)
+
+    def set_list_font(self, font: QtGui.QFont):
+        for widget in self.tracks:
+            if hasattr(widget, 'set_font'):
+                widget.set_font(font)

@@ -150,10 +150,10 @@ class AudioProfile(QtWidgets.QTabWidget):
         elif match_item_enum == MatchItem.CHANNELS:
             match_input_value = str(self.match_input.currentIndex())
         else:
-            raise Exception("Internal error, what do we do sir?")
+            raise Exception(t("Internal error, what do we do sir?"))
 
         if self.convert_to.currentIndex() > 0 and not self.bitrate.text().strip():
-            raise FastFlixError("No Bitrate")
+            raise FastFlixError(t("No Bitrate"))
 
         return AudioMatch(
             match_type=match_type_eng[self.match_type.currentIndex()],
@@ -551,7 +551,7 @@ class ProfileWindow(QtWidgets.QWidget):
                 setattr(new_profile, snake_name, self.encoder)
                 break
         else:
-            logger.error(f"Profile cannot be saved! Unknown encoder type {self.encoder.__class__.__name__}.")
+            logger.error(f"{t('Profile cannot be saved! Unknown encoder type')} {self.encoder.__class__.__name__}.")
             return
 
         self.app.fastflix.config.profiles[profile_name] = new_profile
