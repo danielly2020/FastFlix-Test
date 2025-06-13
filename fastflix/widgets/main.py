@@ -231,7 +231,8 @@ class Main(QtWidgets.QWidget):
             f"padding: 0 0 -1px 5px; color: rgb({get_text_color(self.app.fastflix.config.theme)})"
         )
 
-        self.output_video_path_widget = QtWidgets.QLineEdit("")
+        # self.output_video_path_widget = QtWidgets.QLineEdit("")
+        self.output_video_path_widget = CustomLineEdit("")
         self.output_video_path_widget.setDisabled(True)
         self.output_video_path_widget.setFixedHeight(20)
         self.output_video_path_widget.setFont(QtGui.QFont(self.app.font().family(), 9))
@@ -999,7 +1000,8 @@ class Main(QtWidgets.QWidget):
         time_field=False,
         right_side_label=False,
     ):
-        widget = QtWidgets.QLineEdit(self.number_to_time(0) if time_field else "0")
+        # widget = QtWidgets.QLineEdit(self.number_to_time(0) if time_field else "0")
+        widget = CustomLineEdit(self.number_to_time(0) if time_field else "0")
         widget.setObjectName(name)
         if not time_field:
             widget.setValidator(only_int)

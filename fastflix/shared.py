@@ -31,6 +31,7 @@ from PySide6.QtGui import QContextMenuEvent, QIcon
 
 from fastflix.language import t
 from fastflix.resources import get_bool_env
+import math
 
 DEVMODE = get_bool_env("DEVMODE")
 
@@ -114,6 +115,49 @@ class CustomLineEdit(QLineEdit):
                 self.del_()
         elif action == select_all_action:
             self.selectAll()
+
+class CustomTextBrowser(QtWidgets.QTextBrowser):
+    def __init__(self, parent=None):
+        super(CustomTextBrowser, self).__init__(parent)
+        self.setReadOnly(True)
+        self.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.show_context_menu)
+    
+    def show_context_menu(self, position):
+        menu = QtWidgets.QMenu(self)
+
+        copy_action = menu.addAction(t("Copy"))
+        copy_action.triggered.connect(self.copy_selected_text)
+
+        copy_link_action = menu.addAction(t("Copy Link Location"))
+        copy_link_action.triggered.connect(self.copy_link_location)
+
+        menu.addSeparator()
+
+        select_all_action = menu.addAction(t("Select All"))
+        select_all_action.triggered.connect(self.select_all_text)
+
+        menu.exec_(self.viewport().mapToGlobal(position))
+
+    def copy_selected_text(self):
+        cursor = self.textCursor()
+        selected_text = cursor.selectedText()
+        
+        if selected_text:
+            clipboard = QtWidgets.QApplication.clipboard()
+            clipboard.setText(selected_text)
+    
+    def copy_link_location(self):
+        cursor = self.textCursor()
+        
+        if cursor.charFormat().isAnchor():
+            link_url = cursor.charFormat().anchorHref()
+            if link_url:
+                clipboard = QtWidgets.QApplication.clipboard()
+                clipboard.setText(link_url)
+    
+    def select_all_text(self):
+        self.selectAll()
 
 def message(msg, title=None):
     sm = QtWidgets.QMessageBox()
