@@ -58,6 +58,8 @@ def build(fastflix: FastFlix):
 
     vsync_setting = "cfr" if video.frame_rate == video.average_frame_rate else "vfr"
     if video.video_settings.vsync == "cfr":
+        vsync_setting = "cfr"
+    elif video.video_settings.vsync == "forcecfr":
         vsync_setting = "forcecfr"
     elif video.video_settings.vsync == "vfr":
         vsync_setting = "vfr"

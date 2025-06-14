@@ -3,6 +3,7 @@
 import logging
 
 from PySide6 import QtCore, QtGui, QtWidgets
+from PySide6.QtGui import QIcon
 
 from fastflix.encoders.common.setting_panel import SettingPanel
 from fastflix.language import t
@@ -158,6 +159,57 @@ class HEVC(SettingPanel):
         self.hdr10plus_ffmpeg_signal.connect(lambda x: self.ffmpeg_level.setText(x))
         self.setLayout(grid)
         self.hide()
+
+        self.widgets.hdr10plus_metadata.installEventFilter(self)
+
+    def eventFilter(self, obj, event):
+        if obj == self.widgets.hdr10plus_metadata and event.type() == QtCore.QEvent.Type.ContextMenu:
+            self.show_custom_menu(event)
+            return True
+        return super().eventFilter(obj, event)
+
+    def show_custom_menu(self, event):
+        menu = QtWidgets.QMenu(self.widgets.hdr10plus_metadata)
+        
+        undo_action = menu.addAction(t("Undo"))
+        undo_action.setIcon(QIcon.fromTheme("edit-undo"))
+        redo_action = menu.addAction(t("Redo"))
+        redo_action.setIcon(QIcon.fromTheme("edit-redo"))
+
+        menu.addSeparator()
+
+        copy_action = menu.addAction(t("Copy"))
+        copy_action.setIcon(QIcon.fromTheme("edit-copy"))
+        paste_action = menu.addAction(t("Paste"))
+        paste_action.setIcon(QIcon.fromTheme("edit-paste"))
+        cut_action = menu.addAction(t("Cut"))
+        cut_action.setIcon(QIcon.fromTheme("edit-cut"))
+        delete_action = menu.addAction(t("Delete"))
+        delete_action.setIcon(QIcon.fromTheme("edit-delete"))
+
+        menu.addSeparator()
+
+        select_all_action = menu.addAction(t("Select All"))
+        select_all_action.setIcon(QIcon.fromTheme("edit-select-all"))
+
+        action = menu.exec(event.globalPos())
+
+        if action == undo_action:
+            self.widgets.hdr10plus_metadata.undo()
+        elif action == redo_action:
+            self.widgets.hdr10plus_metadata.redo()
+        elif action == copy_action:
+            self.widgets.hdr10plus_metadata.copy()
+        elif action == paste_action:
+            self.widgets.hdr10plus_metadata.paste()
+        elif action == cut_action:
+            self.widgets.hdr10plus_metadata.cut()
+        elif action == delete_action:
+             if self.widgets.hdr10plus_metadata.hasSelectedText():
+                self.widgets.hdr10plus_metadata.del_()
+        elif action == select_all_action:
+            self.widgets.hdr10plus_metadata.selectAll()
+
 
     def init_dhdr10_info(self):
         layout = self._add_file_select(
