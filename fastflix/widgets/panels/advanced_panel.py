@@ -58,7 +58,7 @@ denoise_presets = {
     },
 }
 
-vsync = ["auto", "passthrough", "cfr", "vfr", "drop"]
+vsync = ["auto", "passthrough", "cfr", "forcecfr", "vfr", "drop"]
 tone_map_items = ["none", "clip", "linear", "gamma", "reinhard", "hable", "mobius"]
 
 

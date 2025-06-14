@@ -255,7 +255,7 @@ class Config(BaseModel):
             self.work_path.mkdir(exist_ok=True)
 
         if not self.config_path.exists() or self.config_path.stat().st_size < 10:
-            logger.debug(f"Creating new config file {self.config_path}")
+            logger.debug(f"{t('Creating new config file')} {self.config_path}")
             self.config_path.parent.mkdir(parents=True, exist_ok=True)
             self.save()
             if not self.ffmpeg:

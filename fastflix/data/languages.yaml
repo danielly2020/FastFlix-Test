@@ -11308,3 +11308,75 @@ Internal error, what do we do sir?:
   chs: 内部错误，我们该咋办 先生？
 No Bitrate:
   chs: 没有码率
+Could not generate thumbnail because you are using an outdated FFmpeg!:
+  chs: 无法生成缩略图，因为您使用的是过时的 FFmpeg！
+Please use FFmpeg 4.3+ built against the latest zimg libraries.:
+  chs: 请使用针对最新 zimg 库构建的 FFmpeg 4.3+。
+Static builds available at:
+  chs: 静态版本可在这里下载
+No source video provided:
+  chs: 未提供源视频
+Running audio normalization - will output video to:
+  chs: 运行音频归一化 - 将视频输出到
+Completed:
+  chs: 已完成
+Audio normalization failed:
+  chs: 音频归一化失败
+Failed:
+  chs: 失败
+No tracks have HDR10+ data to extract:
+  chs: 没有轨道有HDR10+数据提取
+Selected video track not detected to have HDR10+ data, selecting first track that does:
+  chs: 所选视频轨道未检测到具有HDR10+数据，选择具有HDR10+数据的第一个轨道。
+HDR10+ Extract:
+  chs: HDR10+数据提取
+file not found or errored while executing. Return code:
+  chs: 文件未找到或执行时出错。返回代码
+Cannot parse version of ffmpeg from:
+  chs: 无法从中解析ffmpeg的版本
+file not found:
+  chs: 文件未找到
+Cannot parse version of ffprobe from:
+  chs: 无法从中解析ffprobe的版本
+Error code returned running FFprobe:
+  chs: 运行 FFprobe 时返回错误代码
+No output from FFprobe, not a known video type. stderr:
+  chs: FFprobe没有输出，不是已知的视频类型。标准错误
+Could not read output:
+  chs: 无法读取输出
+No file:
+  chs: 文件
+exists:
+  chs: 不存在
+concat file must start with `file` on each line.:
+  chs: concat 文件每行必须以 `file` 开头。
+Not a video file, FFprobe output:
+  chs: 不是视频文件，FFprobe 输出
+Unknown codec:
+  chs: 未知编解码器
+There were no video streams detected:
+  chs: 没有检测到视频流
+Timeout while extracting cover file:
+  chs: 提取封面文件时超时
+Error while running the interlace detection command:
+  chs: 运行隔行扫描检测命令时出错
+Could not extract interlaced information:
+  chs: 无法提取隔行扫描信息
+Could not extract interlaced information via regex:
+  chs: 无法通过正则表达式提取隔行扫描信息
+Could not parse HDR value:
+  chs: 无法解析HDR值
+HDR value outside expected range:
+  chs: HDR值超出预期范围
+was:
+  chs: 是
+Unexpected error while processing master-display from:
+  chs: 处理 master-display 时出现意外错误，来自
+'COULD NOT PARSE FFPROBE HDR METADATA, PLEASE OPEN ISSUE WITH THESE DETAILS:':
+  chs: 无法解析 FFPROBE HDR 元数据，请打开包含以下详细信息的问题：
+Unexpected error while trying to detect HDR10+ metadata in stream:
+  chs: 尝试检测视频流中的HDR10+元数据时出现意外错误
+Creating new config file:
+  chs: 创建新的配置文件
+Could not get stream ID from source, the proper video track may not be selected!:
+  chs: 无法从源获取视频流ID，可能未选择正确的视频轨道！

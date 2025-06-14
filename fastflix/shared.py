@@ -131,7 +131,7 @@ class CustomTextBrowser(QtWidgets.QTextBrowser):
         copy_action.triggered.connect(self.copy_selected_text)
 
         copy_link_action = menu.addAction(t("Copy Link Location"))
-        copy_link_action.setIcon(QIcon.fromTheme("edit-copy-link-location"))
+        copy_link_action.setIcon(QIcon.fromTheme("edit-copy"))
         copy_link_action.triggered.connect(self.copy_link_location)
 
         menu.addSeparator()
