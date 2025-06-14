@@ -562,7 +562,7 @@ def parse_hdr_details(app: FastFlixApp, **_):
             except BoxError:
                 # Could not parse details
                 logger.error(
-                    t("COULD NOT PARSE FFPROBE HDR METADATA, PLEASE OPEN ISSUE WITH THESE DETAILS:")
+                    f'{t("COULD NOT PARSE FFPROBE HDR METADATA, PLEASE OPEN ISSUE WITH THESE DETAILS:")}'
                     f"\nSTDOUT: {result.stdout}\nSTDERR: {result.stderr}"
                 )
                 continue
