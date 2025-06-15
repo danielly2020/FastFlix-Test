@@ -288,7 +288,8 @@ class SettingPanel(QtWidgets.QWidget):
         self.labels[widget_name] = QtWidgets.QLabel(t(label))
         self.labels[widget_name].setToolTip(tooltip)
 
-        self.widgets[widget_name] = QtWidgets.QLineEdit()
+        # self.widgets[widget_name] = QtWidgets.QLineEdit()
+        self.widgets[widget_name] = CustomLineEdit()
         self.widgets[widget_name].setDisabled(not enabled)
         self.widgets[widget_name].setToolTip(tooltip)
 
@@ -329,36 +330,15 @@ class SettingPanel(QtWidgets.QWidget):
         self.ffmpeg_level.setText("")
 
     def dhdr10_update(self):
-        if not hasattr(self, "widgets") or "hdr10plus_metadata" not in self.widgets:
-            print("Error: Self.widgets or hdr10plus_metadata not initialized!")
-            return
-        if not isinstance(self.widgets.hdr10plus_metadata, QtWidgets.QLineEdit):
-            print("Error: hdr10plus_metadata is not a QLineEdit control!")
-            return
-        current_text = self.widgets.hdr10plus_metadata.text()
-        dirname = Path(current_text).parent if current_text else Path()
-
+        dirname = Path(self.widgets.hdr10plus_metadata.text()).parent
         if not dirname.exists():
-            dirname = Path.cwd()
-        print(f"Default open directory: {dirname}")
-        # dirname = Path(self.widgets.hdr10plus_metadata.text()).parent
-        # if not dirname.exists():
-            # dirname = Path()
+            dirname = Path()
         filename = QtWidgets.QFileDialog.getOpenFileName(
             self, caption=t("hdr10_metadata"), dir=str(dirname), filter="HDR10+ Metadata (*.json)"
         )
         if not filename or not filename[0]:
-            print("The user canceled the file selection or did not select the file")
             return
-        selected_file = filename[0]
-        print(f"The selected file path: {selected_file}")
-        # self.widgets.hdr10plus_metadata.setText(filename[0])
-        self.widgets.hdr10plus_metadata.blockSignals(True)
-        self.widgets.hdr10plus_metadata.setText(selected_file)
-        self.widgets.hdr10plus_metadata.blockSignals(False)
-
-        print(f"The input box text has been updated to: {self.widgets.hdr10plus_metadata.text()}")
-
+        self.widgets.hdr10plus_metadata.setText(filename[0])
         self.main.page_update()
 
     def _add_modes(

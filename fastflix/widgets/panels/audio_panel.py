@@ -218,7 +218,7 @@ class Audio(QtWidgets.QTabWidget):
     @property
     def language(self) -> str:
         if self.widgets.language.currentIndex() == 0:
-            return ""
+            return "und"
         return Lang(self.widgets.language.currentText()).pt2b
 
     @property
