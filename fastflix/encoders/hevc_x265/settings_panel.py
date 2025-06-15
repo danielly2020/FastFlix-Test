@@ -89,6 +89,7 @@ class HEVC(SettingPanel):
         super().__init__(parent, main, app)
         self.main = main
         self.app = app
+        self.init_dhdr10_info()
 
         grid = QtWidgets.QGridLayout()
 
@@ -163,9 +164,12 @@ class HEVC(SettingPanel):
         self.widgets.hdr10plus_metadata.installEventFilter(self)
 
     def eventFilter(self, obj, event):
+        if not hasattr(self, "widgets"):
+            print("Warning: Self. widgets not initialized, skipping eventFilter")
+            return super().eventFilter(obj, event)
         if obj == self.widgets.hdr10plus_metadata and event.type() == QtCore.QEvent.Type.ContextMenu:
             self.show_custom_menu(event)
-            return True
+            pass
         return super().eventFilter(obj, event)
 
     def show_custom_menu(self, event):
@@ -219,6 +223,11 @@ class HEVC(SettingPanel):
             tooltip=t("dhdr10_info: Path to HDR10+ JSON metadata file"),
         )
         self.labels["hdr10plus_metadata"].setFixedWidth(200)
+        if hasattr(self, "widgets") and "hdr10plus_metadata" in self.widgets:
+            self.widgets.hdr10plus_metadata.installEventFilter(self)
+        else:
+            print("Warning: hdr10plus_metadata is not initialized and cannot register eventFilter")
+
         return layout
 
     def init_dhdr10_warning_and_opt(self):
