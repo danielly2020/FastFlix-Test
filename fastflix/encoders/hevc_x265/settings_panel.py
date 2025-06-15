@@ -87,9 +87,12 @@ class HEVC(SettingPanel):
 
     def __init__(self, parent, main, app: FastFlixApp):
         super().__init__(parent, main, app)
+
+        print("HEVC.__init__: self.widgets =", self.widgets)
+        self.init_dhdr10_info()
+
         self.main = main
         self.app = app
-        self.init_dhdr10_info()
 
         grid = QtWidgets.QGridLayout()
 
@@ -161,8 +164,6 @@ class HEVC(SettingPanel):
         self.setLayout(grid)
         self.hide()
 
-        self.widgets.hdr10plus_metadata.installEventFilter(self)
-
     def eventFilter(self, obj, event):
         if not hasattr(self, "widgets"):
             print("Warning: Self. widgets not initialized, skipping eventFilter")
@@ -216,6 +217,11 @@ class HEVC(SettingPanel):
 
 
     def init_dhdr10_info(self):
+        print("init_dhdr10_info: self.widgets =", self.widgets)
+        if not hasattr(self, "widgets"):
+            print("Error: self.widgets is not initialized")
+            return
+    
         layout = self._add_file_select(
             label="HDR10+ Metadata",
             widget_name="hdr10plus_metadata",
@@ -223,10 +229,11 @@ class HEVC(SettingPanel):
             tooltip=t("dhdr10_info: Path to HDR10+ JSON metadata file"),
         )
         self.labels["hdr10plus_metadata"].setFixedWidth(200)
-        if hasattr(self, "widgets") and "hdr10plus_metadata" in self.widgets:
+        
+        if "hdr10plus_metadata" in self.widgets:
             self.widgets.hdr10plus_metadata.installEventFilter(self)
         else:
-            print("Warning: hdr10plus_metadata is not initialized and cannot register eventFilter")
+            print("Error: hdr10plus_metadata not found in self.widgets!")
 
         return layout
 
