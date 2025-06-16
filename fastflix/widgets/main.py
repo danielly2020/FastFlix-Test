@@ -842,12 +842,14 @@ class Main(QtWidgets.QWidget):
         # label = QtWidgets.QLabel(t("Trim"))
         # label.setMaximumHeight(40)
         # layout.addWidget(label, alignment=QtCore.Qt.AlignLeft)
-        layout.addWidget(reset, alignment=QtCore.Qt.AlignRight)
-        layout.addStretch(1)
+        # layout.addWidget(reset, alignment=QtCore.Qt.AlignRight)
+        # layout.addStretch(1)
         layout.addLayout(start_layout)
         layout.addLayout(end_layout)
         layout.addWidget(QtWidgets.QLabel(" "))
+        layout.addWidget(reset, alignment=QtCore.Qt.AlignRight)
         layout.addWidget(self.widgets.fast_time, QtCore.Qt.AlignRight)
+        layout.addStretch(1)
 
         group_box.setLayout(layout)
         return group_box
@@ -965,7 +967,8 @@ class Main(QtWidgets.QWidget):
         # reset_layout.addWidget(reset)
 
         # l2.addLayout(reset_layout)
-        l2.addLayout(reset)
+        # l2.addLayout(reset)
+        l2.addWidget(reset)
         l2.addStretch(1)
 
         crop_layout.addLayout(crop_top_layout)
