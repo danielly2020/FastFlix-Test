@@ -477,7 +477,8 @@ class ProfileDetails(QtWidgets.QWidget):
         super().__init__(None)
         self.layout = QtWidgets.QHBoxLayout(self)
 
-        main_section = QtWidgets.QVBoxLayout(self)
+        # main_section = QtWidgets.QVBoxLayout(self)
+        main_section = QtWidgets.QVBoxLayout()
         profile_title = QtWidgets.QLabel(f"{t('Profile_window')}: {profile_name}")
         # profile_title.setFont(QtGui.QFont(self.app.font().family(), 10, weight=70))
         main_section.addWidget(profile_title)
@@ -511,7 +512,8 @@ class ProfileDetails(QtWidgets.QWidget):
         splitter.setStyleSheet("background-color: #999999")
         self.layout.addWidget(splitter)
 
-        advanced_section = QtWidgets.QVBoxLayout(self)
+        # advanced_section = QtWidgets.QVBoxLayout(self)
+        advanced_section = QtWidgets.QVBoxLayout()
         advanced_section.addWidget(QtWidgets.QLabel(t("Advanced Options")))
         for k, v in profile.advanced_options.model_dump().items():
             if k.endswith("_index"):
@@ -526,4 +528,4 @@ class ProfileDetails(QtWidgets.QWidget):
         self.layout.addLayout(advanced_section)
 
         self.setMinimumWidth(780)
-        self.setLayout(self.layout)
+        # self.setLayout(self.layout)
