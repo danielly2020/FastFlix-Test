@@ -805,12 +805,12 @@ class Main(QtWidgets.QWidget):
 
         layout = QtWidgets.QHBoxLayout()
 
-        reset = QtWidgets.QPushButton(QtGui.QIcon(self.get_icon("undo")), "")
-        reset.setIconSize(QtCore.QSize(12, 12))
-        reset.clicked.connect(self.reset_time)
-        reset.setFixedWidth(15)
-        reset.setStyleSheet(reset_button_style)
-        self.buttons.append(reset)
+        # reset = QtWidgets.QPushButton(QtGui.QIcon(self.get_icon("undo")), "")
+        # reset.setIconSize(QtCore.QSize(12, 12))
+        # reset.clicked.connect(self.reset_time)
+        # reset.setFixedWidth(15)
+        # reset.setStyleSheet(reset_button_style)
+        # self.buttons.append(reset)
 
         self.widgets.start_time, start_layout = self.build_hoz_int_field(
             f"{t('StartTime')} ",
@@ -824,6 +824,11 @@ class Main(QtWidgets.QWidget):
 
         self.widgets.start_time.textChanged.connect(lambda: self.page_update())
         self.widgets.end_time.textChanged.connect(lambda: self.page_update())
+        
+        reset = QtWidgets.QPushButton(t("Reset"))
+        reset.clicked.connect(self.reset_time)
+        self.buttons.append(reset)
+
         self.widgets.fast_time = QtWidgets.QComboBox()
         self.widgets.fast_time.addItems(["fast", "exact"])
         self.widgets.fast_time.setCurrentIndex(0)
@@ -837,7 +842,7 @@ class Main(QtWidgets.QWidget):
         # label = QtWidgets.QLabel(t("Trim"))
         # label.setMaximumHeight(40)
         # layout.addWidget(label, alignment=QtCore.Qt.AlignLeft)
-        layout.addWidget(reset, alignment=QtCore.Qt.AlignTop)
+        layout.addWidget(reset, alignment=QtCore.Qt.AlignRight)
         layout.addStretch(1)
         layout.addLayout(start_layout)
         layout.addLayout(end_layout)
@@ -935,16 +940,17 @@ class Main(QtWidgets.QWidget):
         label = QtWidgets.QLabel(t("Crop"), alignment=(QtCore.Qt.AlignBottom | QtCore.Qt.AlignRight))
 
         auto_crop = QtWidgets.QPushButton(t("Auto"))
-        auto_crop.setMaximumHeight(40)
-        auto_crop.setFixedWidth(50)
+        # auto_crop.setMaximumHeight(40)
+        # auto_crop.setFixedWidth(50)
         auto_crop.setToolTip(t("Automatically detect black borders"))
         auto_crop.clicked.connect(self.get_auto_crop)
         self.buttons.append(auto_crop)
 
-        reset = QtWidgets.QPushButton(QtGui.QIcon(self.get_icon("undo")), "")
-        reset.setIconSize(QtCore.QSize(12, 12))
-        reset.setStyleSheet(reset_button_style)
-        reset.setFixedWidth(15)
+        # reset = QtWidgets.QPushButton(QtGui.QIcon(self.get_icon("undo")), "")
+        # reset.setIconSize(QtCore.QSize(12, 12))
+        reset = QtWidgets.QPushButton(t("Reset"))
+        # reset.setStyleSheet(reset_button_style)
+        # reset.setFixedWidth(15)
         reset.clicked.connect(self.reset_crop)
         self.buttons.append(reset)
 
@@ -954,11 +960,12 @@ class Main(QtWidgets.QWidget):
         l2 = QtWidgets.QVBoxLayout()
         l2.addWidget(auto_crop, alignment=(QtCore.Qt.AlignTop | QtCore.Qt.AlignRight))
 
-        reset_layout = QtWidgets.QHBoxLayout()
-        reset_layout.addWidget(QtWidgets.QLabel(t("Reset")))
-        reset_layout.addWidget(reset)
+        # reset_layout = QtWidgets.QHBoxLayout()
+        # reset_layout.addWidget(QtWidgets.QLabel(t("Reset")))
+        # reset_layout.addWidget(reset)
 
-        l2.addLayout(reset_layout)
+        # l2.addLayout(reset_layout)
+        l2.addLayout(reset)
         l2.addStretch(1)
 
         crop_layout.addLayout(crop_top_layout)

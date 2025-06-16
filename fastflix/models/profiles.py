@@ -181,3 +181,4 @@ class Profile(BaseModel):
     vaapi_hevc: Optional[VAAPIHEVCSettings] = None
     vaapi_vp9: Optional[VAAPIVP9Settings] = None
     vaapi_mpeg2: Optional[VAAPIMPEG2Settings] = None
+    modify_settings: Optional[ModifySettings] = None
