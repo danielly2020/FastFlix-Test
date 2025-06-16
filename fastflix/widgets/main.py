@@ -827,7 +827,7 @@ class Main(QtWidgets.QWidget):
         
         reset = QtWidgets.QPushButton(t("Reset"))
         # reset.setMaximumHeight(40)
-        reset.setMaximumHeight(35)
+        reset.setMaximumHeight(27)
         reset.clicked.connect(self.reset_time)
         self.buttons.append(reset)
 
@@ -851,10 +851,14 @@ class Main(QtWidgets.QWidget):
         layout.addWidget(QtWidgets.QLabel(" "))
         layout.addWidget(reset, alignment=QtCore.Qt.AlignLeft)
         layout.addWidget(self.widgets.fast_time, QtCore.Qt.AlignRight)
-        # layout.addStretch(1)
+        layout.addStretch(1)
 
         group_box.setLayout(layout)
         return group_box
+
+        print("Reset button size:", reset.size())
+        print("Reset button sizeHint:", reset.sizeHint())
+        print("Reset button minimumSizeHint:", reset.minimumSizeHint())
 
     def reset_time(self):
         self.widgets.start_time.setText(self.number_to_time(0))
@@ -945,7 +949,7 @@ class Main(QtWidgets.QWidget):
 
         auto_crop = QtWidgets.QPushButton(t("Auto"))
         # auto_crop.setMaximumHeight(40)
-        auto_crop.setMaximumHeight(35)
+        auto_crop.setMaximumHeight(27)
         auto_crop.setToolTip(t("Automatically detect black borders"))
         auto_crop.clicked.connect(self.get_auto_crop)
         self.buttons.append(auto_crop)
@@ -953,7 +957,7 @@ class Main(QtWidgets.QWidget):
         # reset = QtWidgets.QPushButton(QtGui.QIcon(self.get_icon("undo")), "")
         # reset.setIconSize(QtCore.QSize(12, 12))
         reset = QtWidgets.QPushButton(t("Reset"))
-        reset.setMaximumHeight(35)
+        reset.setMaximumHeight(27)
         # reset.setStyleSheet(reset_button_style)
         # reset.setFixedWidth(15)
         reset.clicked.connect(self.reset_crop)
