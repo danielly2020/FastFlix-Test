@@ -827,10 +827,13 @@ class Main(QtWidgets.QWidget):
         
         reset = QtWidgets.QPushButton(t("Reset"))
         # reset.setMaximumHeight(40)
-        reset.setStyleSheet(reset_button_style)
+        reset.setStyleSheet("padding: 0;")
         reset.setFixedHeight(30)
         reset.clicked.connect(self.reset_time)
         self.buttons.append(reset)
+        print("Reset button size:", reset.size())
+        print("Reset button sizeHint:", reset.sizeHint())
+        print("Reset button minimumSizeHint:", reset.minimumSizeHint())
 
         self.widgets.fast_time = QtWidgets.QComboBox()
         self.widgets.fast_time.addItems(["fast", "exact"])
@@ -856,10 +859,6 @@ class Main(QtWidgets.QWidget):
 
         group_box.setLayout(layout)
         return group_box
-
-        print("Reset button size:", reset.size())
-        print("Reset button sizeHint:", reset.sizeHint())
-        print("Reset button minimumSizeHint:", reset.minimumSizeHint())
 
     def reset_time(self):
         self.widgets.start_time.setText(self.number_to_time(0))
@@ -950,7 +949,7 @@ class Main(QtWidgets.QWidget):
 
         auto_crop = QtWidgets.QPushButton(t("Auto"))
         # auto_crop.setMaximumHeight(40)
-        auto_crop.setStyleSheet(reset_button_style)
+        auto_crop.setStyleSheet("padding: 0;")
         auto_crop.setFixedHeight(30)
         auto_crop.setToolTip(t("Automatically detect black borders"))
         auto_crop.clicked.connect(self.get_auto_crop)
@@ -960,7 +959,7 @@ class Main(QtWidgets.QWidget):
         # reset.setIconSize(QtCore.QSize(12, 12))
         reset = QtWidgets.QPushButton(t("Reset"))
         # reset.setMaximumHeight(40)
-        reset.setStyleSheet(reset_button_style)
+        reset.setStyleSheet("padding: 0;")
         reset.setFixedHeight(30)
         reset.clicked.connect(self.reset_crop)
         self.buttons.append(reset)
