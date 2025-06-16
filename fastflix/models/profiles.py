@@ -33,6 +33,7 @@ from fastflix.models.encode import (
     VAAPIHEVCSettings,
     VAAPIVP9Settings,
     VAAPIMPEG2Settings,
+    ModifySettings,
 )
 
 
