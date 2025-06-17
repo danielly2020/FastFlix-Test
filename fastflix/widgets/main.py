@@ -829,7 +829,6 @@ class Main(QtWidgets.QWidget):
         # reset.setMaximumHeight(40)
         reset.setStyleSheet("padding-top: 0; padding-bottom: 0;")
         reset.setFixedHeight(30)
-        reset.setAlignment(Qt.AlignCenter)
         reset.clicked.connect(self.reset_time)
         self.buttons.append(reset)
 
@@ -990,7 +989,6 @@ class Main(QtWidgets.QWidget):
         # auto_crop.setMaximumHeight(40)
         auto_crop.setStyleSheet("padding-top: 0; padding-bottom: 0;")
         auto_crop.setFixedHeight(40)
-        auto_crop.setAlignment(Qt.AlignCenter)
         auto_crop.setToolTip(t("Automatically detect black borders"))
         auto_crop.clicked.connect(self.get_auto_crop)
         self.buttons.append(auto_crop)
@@ -1001,7 +999,6 @@ class Main(QtWidgets.QWidget):
         # reset.setMaximumHeight(40)
         reset.setStyleSheet("padding-top: 0; padding-bottom: 0;")
         reset.setFixedHeight(40)
-        reset.setAlignment(Qt.AlignCenter)
         reset.clicked.connect(self.reset_crop)
         self.buttons.append(reset)
 
@@ -1009,7 +1006,8 @@ class Main(QtWidgets.QWidget):
         l1.addWidget(label, alignment=(QtCore.Qt.AlignTop | QtCore.Qt.AlignLeft))
 
         l2 = QtWidgets.QVBoxLayout()
-        l2.addWidget(auto_crop, alignment=(QtCore.Qt.AlignTop | QtCore.Qt.AlignRight))
+        # l2.addWidget(auto_crop, alignment=(QtCore.Qt.AlignTop | QtCore.Qt.AlignRight))
+        l2.addWidget(auto_crop, alignment=(QtCore.Qt.AlignCenter))
 
         # reset_layout = QtWidgets.QHBoxLayout()
         # reset_layout.addWidget(QtWidgets.QLabel(t("Reset")))
