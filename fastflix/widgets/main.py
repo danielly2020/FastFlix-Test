@@ -827,8 +827,9 @@ class Main(QtWidgets.QWidget):
         
         reset = QtWidgets.QPushButton(t("Reset"))
         # reset.setMaximumHeight(40)
-        reset.setStyleSheet("padding-top: 0; padding-bottom: 0; margin-top: 0;")
+        reset.setStyleSheet("padding-top: 0; padding-bottom: 0;")
         reset.setFixedHeight(30)
+        reset.setAlignment(Qt.AlignCenter)
         reset.clicked.connect(self.reset_time)
         self.buttons.append(reset)
 
@@ -952,8 +953,19 @@ class Main(QtWidgets.QWidget):
         print("auto_crop of the maximum size:", auto_crop.maximumSize())
     
         print("\nControl tree structure:")
-        print_widget_tree(auto_crop.parent())
-    
+        self.print_widget_tree(auto_crop.parent())
+
+    def print_widget_tree(self, widget, level=0):
+        indent = "  " * level
+        print(f"{indent}{widget.__class__.__name__} (objectName: {widget.objectName()})")
+        if widget.layout() is not None:
+            print(f"{indent}  layout: {widget.layout().__class__.__name__}")
+            for i in range(widget.layout().count()):
+                item = widget.layout().itemAt(i)
+                if item.widget() is not None:
+                    self.print_widget_tree(item.widget(), level + 1)
+                elif item.spacerItem() is not None:
+                    print(f"{indent}  SpacerItem")
 
     def init_crop(self):
         crop_box = QtWidgets.QGroupBox()
@@ -977,7 +989,8 @@ class Main(QtWidgets.QWidget):
         auto_crop = QtWidgets.QPushButton(t("Auto"))
         # auto_crop.setMaximumHeight(40)
         auto_crop.setStyleSheet("padding-top: 0; padding-bottom: 0;")
-        auto_crop.setFixedHeight(35)
+        auto_crop.setFixedHeight(40)
+        auto_crop.setAlignment(Qt.AlignCenter)
         auto_crop.setToolTip(t("Automatically detect black borders"))
         auto_crop.clicked.connect(self.get_auto_crop)
         self.buttons.append(auto_crop)
@@ -987,7 +1000,8 @@ class Main(QtWidgets.QWidget):
         reset = QtWidgets.QPushButton(t("Reset"))
         # reset.setMaximumHeight(40)
         reset.setStyleSheet("padding-top: 0; padding-bottom: 0;")
-        reset.setFixedHeight(35)
+        reset.setFixedHeight(40)
+        reset.setAlignment(Qt.AlignCenter)
         reset.clicked.connect(self.reset_crop)
         self.buttons.append(reset)
 
