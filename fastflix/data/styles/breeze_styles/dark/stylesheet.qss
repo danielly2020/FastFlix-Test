@@ -413,7 +413,7 @@ QLineEdit
     padding: 0.23em;
     border-style: solid;
     border: 0.05em solid #76797c;
-    border-radius: 0.09em;
+    border-radius: 0.4em;
     color: #eff0f1;
 }
 
@@ -744,7 +744,7 @@ QPushButton
     background-color: #31363b;
     border: 0.05em solid #76797c;
     padding: 0.23em;
-    border-radius: 0.09em;
+    border-radius: 0.4em;
     outline: none;
     min-height: 1.1em;
 }
@@ -773,7 +773,7 @@ QPushButton:disabled
     padding-bottom: 0.23em;
     padding-left: 1ex;
     padding-right: 1ex;
-    border-radius: 0.05em;
+    border-radius: 0.4em;
     color: #454545;
 }
 
@@ -793,7 +793,7 @@ QPushButton:pressed
 QComboBox
 {
     border: 0.05em solid #76797c;
-    border-radius: 0.09em;
+    border-radius: 0.4em;
     padding: 0.23em;
     min-width: 2.5em;
 }
