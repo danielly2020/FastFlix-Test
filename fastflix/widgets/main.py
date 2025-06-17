@@ -925,7 +925,7 @@ class Main(QtWidgets.QWidget):
 
         self.page_update(build_thumbnail=False)
 
-    def print_auto_crop_layout_info(auto_crop):
+    def print_auto_crop_layout_info(self, auto_crop):
         parent_widget = auto_crop.parent()
         print("The parent control of auto_crop:", parent_widget)
     
@@ -1015,7 +1015,7 @@ class Main(QtWidgets.QWidget):
         outer.addLayout(l2)
         crop_box.setLayout(outer)
 
-        print_auto_crop_layout_info(auto_crop)
+        self.print_auto_crop_layout_info(auto_crop)
 
         return crop_box
 
