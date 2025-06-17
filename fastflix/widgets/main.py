@@ -827,7 +827,7 @@ class Main(QtWidgets.QWidget):
         
         reset = QtWidgets.QPushButton(t("Reset"))
         # reset.setMaximumHeight(40)
-        reset.setStyleSheet("padding-top: 0; padding-bottom: 0; text-align: center;")
+        reset.setStyleSheet("padding-top: 0; padding-bottom: 0; margin-top: 0;")
         reset.setFixedHeight(30)
         reset.clicked.connect(self.reset_time)
         self.buttons.append(reset)
@@ -946,8 +946,8 @@ class Main(QtWidgets.QWidget):
 
         auto_crop = QtWidgets.QPushButton(t("Auto"))
         # auto_crop.setMaximumHeight(40)
-        auto_crop.setStyleSheet("padding-top: 0; padding-bottom: 0; text-align: center;")
-        auto_crop.setFixedHeight(32)
+        auto_crop.setStyleSheet("padding-top: 0; padding-bottom: 0; margin-top: 0;")
+        auto_crop.setFixedHeight(35)
         auto_crop.setToolTip(t("Automatically detect black borders"))
         auto_crop.clicked.connect(self.get_auto_crop)
         self.buttons.append(auto_crop)
@@ -956,8 +956,8 @@ class Main(QtWidgets.QWidget):
         # reset.setIconSize(QtCore.QSize(12, 12))
         reset = QtWidgets.QPushButton(t("Reset"))
         # reset.setMaximumHeight(40)
-        reset.setStyleSheet("padding-top: 0; padding-bottom: 0; text-align: center;")
-        reset.setFixedHeight(32)
+        reset.setStyleSheet("padding-top: 0; padding-bottom: 0; margin-top: 0;")
+        reset.setFixedHeight(35)
         reset.clicked.connect(self.reset_crop)
         self.buttons.append(reset)
 
