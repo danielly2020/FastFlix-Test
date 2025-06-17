@@ -946,7 +946,7 @@ class Main(QtWidgets.QWidget):
 
         auto_crop = QtWidgets.QPushButton(t("Auto"))
         # auto_crop.setMaximumHeight(40)
-        auto_crop.setStyleSheet("padding-top: 0; padding-bottom: 0; margin-top: 0;")
+        auto_crop.setStyleSheet("padding-top: 0; padding-bottom: 0;")
         auto_crop.setFixedHeight(35)
         auto_crop.setToolTip(t("Automatically detect black borders"))
         auto_crop.clicked.connect(self.get_auto_crop)
@@ -956,7 +956,7 @@ class Main(QtWidgets.QWidget):
         # reset.setIconSize(QtCore.QSize(12, 12))
         reset = QtWidgets.QPushButton(t("Reset"))
         # reset.setMaximumHeight(40)
-        reset.setStyleSheet("padding-top: 0; padding-bottom: 0; margin-top: 0;")
+        reset.setStyleSheet("padding-top: 0; padding-bottom: 0;")
         reset.setFixedHeight(35)
         reset.clicked.connect(self.reset_crop)
         self.buttons.append(reset)
@@ -987,6 +987,37 @@ class Main(QtWidgets.QWidget):
 
         return crop_box
 
+def print_auto_crop_layout_info(auto_crop):
+    parent_widget = auto_crop.parent()
+    print("The parent control of auto_crop:", parent_widget)
+    
+    if parent_widget.layout() is not None:
+        print("The parent control of auto_crop uses layout:", parent_widget.layout())
+        
+        layout = parent_widget.layout()
+        for i in range(layout.count()):
+            item = layout.itemAt(i)
+            if item.widget() == auto_crop:
+                print(f"auto_crop Index in the layout: {i}")
+                print(f"Alignment: {layout.alignment(auto_crop)}")
+                break
+    
+    size_policy = auto_crop.sizePolicy()
+    print("auto_crop of the horizontal strategy:", size_policy.horizontalPolicy())
+    print("auto_crop of the vertical strategy:", size_policy.verticalPolicy())
+    
+    size_hint = auto_crop.sizeHint()
+    print("auto_crop recommended width:", size_hint.width())
+    print("auto_crop recommended height:", size_hint.height())
+    
+    print("auto_crop of the minimum size:", auto_crop.minimumSize())
+    print("auto_crop of the maximum size:", auto_crop.maximumSize())
+    
+    print("\nControl tree structure:")
+    print_widget_tree(auto_crop.parent())
+
+print_auto_crop_layout_info(auto_crop)
+    
     def reset_crop(self):
         self.loading_video = True
         self.widgets.crop.top.setText("0")
