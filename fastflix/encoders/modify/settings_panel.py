@@ -78,7 +78,7 @@ class Modify(SettingPanel):
             self, t("Select Audio Track"), "", t("Audio Files (*.mp3 *.aac *.wav *.flac);;All Files (*)")
         )
         if file_path:
-            logger.info(f"Selected audio track: {file_path}")
+            logger.info(f"{t('Selected audio track')}: {file_path}")
             self.add_audio_track_file_path.setText(file_path)
         self.main.build_commands()
 
@@ -87,7 +87,7 @@ class Modify(SettingPanel):
             self, t("Select Subtitle Track"), "", t("Subtitle Files (*.srt *.ass *.vtt *.ssa);;All Files (*)")
         )
         if file_path:
-            logger.info(f"Selected subtitle track: {file_path}")
+            logger.info(f"{t('Selected subtitle track')}: {file_path}")
             self.add_sub_track_file_path.setText(file_path)
         self.main.build_commands()
 

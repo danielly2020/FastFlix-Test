@@ -985,38 +985,38 @@ class Main(QtWidgets.QWidget):
         outer.addLayout(l2)
         crop_box.setLayout(outer)
 
+        print_auto_crop_layout_info(auto_crop)
+
         return crop_box
 
-def print_auto_crop_layout_info(auto_crop):
-    parent_widget = auto_crop.parent()
-    print("The parent control of auto_crop:", parent_widget)
+    def print_auto_crop_layout_info(auto_crop):
+        parent_widget = auto_crop.parent()
+        print("The parent control of auto_crop:", parent_widget)
     
-    if parent_widget.layout() is not None:
-        print("The parent control of auto_crop uses layout:", parent_widget.layout())
+        if parent_widget.layout() is not None:
+            print("The parent control of auto_crop uses layout:", parent_widget.layout())
         
-        layout = parent_widget.layout()
-        for i in range(layout.count()):
-            item = layout.itemAt(i)
-            if item.widget() == auto_crop:
-                print(f"auto_crop Index in the layout: {i}")
-                print(f"Alignment: {layout.alignment(auto_crop)}")
-                break
+            layout = parent_widget.layout()
+            for i in range(layout.count()):
+                item = layout.itemAt(i)
+                if item.widget() == auto_crop:
+                    print(f"auto_crop Index in the layout: {i}")
+                    print(f"Alignment: {layout.alignment(auto_crop)}")
+                    break
     
-    size_policy = auto_crop.sizePolicy()
-    print("auto_crop of the horizontal strategy:", size_policy.horizontalPolicy())
-    print("auto_crop of the vertical strategy:", size_policy.verticalPolicy())
+        size_policy = auto_crop.sizePolicy()
+        print("auto_crop of the horizontal strategy:", size_policy.horizontalPolicy())
+        print("auto_crop of the vertical strategy:", size_policy.verticalPolicy())
     
-    size_hint = auto_crop.sizeHint()
-    print("auto_crop recommended width:", size_hint.width())
-    print("auto_crop recommended height:", size_hint.height())
+        size_hint = auto_crop.sizeHint()
+        print("auto_crop recommended width:", size_hint.width())
+        print("auto_crop recommended height:", size_hint.height())
     
-    print("auto_crop of the minimum size:", auto_crop.minimumSize())
-    print("auto_crop of the maximum size:", auto_crop.maximumSize())
+        print("auto_crop of the minimum size:", auto_crop.minimumSize())
+        print("auto_crop of the maximum size:", auto_crop.maximumSize())
     
-    print("\nControl tree structure:")
-    print_widget_tree(auto_crop.parent())
-
-print_auto_crop_layout_info(auto_crop)
+        print("\nControl tree structure:")
+        print_widget_tree(auto_crop.parent())
     
     def reset_crop(self):
         self.loading_video = True
