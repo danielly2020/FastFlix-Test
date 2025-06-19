@@ -2846,7 +2846,7 @@ Keep FastFlix Open:
   fra: Gardez FastFlix ouvert
   ita: Tenere aperto FastFlix
   spa: Mantener FastFlix abierto
-  chs: 保持FastFlix运行
+  chs: 保持运行
   jpn: FastFlixのオープンを維持する
   rus: Держите FastFlix открытым
   por: Manter FastFlix aberto
@@ -8797,7 +8797,7 @@ Video Track Title:
   fra: Titre de la piste vidéo
   ita: Titolo traccia video
   spa: Título de la pista de vídeo
-  chs: 视频曲目名称
+  chs: 视频轨道名称
   jpn: ビデオトラックタイトル
   rus: Название видеодорожки
   por: Título da faixa de vídeo
@@ -11207,7 +11207,7 @@ with config:
 Checking for newer versions of FastFlix:
   chs: 正在检查 FastFlix 的新版本
 Could not extract Windows version from:
-  chs: 无法从中提取Windows版本
+  chs: 无法从中获取Windows版本
 please report this message:
   chs: 请报告此问题
 Detected legacy Windows version:
@@ -11384,3 +11384,73 @@ Selected audio track:
   chs: 所选音轨
 Selected subtitle track:
   chs: 所选字幕轨
+Subtitle Track:
+  chs: 字幕轨
+There is an existing burn-in track, only one can be enabled at a time:
+  chs: 已存在一条内嵌轨道，一次只能启用一条轨道
+Could not open queue:
+  chs: 无法打开队列
+In:
+  chs: 无法将
+could not replace:
+  chs: 中的
+with:
+  chs: 替换为
+Could not save HDR10+ metadata file to queue recovery location, removing HDR10+:
+  chs: 无法将HDR10+元数据文件保存到队列恢复位置，因此删除HDR10+
+Could not save cover to queue recovery location, removing cover:
+  chs: 无法将封面保存到队列恢复位置，因此删除封面
+Could not save queue!:
+  chs: 无法保存队列！
+Should not have happened, could not reload from queue:
+  chs: 不应该发生，无法从队列重新加载
+Skipping:
+  chs: 跳过
+as it is not a video/image file:
+  chs: 因为它不是一个视频或图像文件
+Evaluating:
+  chs: 评估
+Failed to find datetime for temp folder:
+  chs: 找不到临时文件夹的日期时间
+deleting!:
+  chs: 删除！
+Could not determine channel layout, defaulting to stereo, please manually specify:
+  chs: 无法确定声道布局，默认为立体声，请手动指定
+Channel layout not found for:
+  chs: 未找到此轨道的声道布局
+instance not found at:
+  chs: 此名称的实例未在此处找到
+not updated:
+  chs: 未更新
+Could not load queue as it is outdated or malformed. Deleting for safety.:
+  chs: 无法加载队列，因为它已过时或格式错误。为安全起见，正在删除。
+FastFlix Queue File:
+  chs: 队列文件
+No matching video found to remove from queue:
+  chs: 未找到要从队列中删除的匹配视频
+queue resumed, will I send next?:
+  chs: 队列已恢复，我接下来要发送吗？
+Can not find video:
+  chs: 在队列中找不到视频
+in queue to update its status:
+  chs: 以更新其状态
+Running after done action:
+  chs: 完成操作后运行
+Invalid brightness value:
+  chs: 亮度值无效
+Invalid saturation value:
+  chs: 饱和度值无效
+Invalid contrast value:
+  chs: 对比度值无效
+Could not extract subtitle track:
+  chs: 未能提取字幕轨道
+'No opt provided for widget %s %s':
+  chs: '没有为小部件提供选项 %s %s'
+Profile not set properly as we dont have encoder:
+  chs: 配置文件设置不正确，因为我们没有编码器
+Could not find the input file, does it exist at:
+  chs: 找不到输入文件，是否存在于
+Autocrop did not return crop points, please use a ffmpeg version with cropdetect filter:
+  chs: 自动裁切未返回裁切点，请使用带有cropdetect滤镜的ffmpeg版本
+Could not get:
+  chs: 无法获取

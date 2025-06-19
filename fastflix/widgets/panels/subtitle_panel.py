@@ -117,13 +117,14 @@ class Subtitle(QtWidgets.QTabWidget):
         # self.movie.start()
 
         self.disposition_widget = Disposition(
-            app=self.app, parent=self, track_name=f"Subtitle Track {index}", track_index=index, audio=False
+            app=self.app, parent=self, track_name=f"{t('Subtitle Track')} {index}", track_index=index, audio=False
         )
         # self.set_dis_button()
         self.widgets.disposition.clicked.connect(self.disposition_widget.show)
 
         disposition_layout = QtWidgets.QHBoxLayout()
-        disposition_layout.addWidget(QtWidgets.QLabel(t("Dispositions")))
+        # disposition_layout.addWidget(QtWidgets.QLabel(t("Dispositions")))
+        disposition_layout.addWidget(QtWidgets.QLabel(""))
         disposition_layout.addWidget(self.widgets.disposition)
 
         self.grid = QtWidgets.QGridLayout()

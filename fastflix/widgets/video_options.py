@@ -250,7 +250,7 @@ class VideoOptions(QtWidgets.QTabWidget):
         try:
             self.current_settings.reload()
         except Exception:
-            logger.exception("Should not have happened, could not reload from queue")
+            logger.exception(t("Should not have happened, could not reload from queue"))
             return
         if self.app.fastflix.current_video:
             streams = copy.deepcopy(self.app.fastflix.current_video.streams)
@@ -268,7 +268,7 @@ class VideoOptions(QtWidgets.QTabWidget):
                 self.advanced.reset(settings=settings)
                 self.info.reset()
             except Exception:
-                logger.exception("Should not have happened, could not reload from queue")
+                logger.exception(t("Should not have happened, could not reload from queue"))
                 return
         self.debug.reset()
 

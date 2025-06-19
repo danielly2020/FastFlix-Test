@@ -197,7 +197,7 @@ class ConcatWindow(QtWidgets.QWidget):
                 if not data:
                     raise Exception()
             except Exception:
-                logger.warning(f"Skipping {file.name} as it is not a video/image file")
+                logger.warning(f"{t('Skipping')} {file.name} {t('as it is not a video/image file')}")
                 bad_items.append(file.name)
             else:
                 list_of_items.append(data)
@@ -212,7 +212,7 @@ class ConcatWindow(QtWidgets.QWidget):
                     continue
                 tasks.append(
                     Task(
-                        f"Evaluating {file.name}",
+                        f"{t('Evaluating')} {file.name}",
                         command=check_to_add,
                         kwargs={"file": file, "list_of_items": items, "bad_items": skipped},
                     )

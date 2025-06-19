@@ -67,7 +67,7 @@ class ExtractSubtitleSRT(QtCore.QThread):
                     "-i",
                     self.main.input_video,
                     "-map",
-                    f"0:{self.index}",
+                    f"0:s:{self.index}",
                     "-c",
                     "srt",
                     "-f",

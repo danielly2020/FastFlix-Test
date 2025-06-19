@@ -664,7 +664,7 @@ class Main(QtWidgets.QWidget):
                 self.video_options.update_profile()
             except KeyError:
                 logger.error(
-                    f"Profile not set properly as we don't have encoder: {self.app.fastflix.config.opt('encoder')}"
+                    f"{t('Profile not set properly as we dont have encoder')}: {self.app.fastflix.config.opt('encoder')}"
                 )
 
             self.widgets.remove_hdr.setChecked(self.app.fastflix.config.opt("remove_hdr"))
@@ -827,7 +827,7 @@ class Main(QtWidgets.QWidget):
         
         reset = QtWidgets.QPushButton(t("Reset"))
         # reset.setMaximumHeight(40)
-        reset.setStyleSheet("padding-top: 0; padding-bottom: 0;")
+        reset.setStyleSheet("padding-top: 0; padding-bottom: 1px;")
         reset.setFixedHeight(30)
         reset.clicked.connect(self.reset_time)
         self.buttons.append(reset)
@@ -925,47 +925,6 @@ class Main(QtWidgets.QWidget):
 
         self.page_update(build_thumbnail=False)
 
-    def print_auto_crop_layout_info(self, auto_crop):
-        parent_widget = auto_crop.parent()
-        print("The parent control of auto_crop:", parent_widget)
-    
-        if parent_widget.layout() is not None:
-            print("The parent control of auto_crop uses layout:", parent_widget.layout())
-        
-            layout = parent_widget.layout()
-            for i in range(layout.count()):
-                item = layout.itemAt(i)
-                if item.widget() == auto_crop:
-                    print(f"auto_crop Index in the layout: {i}")
-                    print(f"Alignment: {layout.alignment(auto_crop)}")
-                    break
-    
-        size_policy = auto_crop.sizePolicy()
-        print("auto_crop of the horizontal strategy:", size_policy.horizontalPolicy())
-        print("auto_crop of the vertical strategy:", size_policy.verticalPolicy())
-    
-        size_hint = auto_crop.sizeHint()
-        print("auto_crop recommended width:", size_hint.width())
-        print("auto_crop recommended height:", size_hint.height())
-    
-        print("auto_crop of the minimum size:", auto_crop.minimumSize())
-        print("auto_crop of the maximum size:", auto_crop.maximumSize())
-    
-        print("\nControl tree structure:")
-        self.print_widget_tree(auto_crop.parent())
-
-    def print_widget_tree(self, widget, level=0):
-        indent = "  " * level
-        print(f"{indent}{widget.__class__.__name__} (objectName: {widget.objectName()})")
-        if widget.layout() is not None:
-            print(f"{indent}  layout: {widget.layout().__class__.__name__}")
-            for i in range(widget.layout().count()):
-                item = widget.layout().itemAt(i)
-                if item.widget() is not None:
-                    self.print_widget_tree(item.widget(), level + 1)
-                elif item.spacerItem() is not None:
-                    print(f"{indent}  SpacerItem")
-
     def init_crop(self):
         crop_box = QtWidgets.QGroupBox()
         crop_box.setMinimumWidth(400)
@@ -987,8 +946,7 @@ class Main(QtWidgets.QWidget):
 
         auto_crop = QtWidgets.QPushButton(t("Auto"))
         auto_crop.setMaximumHeight(40)
-        auto_crop.setStyleSheet("padding-top: 0; padding-bottom: 3px;")
-        # auto_crop.setFixedHeight(40)
+        auto_crop.setStyleSheet("padding-top: 0; padding-bottom: 2px;")
         auto_crop.setToolTip(t("Automatically detect black borders"))
         auto_crop.clicked.connect(self.get_auto_crop)
         self.buttons.append(auto_crop)
@@ -997,8 +955,7 @@ class Main(QtWidgets.QWidget):
         # reset.setIconSize(QtCore.QSize(12, 12))
         reset = QtWidgets.QPushButton(t("Reset"))
         reset.setMaximumHeight(40)
-        reset.setStyleSheet("padding-top: 0; padding-bottom: 3px;")
-        # reset.setFixedHeight(40)
+        reset.setStyleSheet("padding-top: 0; padding-bottom: 2px;")
         reset.clicked.connect(self.reset_crop)
         self.buttons.append(reset)
 
@@ -1186,14 +1143,14 @@ class Main(QtWidgets.QWidget):
 
         self.input_video = Path(clean_file_string(filename[0]))
         if not self.input_video.exists():
-            logger.error(f"Could not find the input file, does it exist at: {self.input_video}")
+            logger.error(f"{t('Could not find the input file, does it exist at')}: {self.input_video}")
             return
         self.source_video_path_widget.setText(str(self.input_video))
         self.video_path_widget.setText(str(self.input_video))
         try:
             self.update_video_info()
         except Exception:
-            logger.exception(f"Could not load video {self.input_video}")
+            logger.exception(f"{t('Could not load video')} {self.input_video}")
             self.video_path_widget.setText("")
             self.output_video_path_widget.setText("")
             self.output_video_path_widget.setDisabled(True)
@@ -1229,7 +1186,7 @@ class Main(QtWidgets.QWidget):
                 try:
                     self.update_video_info(hide_progress=True)
                 except Exception:
-                    logger.exception(f"Could not load video {self.input_video}")
+                    logger.exception(f"{t('Could not load video')} {self.input_video}")
                 else:
                     self.page_update(build_thumbnail=False)
                     self.add_to_queue()
@@ -1329,7 +1286,7 @@ class Main(QtWidgets.QWidget):
         ]
         ProgressBar(self.app, tasks)
         if not result_list:
-            logger.warning("Autocrop did not return crop points, please use a ffmpeg version with cropdetect filter")
+            logger.warning(t("Autocrop did not return crop points, please use a ffmpeg version with cropdetect filter"))
             return
 
         smallest = (self.app.fastflix.current_video.height + self.app.fastflix.current_video.width) * 2
@@ -1669,7 +1626,7 @@ class Main(QtWidgets.QWidget):
         try:
             return int(self.widgets.video_track.currentText().split(":", 1)[0])
         except Exception:
-            logger.exception("Could not get original_video_track")
+            logger.exception(f"{t('Could not get')} original_video_track")
             return 0
 
     @property

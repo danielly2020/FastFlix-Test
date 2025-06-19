@@ -445,12 +445,12 @@ class Settings(QtWidgets.QWidget):
         if not new_path.exists():
             which = shutil.which(str(new_path))
             if not which:
-                error_message(f"No {name} instance found at {new_path}, not updated")
-                raise FastFlixInternalException(f"No {name} instance found at {new_path}, not updated")
+                error_message(f"{name} {t('instance not found at')} {new_path}, {t('not updated')}")
+                raise FastFlixInternalException(f"{name} {t('instance not found at')} {new_path}, {t('not updated')}")
             return Path(which)
         if not new_path.is_file():
-            error_message(f"{new_path} is not a file")
-            raise FastFlixInternalException(f"No {name} instance found at {new_path}, not updated")
+            error_message(f"{new_path} {t('is not a file')}")
+            raise FastFlixInternalException(f"{name} {t('instance not found at')} {new_path}, {t('not updated')}")
         return new_path
 
     def update_ffmpeg(self, new_path):

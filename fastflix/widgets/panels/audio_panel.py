@@ -127,7 +127,7 @@ class Audio(QtWidgets.QTabWidget):
         self.widgets.disposition.setText(t("Dispositions"))
 
         label = QtWidgets.QLabel(f"{t('Title')}: ")
-        self.widgets.title.setFixedWidth(150)
+        self.widgets.title.setFixedWidth(250)
         title_layout = QtWidgets.QHBoxLayout()
         title_layout.addStretch(False)
         title_layout.addWidget(label, stretch=False)

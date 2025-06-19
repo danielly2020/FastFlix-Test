@@ -154,7 +154,7 @@ class SettingPanel(QtWidgets.QWidget):
             )
             self.opts[widget_name] = opt
         else:
-            logger.warning("No opt provided for widget %s %s", self.__class__.__name__, widget_name)
+            logger.warning(t("No opt provided for widget %s %s"), self.__class__.__name__, widget_name)
         self.widgets[widget_name].setCurrentIndex(default or 0)
         self.widgets[widget_name].setDisabled(not enabled)
         new_width = self.widgets[widget_name].minimumSizeHint().width() + 20
@@ -208,7 +208,7 @@ class SettingPanel(QtWidgets.QWidget):
             default = str(self.app.fastflix.config.encoder_opt(self.profile_name, opt)) or default
             self.opts[widget_name] = opt
         else:
-            logger.warning("No opt provided for widget %s %s", self.__class__.__name__, widget_name)
+            logger.warning(t("No opt provided for widget %s %s"), self.__class__.__name__, widget_name)
 
         self.widgets[widget_name].setText(default)
         self.widgets[widget_name].setDisabled(not enabled)

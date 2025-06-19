@@ -170,7 +170,7 @@ class AudioConversion(QtWidgets.QWidget):
                 self.downmix.setCurrentText(channel_layout)
             else:
                 guess = back_channel_list[self.audio_track.raw_info.get("channels")]
-                logger.warning(f"Channel layout not found for {self.audio_track.title}, guessing {guess}")
+                logger.warning(f"{t('Channel layout not found for')} {self.audio_track.title}, guessing {guess}")
                 self.downmix.setCurrentText(guess)
         except Exception:
             self.downmix.setCurrentIndex(2)
