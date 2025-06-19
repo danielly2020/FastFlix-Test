@@ -984,8 +984,6 @@ class Main(QtWidgets.QWidget):
         outer.addLayout(l2)
         crop_box.setLayout(outer)
 
-        self.print_auto_crop_layout_info(auto_crop)
-
         return crop_box
 
     def reset_crop(self):
