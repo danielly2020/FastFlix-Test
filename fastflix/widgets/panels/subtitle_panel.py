@@ -31,7 +31,7 @@ disposition_options = [
 
 subtitle_types = {
     "dvd_subtitle": "picture",
-    "hdmv_pgs_subtitle": "picture",
+    "hdmv_pgs_subtitle": "pgs",
     "dvdsub": "picture",
     "subrip": "text",
     "ssa": "text",
@@ -127,12 +127,13 @@ class Subtitle(QtWidgets.QTabWidget):
         disposition_layout.addWidget(self.widgets.disposition)
 
         self.grid = QtWidgets.QGridLayout()
+        self.grid.setVerticalSpacing(3)
         self.grid.addLayout(self.init_move_buttons(), 0, 0)
         self.grid.addWidget(self.widgets.track_number, 0, 1)
         self.grid.addWidget(self.widgets.title, 0, 2)
         self.grid.setColumnStretch(2, True)
         # if sub_track.subtitle_type == "text":
-        if sub_track.subtitle_type in ["text", "hdmv_pgs_subtitle"]:
+        if sub_track.subtitle_type in ["text", "pgs"]:
             self.grid.addWidget(self.widgets.extract, 0, 3)
             self.grid.addWidget(self.gif_label, 0, 3)
             self.gif_label.hide()
@@ -265,10 +266,10 @@ class SubtitleList(FlixList):
         top_layout.addStretch(1)
 
         self.remove_all_button = QtWidgets.QPushButton(t("Unselect All"))
-        self.remove_all_button.setFixedWidth(100)
+        self.remove_all_button.setFixedWidth(90)
         self.remove_all_button.clicked.connect(lambda: self.select_all(False))
         self.save_all_button = QtWidgets.QPushButton(t("Preserve All"))
-        self.save_all_button.setFixedWidth(100)
+        self.save_all_button.setFixedWidth(90)
         self.save_all_button.clicked.connect(lambda: self.select_all(True))
 
         top_layout.addWidget(self.remove_all_button)
