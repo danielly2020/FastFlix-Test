@@ -11454,3 +11454,13 @@ Autocrop did not return crop points, please use a ffmpeg version with cropdetect
   chs: 自动裁切未返回裁切点，请使用带有cropdetect滤镜的ffmpeg版本
 Could not get:
   chs: 无法获取
+Could not determine subtitle format for track:
+  chs: 无法确定此轨道的字幕格式
+skipping extraction:
+  chs: 跳过提取
+Could not probe subtitle track:
+  chs: 无法探测字幕轨道
+is not in SRT or ASS format, skipping extraction:
+  chs: 不是 SRT 或 ASS 格式，跳过提取
+Error checking subtitle format for track:
+  chs: 检查轨道字幕格式时出错
