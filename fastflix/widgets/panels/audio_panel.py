@@ -57,7 +57,7 @@ class Audio(QtWidgets.QTabWidget):
         self.index = index
         self.first = False
         self.last = False
-        self.setFixedHeight(60)
+        self.setFixedHeight(70)
         audio_track: AudioTrack = self.app.fastflix.current_video.audio_tracks[index]
 
         self.widgets = Box(

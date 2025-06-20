@@ -8510,7 +8510,7 @@ Unselect All:
   fra: Désélectionner tout
   ita: Deseleziona tutti
   spa: Deseleccionar todo
-  chs: 取消选择所有
+  chs: 取消保留
   jpn: すべて選択解除
   rus: Снять выбор всего
   por: Desmarcar tudo
@@ -8525,7 +8525,7 @@ Preserve All:
   fra: Préserver tout
   ita: Conserva tutti
   spa: Conservar todo
-  chs: 保存所有
+  chs: 全部保留
   jpn: 全て保留
   rus: Сохранить все
   por: Preservar tudo
@@ -11460,7 +11460,7 @@ skipping extraction:
   chs: 跳过提取
 Could not probe subtitle track:
   chs: 无法探测字幕轨道
-is not in SRT or ASS format, skipping extraction:
-  chs: 不是 SRT 或 ASS 格式，跳过提取
+is not in supported format (SRT, ASS, SSA, PGS), skipping extraction:
+  chs: 不是支持的格式(SRT, ASS, SSA, PGS)，跳过提取
 Error checking subtitle format for track:
   chs: 检查轨道字幕格式时出错

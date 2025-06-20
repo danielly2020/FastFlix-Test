@@ -62,20 +62,34 @@ class ExtractSubtitleSRT(QtCore.QThread):
             self.signal.emit()
             return
 
+        if subtitle_format == 'srt':
+            extension = 'srt'
+            output_args = ["-c", "srt", "-f", "srt"]
+        elif subtitle_format == 'ass':
+            extension = 'ass'
+            output_args = ["-c", "copy"]
+        elif subtitle_format == 'ssa':
+            extension = 'ssa'
+            output_args = ["-c", "copy"]
+        elif subtitle_format == 'hdmv_pgs_subtitle':
+            extension = 'sup'
+            output_args = ["-c", "copy"]
+        else:
+            self.main.thread_logging_signal.emit(
+                f'WARNING:{t("Subtitle Track")} {self.index} {t("is not in supported format (SRT, ASS, SSA, PGS), skipping extraction")}: {subtitle_format}'
+            )
+            self.signal.emit()
+            return
+
         # filename = str(Path(self.main.output_video).parent / f"{self.main.output_video}.{self.index}.srt").replace(
             # "\\", "/"
         # )
-        filename = str(Path(self.main.output_video).parent / f"{self.main.output_video}.{self.index}.{'srt' if subtitle_format == 'srt' else 'ass'}").replace(
+        filename = str(Path(self.main.output_video).parent / f"{self.main.output_video}.{self.index}.{extension}").replace(
             "\\", "/"
         )
         self.main.thread_logging_signal.emit(f'INFO:{t("Extracting subtitles to")} {filename}')
 
         try:
-            if subtitle_format == 'srt':
-                output_args = ["-c", "srt", "-f", "srt"]
-            elif subtitle_format == 'ass':
-                output_args = ["-c", "copy"]
-
             result = run(
                 [
                     self.app.fastflix.config.ffmpeg,
@@ -128,11 +142,17 @@ class ExtractSubtitleSRT(QtCore.QThread):
                 return None
             
             codec_name = result.stdout.strip().lower()
-            if codec_name in ['srt', 'ass']:
-                return codec_name
+            if codec_name in ['srt', 'subrip', 'xsub', 'webvtt', 'mov_text']:
+                return 'srt'
+            elif codec_name == 'ass':
+                return 'ass'
+            elif codec_name == 'ssa':
+                return 'ssa'
+            elif codec_name == 'hdmv_pgs_subtitle':
+                return 'hdmv_pgs_subtitle'
             else:
                 self.main.thread_logging_signal.emit(
-                    f'WARNING:{t("Subtitle track")} {self.index} {t("is not in SRT or ASS format, skipping extraction")}: {codec_name}'
+                    f'WARNING:{t("Subtitle Track")} {self.index} {t("is not in supported format (SRT, ASS, SSA, PGS), skipping extraction")}: {codec_name}'
                 )
                 return None
                 
