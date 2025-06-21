@@ -86,7 +86,7 @@ class ConcatTable(QtWidgets.QTableView):
 
         remove = QtGui.QStandardItem("X")
         remove.setEditable(False)
-        remove.setDropEnabled(True)
+        remove.setDropEnabled(False)
         remove.option_name = name
 
         self.model.appendRow([filename, res, form, remove])
