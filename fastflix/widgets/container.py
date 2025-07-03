@@ -141,11 +141,11 @@ class Container(QtWidgets.QMainWindow):
             sm.addButton(t("Close GUI Only"), QtWidgets.QMessageBox.DestructiveRole)
             sm.addButton(t("Keep FastFlix Open"), QtWidgets.QMessageBox.AcceptRole)
             sm.exec_()
-            if sm.clickedButton().text() == "Cancel Conversion":
+            if sm.clickedButton().text() == t("Cancel Conversion"):
                 self.app.fastflix.worker_queue.put(["cancel"])
                 time.sleep(0.5)
                 self.main.close()
-            elif sm.clickedButton().text() == "Close GUI Only":
+            elif sm.clickedButton().text() == t("Close GUI Only"):
                 self.main.close(no_cleanup=True)
                 return super(Container, self).closeEvent(a0)
             else:
@@ -159,7 +159,7 @@ class Container(QtWidgets.QMainWindow):
                     if is_date_older_than_7days(parse_filesafe_datetime(date_part)):
                         shutil.rmtree(item, ignore_errors=True)
                 except Exception:
-                    logger.error(f"Failed to find datetime for temp folder {item.stem}, deleting!")
+                    logger.error(f"{t('Failed to find datetime for temp folder')} {item.stem}, {t('deleting!')}")
                     shutil.rmtree(item, ignore_errors=True)
             if item.is_file() and item.name.startswith("concat_"):
                 item.unlink(missing_ok=True)
@@ -452,7 +452,7 @@ class OpenFolder(QtCore.QThread):
             else:
                 run(["xdg-open", self.path])
         except FileNotFoundError:
-            logger.error(f"Do not know which command to use to open: {self.path}")
+            logger.error(f"{t('Do not know which command to use to open')}: {self.path}")
 
 
 class ProfileDetails(QtWidgets.QWidget):
@@ -477,7 +477,8 @@ class ProfileDetails(QtWidgets.QWidget):
         super().__init__(None)
         self.layout = QtWidgets.QHBoxLayout(self)
 
-        main_section = QtWidgets.QVBoxLayout(self)
+        # main_section = QtWidgets.QVBoxLayout(self)
+        main_section = QtWidgets.QVBoxLayout()
         profile_title = QtWidgets.QLabel(f"{t('Profile_window')}: {profile_name}")
         # profile_title.setFont(QtGui.QFont(self.app.font().family(), 10, weight=70))
         main_section.addWidget(profile_title)
@@ -511,7 +512,8 @@ class ProfileDetails(QtWidgets.QWidget):
         splitter.setStyleSheet("background-color: #999999")
         self.layout.addWidget(splitter)
 
-        advanced_section = QtWidgets.QVBoxLayout(self)
+        # advanced_section = QtWidgets.QVBoxLayout(self)
+        advanced_section = QtWidgets.QVBoxLayout()
         advanced_section.addWidget(QtWidgets.QLabel(t("Advanced Options")))
         for k, v in profile.advanced_options.model_dump().items():
             if k.endswith("_index"):
@@ -526,4 +528,4 @@ class ProfileDetails(QtWidgets.QWidget):
         self.layout.addLayout(advanced_section)
 
         self.setMinimumWidth(780)
-        self.setLayout(self.layout)
+        # self.setLayout(self.layout)

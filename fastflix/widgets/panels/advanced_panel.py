@@ -12,6 +12,7 @@ from fastflix.models.video import VideoSettings
 from fastflix.resources import get_icon
 from fastflix.models.profiles import AdvancedOptions
 from fastflix.flix import ffmpeg_valid_color_primaries, ffmpeg_valid_color_transfers, ffmpeg_valid_color_space
+from fastflix.shared import CustomLineEdit
 
 logger = logging.getLogger("fastflix")
 
@@ -57,7 +58,7 @@ denoise_presets = {
     },
 }
 
-vsync = ["auto", "passthrough", "cfr", "vfr", "drop"]
+vsync = ["auto", "passthrough", "cfr", "forcecfr", "vfr", "drop"]
 tone_map_items = ["none", "clip", "linear", "gamma", "reinhard", "hable", "mobius"]
 
 
@@ -142,11 +143,11 @@ class AdvancedPanel(QtWidgets.QWidget):
         self.layout.addWidget(label, row_number, 0, alignment=QtCore.Qt.AlignLeft | QtCore.Qt.AlignTop)
 
     def init_fps(self):
-        self.incoming_fps_widget = QtWidgets.QLineEdit()
+        self.incoming_fps_widget = CustomLineEdit()
         self.incoming_fps_widget.setFixedWidth(150)
         self.incoming_fps_widget.setDisabled(True)
         self.incoming_fps_widget.textChanged.connect(self.page_update)
-        self.outgoing_fps_widget = QtWidgets.QLineEdit()
+        self.outgoing_fps_widget = CustomLineEdit()
         self.outgoing_fps_widget.setFixedWidth(150)
         self.outgoing_fps_widget.setDisabled(True)
         self.outgoing_fps_widget.textChanged.connect(self.page_update)
@@ -227,17 +228,18 @@ class AdvancedPanel(QtWidgets.QWidget):
 
     def init_eq(self):
         self.last_row += 1
-        self.brightness_widget = QtWidgets.QLineEdit()
+        # self.brightness_widget = QtWidgets.QLineEdit()
+        self.brightness_widget = CustomLineEdit()
         self.brightness_widget.setValidator(QtGui.QDoubleValidator())
         self.brightness_widget.setToolTip("Default is: 0")
         self.brightness_widget.textChanged.connect(lambda: self.page_update(build_thumbnail=True))
 
-        self.contrast_widget = QtWidgets.QLineEdit()
+        self.contrast_widget = CustomLineEdit()
         self.contrast_widget.setValidator(QtGui.QDoubleValidator())
         self.contrast_widget.setToolTip("Default is: 1")
         self.contrast_widget.textChanged.connect(lambda: self.page_update(build_thumbnail=True))
 
-        self.saturation_widget = QtWidgets.QLineEdit()
+        self.saturation_widget = CustomLineEdit()
         self.saturation_widget.setValidator(QtGui.QDoubleValidator())
         self.saturation_widget.setToolTip("Default is: 1")
         self.saturation_widget.textChanged.connect(lambda: self.page_update(build_thumbnail=True))
@@ -316,12 +318,12 @@ class AdvancedPanel(QtWidgets.QWidget):
 
     def init_vbv(self):
         self.last_row += 1
-        self.maxrate_widget = QtWidgets.QLineEdit()
+        self.maxrate_widget = CustomLineEdit()
         # self.maxrate_widget.setPlaceholderText("3000")
         self.maxrate_widget.setValidator(self.only_int)
         self.maxrate_widget.textChanged.connect(self.page_update)
 
-        self.bufsize_widget = QtWidgets.QLineEdit()
+        self.bufsize_widget = CustomLineEdit()
         # self.bufsize_widget.setPlaceholderText("3000")
         self.bufsize_widget.setValidator(self.only_int)
         self.bufsize_widget.textChanged.connect(self.page_update)
@@ -361,11 +363,11 @@ class AdvancedPanel(QtWidgets.QWidget):
         self.layout.addWidget(label, self.last_row, 0, 1, 2)
 
     def init_titles(self):
-        self.video_title = QtWidgets.QLineEdit()
+        self.video_title = CustomLineEdit()
         self.video_title.setPlaceholderText(t("Video Title"))
         self.video_title.textChanged.connect(self.page_update)
 
-        self.video_track_title = QtWidgets.QLineEdit()
+        self.video_track_title = CustomLineEdit()
         self.video_track_title.setPlaceholderText(t("Video Track Title") + " ʘ")
         self.video_track_title.textChanged.connect(self.page_update)
 
@@ -379,10 +381,10 @@ class AdvancedPanel(QtWidgets.QWidget):
     def init_custom_filters(self):
         self.last_row += 1
 
-        self.first_filters = QtWidgets.QLineEdit()
+        self.first_filters = CustomLineEdit()
         self.first_filters.textChanged.connect(self.page_update)
 
-        self.second_filters = QtWidgets.QLineEdit()
+        self.second_filters = CustomLineEdit()
         self.second_filters.textChanged.connect(self.page_update)
 
         self.add_row_label(t("Custom Filters"), self.last_row)
@@ -405,19 +407,19 @@ class AdvancedPanel(QtWidgets.QWidget):
             if self.brightness_widget.text().strip() != "":
                 self.app.fastflix.current_video.video_settings.brightness = str(float(self.brightness_widget.text()))
         except ValueError:
-            logger.warning("Invalid brightness value")
+            logger.warning(t("Invalid brightness value"))
 
         try:
             if self.saturation_widget.text().strip() != "":
                 self.app.fastflix.current_video.video_settings.saturation = str(float(self.saturation_widget.text()))
         except ValueError:
-            logger.warning("Invalid saturation value")
+            logger.warning(t("Invalid saturation value"))
 
         try:
             if self.contrast_widget.text().strip() != "":
                 self.app.fastflix.current_video.video_settings.contrast = str(float(self.contrast_widget.text()))
         except ValueError:
-            logger.warning("Invalid contrast value")
+            logger.warning(t("Invalid contrast value"))
 
         # self.app.fastflix.current_video.video_settings.first_pass_filters = self.first_filters.text() or None
         # self.app.fastflix.current_video.video_settings.second_filters = self.second_filters.text() or None
@@ -476,21 +478,21 @@ class AdvancedPanel(QtWidgets.QWidget):
             try:
                 contrast = str(float(self.contrast_widget.text()))
             except ValueError:
-                logger.warning("Invalid contrast value")
+                logger.warning(t("Invalid contrast value"))
 
         saturation = None
         if self.saturation_widget.text().strip() != "":
             try:
                 saturation = str(float(self.saturation_widget.text()))
             except ValueError:
-                logger.warning("Invalid saturation value")
+                logger.warning(t("Invalid saturation value"))
 
         brightness = None
         if self.brightness_widget.text().strip() != "":
             try:
                 brightness = str(float(self.brightness_widget.text()))
             except ValueError:
-                logger.warning("Invalid brightness value")
+                logger.warning(t("Invalid brightness value"))
 
         return AdvancedOptions(
             video_speed=video_speeds[self.video_speed_widget.currentText()],

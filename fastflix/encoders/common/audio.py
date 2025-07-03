@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import logging
+from fastflix.language import t
 
 logger = logging.getLogger("fastflix")
 
@@ -70,7 +71,7 @@ def build_audio(audio_tracks, audio_file_index=0):
                 cl = track.downmix if track.downmix and track.downmix != "No Downmix" else track.raw_info.channel_layout
             except (AssertionError, KeyError):
                 cl = "stereo"
-                logger.warning("Could not determine channel layout, defaulting to stereo, please manually specify")
+                logger.warning(t("Could not determine channel layout, defaulting to stereo, please manually specify"))
 
             downmix = (
                 f"-ac:{track.outdex} {channel_list[cl]}" if track.downmix and track.downmix != "No Downmix" else ""

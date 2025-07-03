@@ -2,6 +2,7 @@
 import logging
 
 import reusables
+from fastflix.language import t
 
 logger = logging.getLogger("fastflix")
 
@@ -19,9 +20,9 @@ def prevent_sleep_mode():
         try:
             ctypes.windll.kernel32.SetThreadExecutionState(CONTINUOUS | SYSTEM_REQUIRED)
         except Exception:
-            logger.exception("Could not prevent system from possibly going to sleep during conversion")
+            logger.exception(t("Could not prevent system from possibly going to sleep during conversion"))
         else:
-            logger.debug("System has been asked to not sleep")
+            logger.debug(t("System has been asked to not sleep"))
 
 
 def allow_sleep_mode():
@@ -31,6 +32,6 @@ def allow_sleep_mode():
         try:
             ctypes.windll.kernel32.SetThreadExecutionState(CONTINUOUS)
         except Exception:
-            logger.exception("Could not allow system to resume sleep mode")
+            logger.exception(t("Could not allow system to resume sleep mode"))
         else:
-            logger.debug("System has been allowed to enter sleep mode again")
+            logger.debug(t("System has been allowed to enter sleep mode again"))

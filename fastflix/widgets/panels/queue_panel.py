@@ -35,10 +35,10 @@ done_actions = {
         "hibernate": "pm-hibernate",
     },
     "windows": {
-        "shutdown": "shutdown /s",
-        "restart": "shutdown /r",
-        "logout": "shutdown /l",
-        "hibernate": "shutdown /h",
+        t("shutdown"): "shutdown /s",
+        t("restart"): "shutdown /r",
+        t("logout"): "shutdown /l",
+        t("hibernate"): "shutdown /h",
     },
 }
 
@@ -230,7 +230,7 @@ class EncodingQueue(FlixList):
         self.load_queue_button.setFixedWidth(110)
 
         self.priority_widget = QtWidgets.QComboBox()
-        self.priority_widget.addItems(["Realtime", "High", "Above Normal", "Normal", "Below Normal", "Idle"])
+        self.priority_widget.addItems([t("Realtime"), t("High"), t("Above Normal"), t("Normal"), t("Below Normal"), t("Idle")])
         self.priority_widget.setCurrentIndex(3)
         self.priority_widget.currentIndexChanged.connect(self.set_priority)
 
@@ -264,7 +264,7 @@ class EncodingQueue(FlixList):
         self.ignore_errors.setFixedWidth(150)
 
         self.after_done_combo = QtWidgets.QComboBox()
-        self.after_done_combo.addItem("None")
+        self.after_done_combo.addItem(t("None"))
         actions = set()
         if reusables.win_based:
             actions.update(done_actions["windows"].keys())
@@ -301,7 +301,7 @@ class EncodingQueue(FlixList):
         try:
             self.queue_startup_check()
         except Exception:
-            logger.exception("Could not load queue as it is outdated or malformed. Deleting for safety.")
+            logger.exception(t("Could not load queue as it is outdated or malformed. Deleting for safety."))
             # with self.app.fastflix.queue_lock:
             #     save_queue([], queue_file=self.app.fastflix.queue_path, config=self.app.fastflix.config)
 
@@ -344,7 +344,7 @@ class EncodingQueue(FlixList):
             self,
             caption=t("Save Queue"),
             dir=os.path.expanduser("~"),
-            filter="FastFlix Queue File (*.yaml)",
+            filter=f"{t('FastFlix Queue File')} (*.yaml)",
         )
         if filename and filename[0]:
             save_queue(self.app.fastflix.conversion_list, filename[0], self.app.fastflix.config)
@@ -352,7 +352,7 @@ class EncodingQueue(FlixList):
 
     def manually_load_queue(self):
         filename = QtWidgets.QFileDialog.getOpenFileName(
-            self, caption=t("Load Queue"), dir=os.path.expanduser("~"), filter="FastFlix Queue File (*.yaml)"
+            self, caption=t("Load Queue"), dir=os.path.expanduser("~"), filter=f"{t('FastFlix Queue File')} (*.yaml)"
         )
         if filename and filename[0]:
             is_yes = True
@@ -376,7 +376,7 @@ class EncodingQueue(FlixList):
     def reorder(self, update=True):
         if self.app.fastflix.currently_encoding:
             # TODO error?
-            logger.warning("Reorder queue called while encoding")
+            logger.warning(t("Reorder queue called while encoding"))
             return
         super().reorder(update=update)
         # TODO find better reorder method
@@ -432,7 +432,7 @@ class EncodingQueue(FlixList):
                 pos = i
                 break
         else:
-            logger.error("No matching video found to remove from queue")
+            logger.error(t("No matching video found to remove from queue"))
             return
         del self.app.fastflix.conversion_list[pos]
 
@@ -458,7 +458,7 @@ class EncodingQueue(FlixList):
             self.pause_queue.setText(t("Pause Queue"))
             self.pause_queue.setIcon(QtGui.QIcon(get_icon("onyx-pause", self.app.fastflix.config.theme)))
             send_next = self.main.send_next_video()
-            logger.debug(f"queue resumed, will I send next? {send_next}")
+            logger.debug(f"{t('queue resumed, will I send next?')} {send_next}")
         else:
             self.pause_queue.setText(t("Resume Queue"))
             self.pause_queue.setIcon(QtGui.QIcon(get_icon("play", self.app.fastflix.config.theme)))
@@ -497,7 +497,7 @@ class EncodingQueue(FlixList):
     def set_after_done(self):
         option = self.after_done_combo.currentText()
 
-        if option == "None":
+        if option == t("None"):
             command = None
         elif option in self.app.fastflix.config.custom_after_run_scripts:
             command = self.app.fastflix.config.custom_after_run_scripts[option]
@@ -514,7 +514,7 @@ class EncodingQueue(FlixList):
                 video.status.clear()
                 break
         else:
-            logger.error(f"Can't find video {current_video.uuid} in queue to update its status")
+            logger.error(f"{t('Can not find video')} {current_video.uuid} {t('in queue to update its status')}")
             return
         self.new_source()
 
@@ -554,7 +554,7 @@ class EncodingQueue(FlixList):
     def run_after_done(self):
         if not self.after_done_action:
             return
-        logger.info(f"Running after done action: {self.after_done_action}")
+        logger.info(f"{t('Running after done action')}: {self.after_done_action}")
         BackgroundRunner(self.app.fastflix.log_queue).start_exec(
             self.after_done_action, str(after_done_path), shell=True
         )

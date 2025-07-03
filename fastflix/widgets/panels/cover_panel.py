@@ -11,7 +11,7 @@ from PySide6 import QtCore, QtGui, QtWidgets
 from fastflix.language import t
 from fastflix.models.encode import AttachmentTrack
 from fastflix.models.fastflix_app import FastFlixApp
-from fastflix.shared import link
+from fastflix.shared import link, CustomLineEdit
 
 logger = logging.getLogger("fastflix")
 
@@ -81,7 +81,8 @@ class CoverPanel(QtWidgets.QWidget):
 
     def init_cover(self):
         layout = QtWidgets.QHBoxLayout()
-        self.cover_path = QtWidgets.QLineEdit()
+        # self.cover_path = QtWidgets.QLineEdit()
+        self.cover_path = CustomLineEdit()
         self.cover_path.textChanged.connect(lambda: self.update_cover())
         self.cover_button = QtWidgets.QPushButton(
             icon=self.style().standardIcon(QtWidgets.QStyle.SP_FileDialogContentsView)
@@ -136,7 +137,8 @@ class CoverPanel(QtWidgets.QWidget):
 
     def init_landscape_cover(self):
         layout = QtWidgets.QHBoxLayout()
-        self.cover_land_path = QtWidgets.QLineEdit()
+        # self.cover_land_path = QtWidgets.QLineEdit()
+        self.cover_land_path = CustomLineEdit()
         self.cover_land_path.textChanged.connect(lambda: self.update_landscape_cover())
         self.landscape_button = QtWidgets.QPushButton(
             icon=self.style().standardIcon(QtWidgets.QStyle.SP_FileDialogContentsView)

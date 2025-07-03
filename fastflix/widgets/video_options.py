@@ -152,7 +152,7 @@ class VideoOptions(QtWidgets.QTabWidget):
             and self.app.fastflix.current_video.concat
         ):
             error_message(
-                f"This encoder, {self.main.current_encoder.name} does not support concatenating files together"
+                f"{t('This encoder')}, {self.main.current_encoder.name} {t('does not support concatenating files together')}"
             )
         if previous_encoder_no_audio:
             self.audio.new_source(self.audio_formats)
@@ -250,7 +250,7 @@ class VideoOptions(QtWidgets.QTabWidget):
         try:
             self.current_settings.reload()
         except Exception:
-            logger.exception("Should not have happened, could not reload from queue")
+            logger.exception(t("Should not have happened, could not reload from queue"))
             return
         if self.app.fastflix.current_video:
             streams = copy.deepcopy(self.app.fastflix.current_video.streams)
@@ -268,7 +268,7 @@ class VideoOptions(QtWidgets.QTabWidget):
                 self.advanced.reset(settings=settings)
                 self.info.reset()
             except Exception:
-                logger.exception("Should not have happened, could not reload from queue")
+                logger.exception(t("Should not have happened, could not reload from queue"))
                 return
         self.debug.reset()
 

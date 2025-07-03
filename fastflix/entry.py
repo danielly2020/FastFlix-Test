@@ -3,6 +3,7 @@ import logging
 import sys
 import traceback
 from multiprocessing import Process, Queue, freeze_support, Manager, Lock
+from fastflix.language import t
 
 try:
     import coloredlogs
@@ -16,8 +17,8 @@ try:
 
 except ImportError:
     traceback.print_exc()
-    print("Could not load FastFlix properly!", file=sys.stderr)
-    input("Please report this issue on https://github.com/cdgriffith/FastFlix/issues (press any key to exit)")
+    print(t("Could not load FastFlix properly!"), file=sys.stderr)
+    input(f"{t('Please report this issue on')} https://github.com/cdgriffith/FastFlix/issues {t('press any key to exit')}")
     sys.exit(1)
 
 
@@ -41,7 +42,7 @@ def separate_app_process(worker_queue, status_queue, log_queue, queue_list, queu
             enable_scaling=settings.get("enable_scaling", True),
         )
     except Exception as err:
-        print(f"Could not start GUI process - Error: {err}", file=sys.stderr)
+        print(f"{t('Could not start GUI process - Error')}: {err}", file=sys.stderr)
         raise err
 
 
@@ -52,9 +53,9 @@ def startup_options():
         try:
             pass
         except Exception as err:
-            print(f"Error: {err}")
+            print(f"{t('Error')}: {err}")
             return 1
-        print("Success")
+        print(t("Success"))
         return 0
     if "--version" in options:
         print(__version__)
@@ -74,12 +75,12 @@ def main(portable_mode=False):
             else:
                 win_ver = int(windows_version_string)
         except Exception as error:
-            print(f"COULD NOT DETERMINE WINDOWS VERSION FROM: {platform.platform()} - {error}")
+            print(f"{t('COULD NOT DETERMINE WINDOWS VERSION FROM')}: {platform.platform()} - {error}")
             win_ver = 0
         if win_ver < 10:
             input(
-                "You are an unsupported Windows version, and may not be able to run FastFlix properly.\n"
-                "Download FastFlix 4.x versions for Windows 7/8 support [press enter to continue]"
+                f"{t('You are an unsupported Windows version, and may not be able to run FastFlix properly.')}\n"
+                f"{t('Download FastFlix 4.x versions for Windows 7/8 support [press enter to continue]')}"
             )
 
     exit_code = startup_options()
@@ -95,7 +96,7 @@ def main(portable_mode=False):
         "error": {"color": "red", "bold": True},
     }
     coloredlogs.install(level="DEBUG", logger=logger, level_styles=level_styles)
-    logger.info(f"Starting FastFlix {__version__}")
+    logger.info(f"{t('Starting FastFlix')} {__version__}")
 
     worker_queue = Queue()
     status_queue = Queue()
@@ -107,21 +108,21 @@ def main(portable_mode=False):
         exit_status = 1
 
         try:
-            logger.info("Preparing separate process for GUI - this may take a moment")
+            logger.info(t("Preparing separate process for GUI - this may take a moment"))
             gui_proc = Process(
                 target=separate_app_process,
                 args=(worker_queue, status_queue, log_queue, queue_list, queue_lock, portable_mode),
             )
             gui_proc.start()
         except Exception:
-            logger.exception("Could not create GUI Process, please report this error!")
+            logger.exception(t("Could not create GUI Process, please report this error!"))
             return exit_status
 
         try:
             queue_worker(gui_proc, worker_queue, status_queue, log_queue)
             exit_status = 0
         except Exception:
-            logger.exception("Exception occurred while running FastFlix core")
+            logger.exception(t("Exception occurred while running FastFlix core"))
         finally:
             gui_proc.kill()
             return exit_status

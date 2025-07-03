@@ -6,6 +6,7 @@ from PySide6 import QtWidgets, QtGui
 from fastflix.models.fastflix_app import FastFlixApp
 from fastflix.models.encode import AudioTrack
 from fastflix.language import t
+from fastflix.shared import CustomLineEdit
 
 __all__ = ["AudioConversion"]
 
@@ -91,7 +92,7 @@ class AudioConversion(QtWidgets.QWidget):
         super().__init__(None)
         self.app = app
         self.audio_track_update = audio_track_update
-        self.setWindowTitle(f"Audio Conversion for Track {track_index}")
+        self.setWindowTitle(f"{t('Audio Conversion for Track')} {track_index}")
         self.setMinimumWidth(400)
         self.audio_track: AudioTrack = self.app.fastflix.current_video.audio_tracks[track_index]
 
@@ -119,7 +120,7 @@ class AudioConversion(QtWidgets.QWidget):
                 "3",
                 f"4 - {t('Medium Quality')}",
                 "5",
-                f"6 {t('Low Quality')}",
+                f"6 - {t('Low Quality')}",
                 "7",
                 "8",
                 "9",
@@ -128,7 +129,8 @@ class AudioConversion(QtWidgets.QWidget):
         )
         self.aq.setMinimumWidth(100)
         self.aq.currentIndexChanged.connect(self.set_aq)
-        self.bitrate = QtWidgets.QLineEdit()
+        # self.bitrate = QtWidgets.QLineEdit()
+        self.bitrate = CustomLineEdit()
         self.bitrate.setFixedWidth(50)
         self.bitrate.setValidator(QtGui.QDoubleValidator())
 
@@ -166,7 +168,7 @@ class AudioConversion(QtWidgets.QWidget):
                 self.downmix.setCurrentText(channel_layout)
             else:
                 guess = back_channel_list[self.audio_track.raw_info.get("channels")]
-                logger.warning(f"Channel layout not found for {self.audio_track.title}, guessing {guess}")
+                logger.warning(f"{t('Channel layout not found for')} {self.audio_track.title}, guessing {guess}")
                 self.downmix.setCurrentText(guess)
         except Exception:
             self.downmix.setCurrentIndex(2)

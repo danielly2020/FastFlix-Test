@@ -41,7 +41,7 @@ class ConcatTable(QtWidgets.QTableView):
         super().__init__(parent)
         self.verticalHeader().hide()
         # self.horizontalHeader().hide()
-        self.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        # self.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         self.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
         self.setShowGrid(False)
@@ -50,17 +50,26 @@ class ConcatTable(QtWidgets.QTableView):
 
         # Set our custom model - this prevents row "shifting"
         self.model = MyModel()
-        self.model.setHorizontalHeaderLabels(["Filename", "Resolution", "Codec", "Remove"])
+        self.model.setHorizontalHeaderLabels([t("Filenames"), t("Resolution"), t("Codec"), t("Remove")])
 
         self.setModel(self.model)
         self.buttons = []
+        self.setColumnWidth(0, 430)
+        self.setColumnWidth(1, 140)
+        self.setColumnWidth(2, 80)
+        self.setColumnWidth(3, 40)
 
     def update_items(self, items):
         self.model.clear()
-        self.model.setHorizontalHeaderLabels(["Filename", "Resolution", "Codec", "Remove"])
+        self.model.setHorizontalHeaderLabels([t("Filenames"), t("Resolution"), t("Codec"), t("Remove")])
         self.buttons = []
         for item in items:
             self.add_item(*item)
+
+        self.setColumnWidth(0, 420)
+        self.setColumnWidth(1, 140)
+        self.setColumnWidth(2, 80)
+        self.setColumnWidth(3, 40)
 
     def add_item(self, name, resolution, codec):
         filename = QtGui.QStandardItem(name)
@@ -114,9 +123,10 @@ class ConcatScroll(QtWidgets.QScrollArea):
     def __init__(self, parent):
         super().__init__(parent)
         self.setWidgetResizable(True)
-        self.setMinimumWidth(500)
+        self.setMinimumWidth(700)
         self.setMinimumHeight(500)
         self.table = ConcatTable(None)
+        self.table.setSortingEnabled(True)
         self.setWidget(self.table)
 
 
@@ -187,7 +197,7 @@ class ConcatWindow(QtWidgets.QWidget):
                 if not data:
                     raise Exception()
             except Exception:
-                logger.warning(f"Skipping {file.name} as it is not a video/image file")
+                logger.warning(f"{t('Skipping')} {file.name} {t('as it is not a video/image file')}")
                 bad_items.append(file.name)
             else:
                 list_of_items.append(data)
@@ -202,7 +212,7 @@ class ConcatWindow(QtWidgets.QWidget):
                     continue
                 tasks.append(
                     Task(
-                        f"Evaluating {file.name}",
+                        f"{t('Evaluating')} {file.name}",
                         command=check_to_add,
                         kwargs={"file": file, "list_of_items": items, "bad_items": skipped},
                     )

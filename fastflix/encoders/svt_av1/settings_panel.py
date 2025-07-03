@@ -9,7 +9,7 @@ from fastflix.encoders.common.setting_panel import SettingPanel
 from fastflix.language import t
 from fastflix.models.encode import SVTAV1Settings
 from fastflix.models.fastflix_app import FastFlixApp
-from fastflix.shared import link
+from fastflix.shared import link, CustomLineEdit
 
 logger = logging.getLogger("fastflix")
 
@@ -163,7 +163,8 @@ class SVT_AV1(SettingPanel):
         tool_tip = f"{t('Extra svt av1 params in opt=1:opt2=0 format')},\n{t('cannot modify generated settings')}"
         self.labels.svtav1_params.setToolTip(tool_tip)
         layout.addWidget(self.labels.svtav1_params)
-        self.widgets.svtav1_params = QtWidgets.QLineEdit()
+        # self.widgets.svtav1_params = QtWidgets.QLineEdit()
+        self.widgets.svtav1_params = CustomLineEdit()
         self.widgets.svtav1_params.setToolTip(tool_tip)
         self.widgets.svtav1_params.setText(
             ":".join(self.app.fastflix.config.encoder_opt(self.profile_name, "svtav1_params"))

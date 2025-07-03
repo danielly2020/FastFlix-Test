@@ -17,6 +17,7 @@ from fastflix.widgets.panels.abstract_list import FlixList
 from fastflix.audio_processing import apply_audio_filters
 from fastflix.widgets.windows.audio_conversion import AudioConversion
 from fastflix.widgets.windows.disposition import Disposition
+from fastflix.shared import CustomLineEdit
 
 language_list = [v.name for v in iter_langs() if v.pt2b and v.pt1] + ["Undefined"]
 logger = logging.getLogger("fastflix")
@@ -54,12 +55,13 @@ class Audio(QtWidgets.QTabWidget):
         self.index = index
         self.first = False
         self.last = False
-        self.setFixedHeight(60)
+        self.setFixedHeight(70)
         audio_track: AudioTrack = self.app.fastflix.current_video.audio_tracks[index]
 
         self.widgets = Box(
             track_number=QtWidgets.QLabel(f"{audio_track.index}:{audio_track.outdex}" if audio_track.enabled else "❌"),
-            title=QtWidgets.QLineEdit(audio_track.title),
+            # title=QtWidgets.QLineEdit(audio_track.title),
+            title=CustomLineEdit(audio_track.title),
             audio_info=QtWidgets.QLabel(audio_track.friendly_info),
             up_button=QtWidgets.QPushButton(QtGui.QIcon(get_icon("up-arrow", self.app.fastflix.config.theme)), ""),
             down_button=QtWidgets.QPushButton(QtGui.QIcon(get_icon("down-arrow", self.app.fastflix.config.theme)), ""),
@@ -80,7 +82,7 @@ class Audio(QtWidgets.QTabWidget):
 
         self.widgets.audio_info.setToolTip(Box(audio_track.raw_info).to_yaml())
 
-        self.widgets.language.addItems(["No Language Set", "Undefined"] + language_list)
+        self.widgets.language.addItems([t("No Language Set"), t("Undefined")] + language_list)
         self.widgets.language.setMaximumWidth(150)
         if audio_track.language:
             try:
@@ -112,7 +114,7 @@ class Audio(QtWidgets.QTabWidget):
         self.widgets.track_number.setFixedWidth(20)
 
         self.disposition_widget = Disposition(
-            app=app, parent=self, track_name=f"Audio Track {index}", track_index=index, audio=True
+            app=app, parent=self, track_name=f"{t('Audio Track')} {index}", track_index=index, audio=True
         )
         self.widgets.disposition.clicked.connect(self.disposition_widget.show)
 
@@ -123,7 +125,7 @@ class Audio(QtWidgets.QTabWidget):
         self.widgets.disposition.setText(t("Dispositions"))
 
         label = QtWidgets.QLabel(f"{t('Title')}: ")
-        self.widgets.title.setFixedWidth(150)
+        self.widgets.title.setFixedWidth(300)
         title_layout = QtWidgets.QHBoxLayout()
         title_layout.addStretch(False)
         title_layout.addWidget(label, stretch=False)

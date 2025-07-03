@@ -14,6 +14,7 @@ from fastflix.models.video import Video, VideoSettings, Status, Crop
 from fastflix.models.encode import AttachmentTrack
 from fastflix.models.encode import setting_types
 from fastflix.models.config import Config
+from fastflix.language import t
 
 logger = logging.getLogger("fastflix")
 
@@ -25,7 +26,7 @@ def get_queue(queue_file: Path) -> list[Video]:
     try:
         loaded = Box.from_yaml(filename=queue_file)
     except (BoxError, YAMLError):
-        logger.exception("Could not open queue")
+        logger.exception(t("Could not open queue"))
         return []
 
     queue = []
@@ -80,7 +81,7 @@ def save_queue(queue: list[Video], queue_file: Path, config: Optional[Config] = 
         for command in vid["video_settings"]["conversion_commands"]:
             new_command = command["command"].replace(old_path, new_path)
             if new_command == command["command"]:
-                logger.error(f'Could not replace "{old_path}" with "{new_path}" in {command["command"]}')
+                logger.error(f'{t("In")} {command["command"]} {t("could not replace")} "{old_path}" {t("with")} "{new_path}"')
             command["command"] = new_command
 
     for video in queue:
@@ -94,7 +95,7 @@ def save_queue(queue: list[Video], queue_file: Path, config: Optional[Config] = 
                 try:
                     shutil.copy(metadata, new_metadata_file)
                 except OSError:
-                    logger.exception("Could not save HDR10+ metadata file to queue recovery location, removing HDR10+")
+                    logger.exception(t("Could not save HDR10+ metadata file to queue recovery location, removing HDR10+"))
 
                 update_conversion_command(
                     video,
@@ -105,13 +106,13 @@ def save_queue(queue: list[Video], queue_file: Path, config: Optional[Config] = 
             for track in video["attachment_tracks"]:
                 if track.get("file_path"):
                     if not Path(track["file_path"]).exists():
-                        logger.exception("Could not save cover to queue recovery location, removing cover")
+                        logger.exception(t("Could not save cover to queue recovery location, removing cover"))
                         continue
                     new_file = queue_covers / f"{uuid.uuid4().hex}_{track['file_path'].name}"
                     try:
                         shutil.copy(track["file_path"], new_file)
                     except OSError:
-                        logger.exception("Could not save cover to queue recovery location, removing cover")
+                        logger.exception(t("Could not save cover to queue recovery location, removing cover"))
                         continue
                     update_conversion_command(video, str(track["file_path"]), str(new_file))
                     track["file_path"] = str(new_file)
@@ -123,6 +124,6 @@ def save_queue(queue: list[Video], queue_file: Path, config: Optional[Config] = 
         del tmp
     except Exception as err:
         logger.warning(items)
-        logger.exception(f"Could not save queue! {err.__class__.__name__}: {err}")
+        logger.exception(f"{t('Could not save queue!')} {err.__class__.__name__}: {err}")
         raise err from None
     gc.collect(2)

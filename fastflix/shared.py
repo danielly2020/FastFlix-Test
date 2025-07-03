@@ -26,6 +26,8 @@ except AttributeError:
     pyinstaller = False
 
 from PySide6 import QtCore, QtGui, QtWidgets
+from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QMenu
+from PySide6.QtGui import QContextMenuEvent, QIcon
 
 from fastflix.language import t
 from fastflix.resources import get_bool_env
@@ -67,6 +69,97 @@ class MyMessageBox(QtWidgets.QMessageBox):
 
         return result
 
+class CustomLineEdit(QLineEdit):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+    def contextMenuEvent(self, event: QContextMenuEvent):
+        menu = QMenu(self)
+
+        undo_action = menu.addAction(t("Undo"))
+        undo_action.setIcon(QIcon.fromTheme("edit-undo"))
+        redo_action = menu.addAction(t("Redo"))
+        redo_action.setIcon(QIcon.fromTheme("edit-redo"))
+
+        menu.addSeparator()
+
+        copy_action = menu.addAction(t("Copy"))
+        copy_action.setIcon(QIcon.fromTheme("edit-copy"))
+        paste_action = menu.addAction(t("Paste"))
+        paste_action.setIcon(QIcon.fromTheme("edit-paste"))
+        cut_action = menu.addAction(t("Cut"))
+        cut_action.setIcon(QIcon.fromTheme("edit-cut"))
+        delete_action = menu.addAction(t("Delete"))
+        delete_action.setIcon(QIcon.fromTheme("edit-delete"))
+
+        menu.addSeparator()
+
+        select_all_action = menu.addAction(t("Select All"))
+        select_all_action.setIcon(QIcon.fromTheme("edit-select-all"))
+
+        action = menu.exec(event.globalPos())
+
+        if action == undo_action:
+            self.undo()
+        elif action == redo_action:
+            self.redo()
+        elif action == copy_action:
+            self.copy()
+        elif action == paste_action:
+            self.paste()
+        elif action == cut_action:
+            self.cut()
+        elif action == delete_action:
+             if self.hasSelectedText():
+                self.del_()
+        elif action == select_all_action:
+            self.selectAll()
+
+class CustomTextBrowser(QtWidgets.QTextBrowser):
+    def __init__(self, parent=None):
+        super(CustomTextBrowser, self).__init__(parent)
+        self.setReadOnly(True)
+        self.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.show_context_menu)
+    
+    def show_context_menu(self, position):
+        menu = QtWidgets.QMenu(self)
+
+        copy_action = menu.addAction(t("Copy"))
+        copy_action.setIcon(QIcon.fromTheme("edit-copy"))
+        copy_action.triggered.connect(self.copy_selected_text)
+
+        copy_link_action = menu.addAction(t("Copy Link Location"))
+        copy_link_action.setIcon(QIcon.fromTheme("edit-copy"))
+        copy_link_action.triggered.connect(self.copy_link_location)
+
+        menu.addSeparator()
+
+        select_all_action = menu.addAction(t("Select All"))
+        select_all_action.setIcon(QIcon.fromTheme("edit-select-all"))
+        select_all_action.triggered.connect(self.select_all_text)
+
+        menu.exec_(self.viewport().mapToGlobal(position))
+
+    def copy_selected_text(self):
+        cursor = self.textCursor()
+        selected_text = cursor.selectedText()
+        
+        if selected_text:
+            clipboard = QtWidgets.QApplication.clipboard()
+            clipboard.setText(selected_text)
+    
+    def copy_link_location(self):
+        cursor = self.textCursor()
+        
+        if cursor.charFormat().isAnchor():
+            link_url = cursor.charFormat().anchorHref()
+            if link_url:
+                clipboard = QtWidgets.QApplication.clipboard()
+                clipboard.setText(link_url)
+    
+    def select_all_text(self):
+        self.selectAll()
 
 def message(msg, title=None):
     sm = QtWidgets.QMessageBox()
@@ -95,6 +188,7 @@ def error_message(msg, details=None, traceback=False, title=None):
 
         em.setDetailedText(traceback.format_exc())
     em.setStandardButtons(QtWidgets.QMessageBox.Close)
+    em.button(QtWidgets.QMessageBox.Close).setText(t("Close"))
     em.exec_()
 
 
@@ -128,7 +222,7 @@ def latest_fastflix(app, show_new_dialog=False):
     #     theme=app.fastflix.config.theme,
     # )
 
-    logger.debug("Checking for newer versions of FastFlix")
+    logger.debug(t("Checking for newer versions of FastFlix"))
 
     try:
         response = requests.get(url, timeout=15 if not show_new_dialog else 3)
@@ -150,17 +244,17 @@ def latest_fastflix(app, show_new_dialog=False):
         try:
             win_ver = int(platform.platform().lower().split("-")[1])
         except Exception:
-            logger.warning(f"Could not extract Windows version from {platform.platform()}, please report this message")
+            logger.warning(f"{t('Could not extract Windows version from')} {platform.platform()}, {t('please report this message')}")
             win_ver = 0
 
         if win_ver < 10:
-            logger.debug(f"Detected legacy Windows version {win_ver}, looking for 4.x builds only")
+            logger.debug(f"{t('Detected legacy Windows version')} {win_ver}, {t('looking for 4.x builds only')}")
             for version in versions:
                 if version[0] == 4:
                     use_version = ".".join(str(x) for x in version)
                     break
             else:
-                logger.warning("No 4.x Versions found for legacy Windows")
+                logger.warning(t("No 4.x Versions found for legacy Windows"))
                 return
 
     release = [x for x in data if x["tag_name"] == use_version][0]
@@ -193,15 +287,15 @@ def latest_fastflix(app, show_new_dialog=False):
             download_link = link(
                 url=html_link, text=f"{t('View')} FastFlix {use_version}", theme=app.fastflix.config.theme
             )
-        logger.debug(f"Newer version found: {use_version}")
+        logger.debug(f"{t('Newer version found')}: {use_version}")
         message(
             f"{t('There is a newer version of FastFlix available!')} <br><br> {download_link} <br>",  # <br> {contrib} 💓<br>
             title=t("New Version"),
         )
         return
-    logger.debug("FastFlix is up to date")
+    logger.debug(t("FastFlix is up to date"))
     if show_new_dialog:
-        message(t("You are using the latest version of FastFlix") + " <br>")  # <br> {contrib} 💓 <br>
+        message(t(f"You are using the latest version of FastFlix") + f" <br>")  # <br> {contrib} 💓 <br>
 
 
 def file_date():
@@ -247,7 +341,7 @@ def open_folder(path):
         else:
             run(["xdg-open", path])
     except FileNotFoundError:
-        logger.error(f"Do not know which command to use to open: {path}")
+        logger.error(f"{t('Do not know which command to use to open')}: {path}")
 
 
 def clean_logs(signal, app, **_):
@@ -264,7 +358,7 @@ def clean_logs(signal, app, **_):
             is_old = True
         if file.name.startswith("flix_gui"):
             if is_old:
-                logger.debug(f"Deleting {file.name}")
+                logger.debug(f"{t('Deleting')} {file.name}")
                 file.unlink(missing_ok=True)
         if file.name.startswith("flix_conversion") or file.name.startswith("flix_2"):
             original = file.read_text(encoding="utf-8", errors="ignore")
@@ -280,10 +374,10 @@ def clean_logs(signal, app, **_):
                 pass
             else:
                 if (len(condensed) + 100) < len(original):
-                    logger.debug(f"Compressed {file.name} from {len(original)} characters to {len(condensed)}")
+                    logger.debug(f"{t('Compressed')} {file.name} {t('from')} {len(original)} {t('characters to')} {len(condensed)}")
                     file.write_text(condensed, encoding="utf-8")
             if is_old:
-                logger.debug(f"Adding {file.name} to be compress")
+                logger.debug(f"{t('Adding')} {file.name} {t('to be compress')}")
                 compress.append(file)
     if compress:
         reusables.pushd(app.fastflix.log_path)
@@ -302,7 +396,7 @@ def clean_logs(signal, app, **_):
 
 def timedelta_to_str(delta):
     if not isinstance(delta, (timedelta,)):
-        logger.warning(f"Wanted timedelta found but found {type(delta)}")
+        logger.warning(f"{t('Wanted timedelta found but found')} {type(delta)}")
         return "N/A"
 
     output_string = str(delta)
@@ -327,9 +421,9 @@ def quoted_path(source):
         .replace("\r", "")
     )
     if " " in cleaned_string[0:4]:
-        logger.warning(f"Unexpected space at start of quoted path, attempting to fix: {cleaned_string}")
+        logger.warning(f"{t('Unexpected space at start of quoted path, attempting to fix')}: {cleaned_string}")
         cleaned_string = cleaned_string[0:4].replace(" ", "") + cleaned_string[4:]
-        logger.warning(f"New path set to: {cleaned_string}")
+        logger.warning(f"{t('New path set to')}: {cleaned_string}")
     return cleaned_string
 
 

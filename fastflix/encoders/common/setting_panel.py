@@ -11,6 +11,7 @@ from fastflix.language import t
 from fastflix.models.fastflix_app import FastFlixApp
 from fastflix.widgets.background_tasks import ExtractHDR10
 from fastflix.resources import group_box_style, get_icon
+from fastflix.shared import CustomLineEdit
 
 
 logger = logging.getLogger("fastflix")
@@ -115,7 +116,7 @@ class SettingPanel(QtWidgets.QWidget):
                 if raise_error:
                     raise FastFlixInternalException
                 else:
-                    logger.error(f"Could not set default for {widget_name} to {opt} as it's not in the list: {items}")
+                    logger.error(f"{t('Could not set default for')} {widget_name} {t('to')} {opt} {t('as it is not in the list')}: {items}")
                 return 0
         if isinstance(opt, bool):
             return int(opt)
@@ -153,7 +154,7 @@ class SettingPanel(QtWidgets.QWidget):
             )
             self.opts[widget_name] = opt
         else:
-            logger.warning("No opt provided for widget %s %s", self.__class__.__name__, widget_name)
+            logger.warning(t("No opt provided for widget %s %s"), self.__class__.__name__, widget_name)
         self.widgets[widget_name].setCurrentIndex(default or 0)
         self.widgets[widget_name].setDisabled(not enabled)
         new_width = self.widgets[widget_name].minimumSizeHint().width() + 20
@@ -197,7 +198,8 @@ class SettingPanel(QtWidgets.QWidget):
         if tooltip:
             self.labels[widget_name].setToolTip(self.translate_tip(tooltip))
 
-        self.widgets[widget_name] = QtWidgets.QLineEdit()
+        # self.widgets[widget_name] = QtWidgets.QLineEdit()
+        self.widgets[widget_name] = CustomLineEdit()
 
         if placeholder:
             self.widgets[widget_name].setPlaceholderText(placeholder)
@@ -206,7 +208,7 @@ class SettingPanel(QtWidgets.QWidget):
             default = str(self.app.fastflix.config.encoder_opt(self.profile_name, opt)) or default
             self.opts[widget_name] = opt
         else:
-            logger.warning("No opt provided for widget %s %s", self.__class__.__name__, widget_name)
+            logger.warning(t("No opt provided for widget %s %s"), self.__class__.__name__, widget_name)
 
         self.widgets[widget_name].setText(default)
         self.widgets[widget_name].setDisabled(not enabled)
@@ -261,7 +263,8 @@ class SettingPanel(QtWidgets.QWidget):
         self.labels.ffmpeg_options = QtWidgets.QLabel(t(title))
         self.labels.ffmpeg_options.setToolTip(t("Extra flags or options, cannot modify existing settings"))
         layout.addWidget(self.labels.ffmpeg_options)
-        self.ffmpeg_extras_widget = QtWidgets.QLineEdit()
+        # self.ffmpeg_extras_widget = QtWidgets.QLineEdit()
+        self.ffmpeg_extras_widget = CustomLineEdit()
         self.ffmpeg_extras_widget.setText(ffmpeg_extra_command)
         self.widgets["extra_both_passes"] = QtWidgets.QCheckBox(t("Both Passes"))
         self.opts["extra_both_passes"] = "extra_both_passes"
@@ -285,7 +288,8 @@ class SettingPanel(QtWidgets.QWidget):
         self.labels[widget_name] = QtWidgets.QLabel(t(label))
         self.labels[widget_name].setToolTip(tooltip)
 
-        self.widgets[widget_name] = QtWidgets.QLineEdit()
+        # self.widgets[widget_name] = QtWidgets.QLineEdit()
+        self.widgets[widget_name] = CustomLineEdit()
         self.widgets[widget_name].setDisabled(not enabled)
         self.widgets[widget_name].setToolTip(tooltip)
 
@@ -330,7 +334,7 @@ class SettingPanel(QtWidgets.QWidget):
         if not dirname.exists():
             dirname = Path()
         filename = QtWidgets.QFileDialog.getOpenFileName(
-            self, caption="hdr10_metadata", dir=str(dirname), filter="HDR10+ Metadata (*.json)"
+            self, caption=t("hdr10_metadata"), dir=str(dirname), filter="HDR10+ Metadata (*.json)"
         )
         if not filename or not filename[0]:
             return
@@ -387,7 +391,8 @@ class SettingPanel(QtWidgets.QWidget):
                 self.widgets.bitrate.setCurrentText("Custom")
             else:
                 self.widgets.bitrate.setCurrentIndex(default_bitrate_index)
-            self.widgets.custom_bitrate = QtWidgets.QLineEdit("3000" if not custom_bitrate else config_opt)
+            # self.widgets.custom_bitrate = QtWidgets.QLineEdit("3000" if not custom_bitrate else config_opt)
+            self.widgets.custom_bitrate = CustomLineEdit("3000" if not custom_bitrate else config_opt)
             self.widgets.custom_bitrate.setValidator(QtGui.QDoubleValidator())
             self.widgets.custom_bitrate.setFixedWidth(100)
             self.widgets.custom_bitrate.setEnabled(custom_bitrate)
@@ -429,7 +434,8 @@ class SettingPanel(QtWidgets.QWidget):
                 self.widgets[qp_name].setCurrentIndex(default_qp_index)
 
         if not disable_custom_qp:
-            self.widgets[f"custom_{qp_name}"] = QtWidgets.QLineEdit("30" if not custom_qp else str(qp_value))
+            # self.widgets[f"custom_{qp_name}"] = QtWidgets.QLineEdit("30" if not custom_qp else str(qp_value))
+            self.widgets[f"custom_{qp_name}"] = CustomLineEdit("30" if not custom_qp else str(qp_value))
             self.widgets[f"custom_{qp_name}"].setFixedWidth(100)
             self.widgets[f"custom_{qp_name}"].setValidator(QtGui.QDoubleValidator())
             self.widgets[f"custom_{qp_name}"].setEnabled(custom_qp)
@@ -546,7 +552,7 @@ class SettingPanel(QtWidgets.QWidget):
     def reload(self):
         """This will reset the current settings to what is set in "current_video", useful for return from queue"""
         global ffmpeg_extra_command
-        logger.debug("Update reload called")
+        logger.debug(t("Update reload called"))
         self.updating_settings = True
         for widget_name, opt in self.opts.items():
             data = getattr(self.app.fastflix.current_video.video_settings.video_encoder_settings, opt)
@@ -604,7 +610,7 @@ class SettingPanel(QtWidgets.QWidget):
             bitrate = self.widgets.bitrate.currentText()
             if bitrate.lower() == "custom":
                 if not bitrate:
-                    logger.error("No custom bitrate provided, defaulting to 3000k")
+                    logger.error(t("No custom bitrate provided, defaulting to 3000k"))
                     return "bitrate", "3000k"
                 bitrate = self.widgets.custom_bitrate.text().lower().rstrip("k")
                 bitrate += "k"
@@ -616,12 +622,12 @@ class SettingPanel(QtWidgets.QWidget):
             if qp_text.lower() == "custom":
                 custom_value = self.widgets[f"custom_{self.qp_name}"].text()
                 if not custom_value:
-                    logger.error("No value provided for custom QP/CRF value, defaulting to 30")
+                    logger.error(t("No value provided for custom QP/CRF value, defaulting to 30"))
                     return "qp", 30
                 try:
                     custom_value = float(self.widgets[f"custom_{self.qp_name}"].text().rstrip("."))
                 except ValueError:
-                    logger.error("Custom QP/CRF value is not a number, defaulting to 30")
+                    logger.error(t("Custom QP/CRF value is not a number, defaulting to 30"))
                     return "qp", 30
                 if custom_value.is_integer():
                     custom_value = int(custom_value)

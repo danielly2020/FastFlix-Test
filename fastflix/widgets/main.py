@@ -55,6 +55,7 @@ from fastflix.widgets.background_tasks import ThumbnailCreator
 from fastflix.widgets.progress_bar import ProgressBar, Task
 from fastflix.widgets.video_options import VideoOptions
 from fastflix.widgets.windows.large_preview import LargePreview
+from fastflix.shared import CustomLineEdit
 
 logger = logging.getLogger("fastflix")
 
@@ -230,7 +231,8 @@ class Main(QtWidgets.QWidget):
             f"padding: 0 0 -1px 5px; color: rgb({get_text_color(self.app.fastflix.config.theme)})"
         )
 
-        self.output_video_path_widget = QtWidgets.QLineEdit("")
+        # self.output_video_path_widget = QtWidgets.QLineEdit("")
+        self.output_video_path_widget = CustomLineEdit("")
         self.output_video_path_widget.setDisabled(True)
         self.output_video_path_widget.setFixedHeight(20)
         self.output_video_path_widget.setFont(QtGui.QFont(self.app.font().family(), 9))
@@ -397,7 +399,7 @@ class Main(QtWidgets.QWidget):
     def init_thumb_time_selector(self):
         layout = QtWidgets.QHBoxLayout()
 
-        self.widgets.thumb_key = QtWidgets.QCheckBox("Keyframe")
+        self.widgets.thumb_key = QtWidgets.QCheckBox(t("Keyframe"))
         self.widgets.thumb_key.setChecked(False)
         self.widgets.thumb_key.clicked.connect(self.thumb_time_change)
 
@@ -435,13 +437,13 @@ class Main(QtWidgets.QWidget):
             self.app.fastflix.worker_queue.put(["pause"])
             self.widgets.pause_resume.setText("Resume")
             self.widgets.pause_resume.setStyleSheet("background-color: green;")
-            logger.info("Pausing FFmpeg conversion via pustils")
+            logger.info(t("Pausing FFmpeg conversion via pustils"))
         else:
             self.paused = False
             self.app.fastflix.worker_queue.put(["resume"])
             self.widgets.pause_resume.setText("Pause")
             self.widgets.pause_resume.setStyleSheet("background-color: orange;")
-            logger.info("Resuming FFmpeg conversion")
+            logger.info(t("Resuming FFmpeg conversion"))
 
     def config_update(self):
         self.thumb_file = Path(self.app.fastflix.config.work_path, "thumbnail_preview.jpg")
@@ -662,7 +664,7 @@ class Main(QtWidgets.QWidget):
                 self.video_options.update_profile()
             except KeyError:
                 logger.error(
-                    f"Profile not set properly as we don't have encoder: {self.app.fastflix.config.opt('encoder')}"
+                    f"{t('Profile not set properly as we dont have encoder')}: {self.app.fastflix.config.opt('encoder')}"
                 )
 
             self.widgets.remove_hdr.setChecked(self.app.fastflix.config.opt("remove_hdr"))
@@ -803,25 +805,33 @@ class Main(QtWidgets.QWidget):
 
         layout = QtWidgets.QHBoxLayout()
 
-        reset = QtWidgets.QPushButton(QtGui.QIcon(self.get_icon("undo")), "")
-        reset.setIconSize(QtCore.QSize(10, 10))
-        reset.clicked.connect(self.reset_time)
-        reset.setFixedWidth(15)
-        reset.setStyleSheet(reset_button_style)
-        self.buttons.append(reset)
+        # reset = QtWidgets.QPushButton(QtGui.QIcon(self.get_icon("undo")), "")
+        # reset.setIconSize(QtCore.QSize(12, 12))
+        # reset.clicked.connect(self.reset_time)
+        # reset.setFixedWidth(15)
+        # reset.setStyleSheet(reset_button_style)
+        # self.buttons.append(reset)
 
         self.widgets.start_time, start_layout = self.build_hoz_int_field(
-            f"{t('Start')} ",
+            f"{t('StartTime')} ",
             right_stretch=False,
             left_stretch=True,
             time_field=True,
         )
         self.widgets.end_time, end_layout = self.build_hoz_int_field(
-            f"  {t('End')} ", left_stretch=True, right_stretch=True, time_field=True
+            f"  {t('EndTime')} ", left_stretch=True, right_stretch=True, time_field=True
         )
 
         self.widgets.start_time.textChanged.connect(lambda: self.page_update())
         self.widgets.end_time.textChanged.connect(lambda: self.page_update())
+        
+        reset = QtWidgets.QPushButton(t("Reset"))
+        # reset.setMaximumHeight(40)
+        reset.setStyleSheet("padding-top: 0; padding-bottom: 1px;")
+        reset.setFixedHeight(30)
+        reset.clicked.connect(self.reset_time)
+        self.buttons.append(reset)
+
         self.widgets.fast_time = QtWidgets.QComboBox()
         self.widgets.fast_time.addItems(["fast", "exact"])
         self.widgets.fast_time.setCurrentIndex(0)
@@ -837,12 +847,14 @@ class Main(QtWidgets.QWidget):
         # label = QtWidgets.QLabel(t("Trim"))
         # label.setMaximumHeight(40)
         # layout.addWidget(label, alignment=QtCore.Qt.AlignLeft)
-        layout.addWidget(reset, alignment=QtCore.Qt.AlignTop)
-        layout.addStretch(1)
+        # layout.addWidget(reset, alignment=QtCore.Qt.AlignRight)
+        # layout.addStretch(1)
         layout.addLayout(start_layout)
         layout.addLayout(end_layout)
         layout.addWidget(QtWidgets.QLabel(" "))
+        layout.addWidget(reset, alignment=QtCore.Qt.AlignLeft)
         layout.addWidget(self.widgets.fast_time, QtCore.Qt.AlignRight)
+        layout.addStretch(1)
 
         group_box.setLayout(layout)
         return group_box
@@ -866,7 +878,8 @@ class Main(QtWidgets.QWidget):
         self.widgets.resolution_drop_down.addItems(list(resolutions.keys()))
         self.widgets.resolution_drop_down.currentIndexChanged.connect(self.update_resolution)
 
-        self.widgets.resolution_custom = QtWidgets.QLineEdit()
+        # self.widgets.resolution_custom = QtWidgets.QLineEdit()
+        self.widgets.resolution_custom = CustomLineEdit()
         self.widgets.resolution_custom.setFixedWidth(150)
         self.widgets.resolution_custom.textChanged.connect(self.custom_res_update)
 
@@ -919,7 +932,7 @@ class Main(QtWidgets.QWidget):
         crop_box.setMinimumWidth(400)
         crop_box.setStyleSheet(group_box_style(pt="0", pb="12px"))
         crop_layout = QtWidgets.QVBoxLayout()
-        self.widgets.crop.top, crop_top_layout = self.build_hoz_int_field(f"       {t('Top')} ")
+        self.widgets.crop.top, crop_top_layout = self.build_hoz_int_field(f"{t('Top')} ")
         self.widgets.crop.left, crop_hz_layout = self.build_hoz_int_field(f"{t('Left')} ", right_stretch=False)
         self.widgets.crop.right, crop_hz_layout = self.build_hoz_int_field(
             f"    {t('Right')} ", left_stretch=True, layout=crop_hz_layout
@@ -935,15 +948,16 @@ class Main(QtWidgets.QWidget):
 
         auto_crop = QtWidgets.QPushButton(t("Auto"))
         auto_crop.setMaximumHeight(40)
-        auto_crop.setFixedWidth(50)
+        auto_crop.setStyleSheet("padding-top: 0; padding-bottom: 2px;")
         auto_crop.setToolTip(t("Automatically detect black borders"))
         auto_crop.clicked.connect(self.get_auto_crop)
         self.buttons.append(auto_crop)
 
-        reset = QtWidgets.QPushButton(QtGui.QIcon(self.get_icon("undo")), "")
-        reset.setIconSize(QtCore.QSize(10, 10))
-        reset.setStyleSheet(reset_button_style)
-        reset.setFixedWidth(15)
+        # reset = QtWidgets.QPushButton(QtGui.QIcon(self.get_icon("undo")), "")
+        # reset.setIconSize(QtCore.QSize(12, 12))
+        reset = QtWidgets.QPushButton(t("Reset"))
+        reset.setMaximumHeight(40)
+        reset.setStyleSheet("padding-top: 0; padding-bottom: 2px;")
         reset.clicked.connect(self.reset_crop)
         self.buttons.append(reset)
 
@@ -951,13 +965,16 @@ class Main(QtWidgets.QWidget):
         l1.addWidget(label, alignment=(QtCore.Qt.AlignTop | QtCore.Qt.AlignLeft))
 
         l2 = QtWidgets.QVBoxLayout()
-        l2.addWidget(auto_crop, alignment=(QtCore.Qt.AlignTop | QtCore.Qt.AlignRight))
+        # l2.addWidget(auto_crop, alignment=(QtCore.Qt.AlignTop | QtCore.Qt.AlignRight))
+        l2.addWidget(auto_crop, alignment=(QtCore.Qt.AlignCenter))
 
-        reset_layout = QtWidgets.QHBoxLayout()
-        reset_layout.addWidget(QtWidgets.QLabel("Reset"))
-        reset_layout.addWidget(reset)
+        # reset_layout = QtWidgets.QHBoxLayout()
+        # reset_layout.addWidget(QtWidgets.QLabel(t("Reset")))
+        # reset_layout.addWidget(reset)
 
-        l2.addLayout(reset_layout)
+        # l2.addLayout(reset_layout)
+        # l2.addLayout(reset)
+        l2.addWidget(reset)
         l2.addStretch(1)
 
         crop_layout.addLayout(crop_top_layout)
@@ -999,7 +1016,8 @@ class Main(QtWidgets.QWidget):
         time_field=False,
         right_side_label=False,
     ):
-        widget = QtWidgets.QLineEdit(self.number_to_time(0) if time_field else "0")
+        # widget = QtWidgets.QLineEdit(self.number_to_time(0) if time_field else "0")
+        widget = CustomLineEdit(self.number_to_time(0) if time_field else "0")
         widget.setObjectName(name)
         if not time_field:
             widget.setValidator(only_int)
@@ -1088,7 +1106,7 @@ class Main(QtWidgets.QWidget):
                 value = int(widget.text())
                 value = int(value + (value % modifier))
             except ValueError:
-                logger.exception("This shouldn't be possible, but you somehow put in not an integer")
+                logger.exception(t("This should not be possible, but you somehow put in not an integer"))
                 return
 
         modifier = modifier if method == "add" else -modifier
@@ -1102,7 +1120,7 @@ class Main(QtWidgets.QWidget):
     def open_file(self):
         filename = QtWidgets.QFileDialog.getOpenFileName(
             self,
-            caption="Open Video",
+            caption=t("Open Video"),
             filter="Video Files (*.mkv *.mp4 *.m4v *.mov *.avi *.divx *.webm *.mpg *.mp2 *.mpeg *.mpe *.mpv *.ogg *.m4p"
             " *.wmv *.mov *.qt *.flv *.hevc *.gif *.webp *.vob *.ogv *.ts *.mts *.m2ts *.yuv *.rm *.svi *.3gp *.3g2"
             " *.y4m *.avs *.vpy);;"
@@ -1125,14 +1143,14 @@ class Main(QtWidgets.QWidget):
 
         self.input_video = Path(clean_file_string(filename[0]))
         if not self.input_video.exists():
-            logger.error(f"Could not find the input file, does it exist at: {self.input_video}")
+            logger.error(f"{t('Could not find the input file, does it exist at')}: {self.input_video}")
             return
         self.source_video_path_widget.setText(str(self.input_video))
         self.video_path_widget.setText(str(self.input_video))
         try:
             self.update_video_info()
         except Exception:
-            logger.exception(f"Could not load video {self.input_video}")
+            logger.exception(f"{t('Could not load video')} {self.input_video}")
             self.video_path_widget.setText("")
             self.output_video_path_widget.setText("")
             self.output_video_path_widget.setDisabled(True)
@@ -1168,7 +1186,7 @@ class Main(QtWidgets.QWidget):
                 try:
                     self.update_video_info(hide_progress=True)
                 except Exception:
-                    logger.exception(f"Could not load video {self.input_video}")
+                    logger.exception(f"{t('Could not load video')} {self.input_video}")
                 else:
                     self.page_update(build_thumbnail=False)
                     self.add_to_queue()
@@ -1209,7 +1227,7 @@ class Main(QtWidgets.QWidget):
     def save_file(self, extension="mkv"):
         filename = QtWidgets.QFileDialog.getSaveFileName(
             self,
-            caption="Save Video As",
+            caption=t("Save Video As"),
             dir=str(Path(*self.generate_output_filename)) + f"{self.widgets.output_type_combo.currentText()}",
             filter=f"Save File (*.{extension})",
         )
@@ -1221,7 +1239,7 @@ class Main(QtWidgets.QWidget):
 
     def save_directory(self):
         dirname = QtWidgets.QFileDialog.getExistingDirectory(
-            caption="Save Directory",
+            caption=t("Save Directory"),
             dir=str(self.generate_output_filename[0]),
         )
         if dirname:
@@ -1268,7 +1286,7 @@ class Main(QtWidgets.QWidget):
         ]
         ProgressBar(self.app, tasks)
         if not result_list:
-            logger.warning("Autocrop did not return crop points, please use a ffmpeg version with cropdetect filter")
+            logger.warning(t("Autocrop did not return crop points, please use a ffmpeg version with cropdetect filter"))
             return
 
         smallest = (self.app.fastflix.current_video.height + self.app.fastflix.current_video.width) * 2
@@ -1306,7 +1324,7 @@ class Main(QtWidgets.QWidget):
                 bottom=int(self.widgets.crop.bottom.text()),
             )
         except (ValueError, AttributeError):
-            logger.error("Invalid crop")
+            logger.error(t("Invalid crop"))
             return None
         else:
             crop.width = self.app.fastflix.current_video.width - crop.right - crop.left
@@ -1454,8 +1472,8 @@ class Main(QtWidgets.QWidget):
                 break
         else:
             logger.warning(
-                f"Could not find selected track {self.app.fastflix.current_video.video_settings.selected_track} "
-                f"in {text_video_tracks}"
+                f"{t('Could not find selected track')} {self.app.fastflix.current_video.video_settings.selected_track} "
+                f"{t('in')} {text_video_tracks}"
             )
 
         end_time = self.app.fastflix.current_video.video_settings.end_time or video.duration
@@ -1526,9 +1544,9 @@ class Main(QtWidgets.QWidget):
             self.clear_current_video()
             return
         except Exception:
-            logger.exception(f"Could not properly read the files {self.input_video}")
+            logger.exception(f"{t('Could not properly read the files')} {self.input_video}")
             self.clear_current_video()
-            error_message(f"Could not properly read the file {self.input_video}")
+            error_message(f"{t('Could not properly read the files')} {self.input_video}")
             return
 
         hdr10_indexes = [x.index for x in self.app.fastflix.current_video.hdr10_streams]
@@ -1584,7 +1602,7 @@ class Main(QtWidgets.QWidget):
 
         self.widgets.deinterlace.setChecked(self.app.fastflix.current_video.video_settings.deinterlace)
 
-        logger.info("Updating video info")
+        logger.info(t("Updating video info"))
         self.video_options.new_source()
         self.enable_all()
         # self.widgets.convert_button.setDisabled(False)
@@ -1608,7 +1626,7 @@ class Main(QtWidgets.QWidget):
         try:
             return int(self.widgets.video_track.currentText().split(":", 1)[0])
         except Exception:
-            logger.exception("Could not get original_video_track")
+            logger.exception(f"{t('Could not get')} original_video_track")
             return 0
 
     @property
@@ -1879,11 +1897,11 @@ class Main(QtWidgets.QWidget):
         out_file_path = Path(self.output_video)
         if out_file_path.exists() and out_file_path.stat().st_size > 0:
             sm = QtWidgets.QMessageBox()
-            sm.setText("That output file already exists and is not empty!")
-            sm.addButton("Cancel", QtWidgets.QMessageBox.DestructiveRole)
-            sm.addButton("Overwrite", QtWidgets.QMessageBox.RejectRole)
+            sm.setText(t("That output file already exists and is not empty!"))
+            sm.addButton(t("Cancel"), QtWidgets.QMessageBox.DestructiveRole)
+            sm.addButton(t("Overwrite"), QtWidgets.QMessageBox.RejectRole)
             sm.exec_()
-            if sm.clickedButton().text() == "Cancel":
+            if sm.clickedButton().text() == t("Cancel"):
                 return False
         return True
 
@@ -1913,12 +1931,12 @@ class Main(QtWidgets.QWidget):
             return
 
         if self.app.fastflix.conversion_paused:
-            return error_message("Queue is currently paused")
+            return error_message(t("Queue is currently paused"))
 
         if not self.app.fastflix.conversion_list or self.app.fastflix.current_video:
             add_current = True
             if self.app.fastflix.conversion_list and self.app.fastflix.current_video:
-                add_current = yes_no_message("Add current video to queue?", yes_text="Yes", no_text="No")
+                add_current = yes_no_message(t("Add current video to queue?"), yes_text=t("Yes"), no_text=t("No"))
             if add_current:
                 if not self.add_to_queue():
                     return
@@ -2018,7 +2036,7 @@ class Main(QtWidgets.QWidget):
         except (ValueError, IndexError):
             return event.ignore()
         if not self.input_video.exists():
-            logger.error(f"File does not exist {self.input_video}")
+            logger.error(f"{t('File does not exist')} {self.input_video}")
             return event.ignore()
 
         self.source_video_path_widget.setText(str(self.input_video))
@@ -2026,7 +2044,7 @@ class Main(QtWidgets.QWidget):
         try:
             self.update_video_info()
         except Exception:
-            logger.exception(f"Could not load video {self.input_video}")
+            logger.exception(f"{t('Could not load video')} {self.input_video}")
             self.video_path_widget.setText("")
             self.output_video_path_widget.setText("")
             self.output_video_path_widget.setDisabled(True)
@@ -2042,7 +2060,7 @@ class Main(QtWidgets.QWidget):
 
     def status_update(self, status_response):
         response = Response(*status_response)
-        logger.debug(f"Updating queue from command worker: {response}")
+        logger.debug(f"{t('Updating queue from command worker')}: {response}")
 
         video_to_send: Optional[Video] = None
         errored = False
@@ -2168,7 +2186,7 @@ class Notifier(QtCore.QThread):
             status = self.status_queue.get()
             self.app.processEvents()
             if status[0] == "exit":
-                logger.debug("GUI received ask to exit")
+                logger.debug(t("GUI received ask to exit"))
                 try:
                     self.terminate()
                 finally:

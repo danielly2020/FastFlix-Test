@@ -6,7 +6,9 @@ import logging
 from box import Box
 from PySide6 import QtWidgets
 
+from fastflix.language import t
 from fastflix.models.fastflix_app import FastFlixApp
+from fastflix.shared import CustomTextBrowser
 
 logger = logging.getLogger("fastflix")
 
@@ -30,7 +32,8 @@ class InfoPanel(QtWidgets.QTabWidget):
             all_stream.extend(x)
 
         for stream in sorted(all_stream, key=lambda z: z["index"]):
-            widget = QtWidgets.QTextBrowser(self)
+            # widget = QtWidgets.QTextBrowser(self)
+            widget = CustomTextBrowser(self)
             widget.setReadOnly(True)
             widget.setDisabled(False)
             widget.setText(Box(stream).to_yaml(default_flow_style=False))

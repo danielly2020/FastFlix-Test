@@ -30,12 +30,12 @@ class ThumbnailCreator(QtCore.QThread):
         if result.returncode > 0:
             if "No such filter: 'zscale'" in result.stdout.decode(encoding="utf-8", errors="ignore"):
                 self.main.thread_logging_signal.emit(
-                    "ERROR:Could not generate thumbnail because you are using an outdated FFmpeg! "
-                    "Please use FFmpeg 4.3+ built against the latest zimg libraries. "
-                    "Static builds available at https://ffmpeg.org/download.html "
+                    f"ERROR:{t('Could not generate thumbnail because you are using an outdated FFmpeg!')} "
+                    f"{t('Please use FFmpeg 4.3+ built against the latest zimg libraries.')} "
+                    f"{t('Static builds available at')} https://ffmpeg.org/download.html "
                 )
             if "OpenCL mapping not usable" in result.stdout.decode(encoding="utf-8", errors="ignore"):
-                self.main.thread_logging_signal.emit("ERROR trying to use OpenCL for thumbnail generation")
+                self.main.thread_logging_signal.emit(t("ERROR trying to use OpenCL for thumbnail generation"))
                 self.main.thumbnail_complete.emit(2)
             else:
                 self.main.thread_logging_signal.emit(f"ERROR:{t('Could not generate thumbnail')}: {result.stdout}")
@@ -54,7 +54,37 @@ class ExtractSubtitleSRT(QtCore.QThread):
         self.signal = signal
 
     def run(self):
-        filename = str(Path(self.main.output_video).parent / f"{self.main.output_video}.{self.index}.srt").replace(
+        subtitle_format = self._get_subtitle_format()
+        if subtitle_format is None:
+            self.main.thread_logging_signal.emit(
+                f'WARNING:{t("Could not determine subtitle format for track")} {self.index}, {t("skipping extraction")}'
+            )
+            self.signal.emit()
+            return
+
+        if subtitle_format == 'srt':
+            extension = 'srt'
+            output_args = ["-c", "srt", "-f", "srt"]
+        elif subtitle_format == 'ass':
+            extension = 'ass'
+            output_args = ["-c", "copy"]
+        elif subtitle_format == 'ssa':
+            extension = 'ssa'
+            output_args = ["-c", "copy"]
+        elif subtitle_format == 'hdmv_pgs_subtitle':
+            extension = 'sup'
+            output_args = ["-c", "copy"]
+        else:
+            self.main.thread_logging_signal.emit(
+                f'WARNING:{t("Subtitle Track")} {self.index} {t("is not in supported format (SRT, ASS, SSA, PGS), skipping extraction")}: {subtitle_format}'
+            )
+            self.signal.emit()
+            return
+
+        # filename = str(Path(self.main.output_video).parent / f"{self.main.output_video}.{self.index}.srt").replace(
+            # "\\", "/"
+        # )
+        filename = str(Path(self.main.output_video).parent / f"{self.main.output_video}.{self.index}.{extension}").replace(
             "\\", "/"
         )
         self.main.thread_logging_signal.emit(f"INFO:{t('Extracting subtitles to')} {filename}")
@@ -67,11 +97,12 @@ class ExtractSubtitleSRT(QtCore.QThread):
                     "-i",
                     self.main.input_video,
                     "-map",
-                    f"0:{self.index}",
-                    "-c",
-                    "srt",
-                    "-f",
-                    "srt",
+                    f"0:s:{self.index}",
+                    # "-c",
+                    # "srt",
+                    # "-f",
+                    # "srt",
+                    *output_args,
                     filename,
                 ],
                 stdout=PIPE,
@@ -88,6 +119,48 @@ class ExtractSubtitleSRT(QtCore.QThread):
                 self.main.thread_logging_signal.emit(f"INFO:{t('Extracted subtitles successfully')}")
         self.signal.emit()
 
+    def _get_subtitle_format(self):
+        try:
+            result = run(
+                [
+                    self.app.fastflix.config.ffprobe,
+                    "-v", "error",
+                    "-select_streams", f"s:{self.index}",
+                    "-show_entries", "stream=codec_name",
+                    "-of", "default=noprint_wrappers=1:nokey=1",
+                    self.main.input_video
+                ],
+                stdout=PIPE,
+                stderr=STDOUT,
+                text=True
+            )
+            
+            if result.returncode != 0:
+                self.main.thread_logging_signal.emit(
+                    f'WARNING:{t("Could not probe subtitle track")} {self.index}: {result.stdout}'
+                )
+                return None
+            
+            codec_name = result.stdout.strip().lower()
+            if codec_name in ['srt', 'subrip', 'xsub', 'webvtt', 'mov_text']:
+                return 'srt'
+            elif codec_name == 'ass':
+                return 'ass'
+            elif codec_name == 'ssa':
+                return 'ssa'
+            elif codec_name == 'hdmv_pgs_subtitle':
+                return 'hdmv_pgs_subtitle'
+            else:
+                self.main.thread_logging_signal.emit(
+                    f'WARNING:{t("Subtitle Track")} {self.index} {t("is not in supported format (SRT, ASS, SSA, PGS), skipping extraction")}: {codec_name}'
+                )
+                return None
+                
+        except Exception as err:
+            self.main.thread_logging_signal.emit(
+                f'WARNING:{t("Error checking subtitle format for track")} {self.index} - {err}'
+            )
+            return None
 
 class AudioNoramlize(QtCore.QThread):
     def __init__(self, app: FastFlixApp, main, audio_type, signal):
@@ -102,17 +175,17 @@ class AudioNoramlize(QtCore.QThread):
             os.putenv("FFMPEG_PATH", str(self.app.fastflix.config.ffmpeg))
             out_file = self.app.fastflix.current_video.video_settings.output_path
             if not out_file:
-                self.signal.emit("No source video provided")
+                self.signal.emit(t("No source video provided"))
             normalizer = FFmpegNormalize(
                 audio_codec=self.audio_type, extension=out_file.suffix.lstrip("."), video_codec="copy", progress=True
             )
-            logger.info(f"Running audio normalization - will output video to {str(out_file)}")
+            logger.info(f"{t('Running audio normalization - will output video to')} {str(out_file)}")
             normalizer.add_media_file(str(self.app.fastflix.current_video.source), str(out_file))
             normalizer.run_normalization()
-            self.signal.emit("Completed")
+            self.signal.emit(t("Completed"))
         except Exception as e:
-            logger.error(f"Audio normalization failed: {e}")
-            self.signal.emit("Failed")
+            logger.error(f"{t('Audio normalization failed')}: {e}")
+            self.signal.emit(t("Failed"))
 
 
 class ExtractHDR10(QtCore.QThread):
@@ -125,7 +198,7 @@ class ExtractHDR10(QtCore.QThread):
 
     def run(self):
         if not self.app.fastflix.current_video.hdr10_plus:
-            self.main.thread_logging_signal.emit("ERROR:No tracks have HDR10+ data to extract")
+            self.main.thread_logging_signal.emit("ERROR:{t('No tracks have HDR10+ data to extract')}")
             return
 
         output = self.app.fastflix.current_video.work_path / "metadata.json"
@@ -133,20 +206,20 @@ class ExtractHDR10(QtCore.QThread):
         track = self.app.fastflix.current_video.video_settings.selected_track
         if track not in self.app.fastflix.current_video.hdr10_plus:
             self.main.thread_logging_signal.emit(
-                "WARNING:Selected video track not detected to have HDR10+ data, selecting first track that does"
+                "WARNING:{t('Selected video track not detected to have HDR10+ data, selecting first track that does')}"
             )
             track = self.app.fastflix.current_video.hdr10_plus[0]
 
         self.main.thread_logging_signal.emit(f"INFO:{t('Extracting HDR10+ metadata')} to {output}")
 
-        self.ffmpeg_signal.emit("Extracting HDR10+ metadata")
+        self.ffmpeg_signal.emit(t("Extracting HDR10+ metadata"))
 
         hdr10_parser_version_output = check_output(
             [str(self.app.fastflix.config.hdr10plus_parser), "--version"], encoding="utf-8"
         )
         _, version_string = hdr10_parser_version_output.rsplit(sep=" ", maxsplit=1)
         hdr10_parser_version = version.parse(version_string)
-        self.main.thread_logging_signal.emit(f"Using HDR10 parser version {str(hdr10_parser_version).strip()}")
+        self.main.thread_logging_signal.emit(f"{t('Using HDR10 parser version')} {str(hdr10_parser_version).strip()}")
 
         ffmpeg_command = [
             str(self.app.fastflix.config.ffmpeg),
@@ -169,7 +242,7 @@ class ExtractHDR10(QtCore.QThread):
             hdr10_parser_command.insert(1, "extract")
 
         self.main.thread_logging_signal.emit(
-            f"Running command: {' '.join(ffmpeg_command)} | {' '.join(hdr10_parser_command)}"
+            f"{t('Running command')}: {' '.join(ffmpeg_command)} | {' '.join(hdr10_parser_command)}"
         )
 
         process = Popen(
@@ -197,5 +270,5 @@ class ExtractHDR10(QtCore.QThread):
                         self.ffmpeg_signal.emit(line)
 
         stdout, stderr = process_two.communicate()
-        self.main.thread_logging_signal.emit(f"DEBUG: HDR10+ Extract: {stdout}")
+        self.main.thread_logging_signal.emit(f"DEBUG: {t('HDR10+ Extract')}: {stdout}")
         self.signal.emit(str(output))

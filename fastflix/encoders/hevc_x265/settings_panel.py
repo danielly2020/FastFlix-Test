@@ -10,6 +10,7 @@ from fastflix.models.encode import x265Settings
 from fastflix.models.fastflix_app import FastFlixApp
 from fastflix.resources import loading_movie, get_icon
 from fastflix.shared import link
+from fastflix.shared import CustomLineEdit
 
 logger = logging.getLogger("fastflix")
 
@@ -162,7 +163,7 @@ class HEVC(SettingPanel):
             label="HDR10+ Metadata",
             widget_name="hdr10plus_metadata",
             button_action=lambda: self.dhdr10_update(),
-            tooltip="dhdr10_info: Path to HDR10+ JSON metadata file",
+            tooltip=t("dhdr10_info: Path to HDR10+ JSON metadata file"),
         )
         self.labels["hdr10plus_metadata"].setFixedWidth(200)
         return layout
@@ -170,10 +171,10 @@ class HEVC(SettingPanel):
     def init_dhdr10_warning_and_opt(self):
         label = QtWidgets.QLabel()
         label.setToolTip(
-            "WARNING: This only works on a few FFmpeg builds, and it will not raise error on failure!\n"
-            "Specifically, FFmpeg needs the x265 ENABLE_HDR10_PLUS option enabled on compile.\n"
-            "The latest windows builds from BtbN should have this feature.\n"
-            "I do not know of any public Linux/Mac ones that do."
+            f"{t('WARNING: This only works on a few FFmpeg builds, and it will not raise error on failure!')}\n"
+            f"{t('Specifically, FFmpeg needs the x265 ENABLE_HDR10_PLUS option enabled on compile.')}\n"
+            f"{t('The latest windows builds from BtbN should have this feature.')}\n"
+            f"{t('I do not know of any public Linux/Mac ones that do.')}"
         )
         icon = QtGui.QIcon(get_icon("onyx-warning", self.app.fastflix.config.theme))
         label.setPixmap(icon.pixmap(22))
@@ -580,7 +581,8 @@ class HEVC(SettingPanel):
         )
         self.labels.x265_params.setToolTip(tool_tip)
         layout.addWidget(self.labels.x265_params)
-        self.widgets.x265_params = QtWidgets.QLineEdit()
+        # self.widgets.x265_params = QtWidgets.QLineEdit()
+        self.widgets.x265_params = CustomLineEdit()
         self.widgets.x265_params.setToolTip(tool_tip)
         self.widgets.x265_params.setText(
             ":".join(self.app.fastflix.config.encoder_opt(self.profile_name, "x265_params"))

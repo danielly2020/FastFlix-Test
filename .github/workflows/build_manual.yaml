@@ -1,9 +1,12 @@
+
 name: Build executables
 on:
-  push:
-    branches: [ master, build ]
-  pull_request:
-    branches: [ master, develop ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run tests against)'
+        required: true
+        default: 'dev'
 
 jobs:
 

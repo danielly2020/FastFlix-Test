@@ -22,6 +22,7 @@ from fastflix.models.encode import (
 from fastflix.models.profiles import Profile, AudioMatch, MatchItem, MatchType
 from fastflix.version import __version__
 from fastflix.rigaya_helpers import get_all_encoder_formats_and_devices
+from fastflix.language import t
 
 logger = logging.getLogger("fastflix")
 ffmpeg_folder = Path(user_data_dir("FFmpeg", appauthor=False, roaming=True))
@@ -187,7 +188,7 @@ class Config(BaseModel):
         return getattr(advanced_settings, profile_option_name)
 
     def profile_v1_to_v2(self, name, raw_profile):
-        logger.info(f'Upgrading profile "{name}" to version 2')
+        logger.info(f'{t("Upgrading profile")} "{name}" {t("to version 2")}')
         try:
             audio_language = raw_profile.pop("audio_language")
         except KeyError:
@@ -254,7 +255,7 @@ class Config(BaseModel):
             self.work_path.mkdir(exist_ok=True)
 
         if not self.config_path.exists() or self.config_path.stat().st_size < 10:
-            logger.debug(f"Creating new config file {self.config_path}")
+            logger.debug(f"{t('Creating new config file')} {self.config_path}")
             self.config_path.parent.mkdir(parents=True, exist_ok=True)
             self.save()
             if not self.ffmpeg:
@@ -263,19 +264,19 @@ class Config(BaseModel):
                 # Try one last time to find snap packaged versions
                 self.ffprobe = find_ffmpeg_file("ffmpeg.ffprobe", raise_on_missing=True)
             return
-        logger.debug(f"Using config file {self.config_path}")
+        logger.debug(f"{t('Using config file')} {self.config_path}")
         try:
             data = Box.from_yaml(filename=self.config_path)
         except BoxError as err:
             raise ConfigError(f"{self.config_path}: {err}")
         if "version" not in data:
-            raise ConfigError(f"Corrupt config file. Please fix or remove {self.config_path}")
+            raise ConfigError(f"{t('Corrupt config file. Please fix or remove')} {self.config_path}")
 
         if version.parse(__version__) < version.parse(data.version):
             logger.warning(
-                f"This FastFlix version ({__version__}) is older "
-                f"than the one that generated the config file ({data.version}), "
-                "there may be non-recoverable errors while loading it."
+                f"{t('This FastFlix version')} ({__version__}) {t('is older')} "
+                f"{t('than the one that generated the config file')} ({data.version}), "
+                f"{t('there may be non-recoverable errors while loading it.')}"
             )
 
         paths = (
@@ -347,33 +348,33 @@ class Config(BaseModel):
 
     def check_hw_encoders(self):
         if self.nvencc:
-            logger.info("Checking for available NVEncC encoders")
+            logger.info(t("Checking for available NVEncC encoders"))
             try:
                 self.nvencc_devices, self.nvencc_encoders = get_all_encoder_formats_and_devices(
                     self.nvencc, is_nvenc=True
                 )
             except Exception:
-                logger.exception("Errored while checking for available NVEncC formats")
+                logger.exception(t("Errored while checking for available NVEncC formats"))
         else:
             self.nvencc_encoders = []
         if self.vceencc:
-            logger.info("Checking for available VCEEncC encoders")
+            logger.info(t("Checking for available VCEEncC encoders"))
             try:
                 self.vceencc_devices, self.vceencc_encoders = get_all_encoder_formats_and_devices(
                     self.vceencc, is_vce=True
                 )
             except Exception:
-                logger.exception("Errored while checking for available VCEEncC formats")
+                logger.exception(t("Errored while checking for available VCEEncC formats"))
         else:
             self.vceencc_encoders = []
         if self.qsvencc:
-            logger.info("Checking for available QSVEncC encoders")
+            logger.info(t("Checking for available QSVEncC encoders"))
             try:
                 self.qsvencc_devices, self.qsvencc_encoders = get_all_encoder_formats_and_devices(
                     self.qsvencc, is_qsv=True
                 )
             except Exception:
-                logger.exception("Errored while checking for available QSVEncC formats")
+                logger.exception(t("Errored while checking for available QSVEncC formats"))
         else:
             self.qsvencc_encoders = []
 

@@ -9,6 +9,7 @@ from PySide6 import QtCore, QtGui, QtWidgets
 from fastflix.language import t
 from fastflix.models.fastflix_app import FastFlixApp
 from fastflix.resources import get_icon
+from fastflix.shared import CustomTextBrowser
 
 
 class Loop(QtWidgets.QGroupBox):
@@ -30,7 +31,8 @@ class Command(QtWidgets.QTabWidget):
     def __init__(self, parent, command, number, name="", enabled=True, height=None):
         super(Command, self).__init__(parent)
         self.command = command
-        self.widget = QtWidgets.QTextBrowser()
+        # self.widget = QtWidgets.QTextBrowser()
+        self.widget = CustomTextBrowser()
         self.widget.setReadOnly(True)
         if not height:
             font_height = QtGui.QFontMetrics(self.widget.document().defaultFont()).height()

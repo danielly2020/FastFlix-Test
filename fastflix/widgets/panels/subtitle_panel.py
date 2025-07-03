@@ -30,7 +30,7 @@ disposition_options = [
 
 subtitle_types = {
     "dvd_subtitle": "picture",
-    "hdmv_pgs_subtitle": "picture",
+    "hdmv_pgs_subtitle": "pgs",
     "dvdsub": "picture",
     "subrip": "text",
     "ssa": "text",
@@ -40,7 +40,7 @@ subtitle_types = {
     "xsub": "text",
 }
 
-language_list = [v.name for v in iter_langs() if v.pt2b and v.pt1] + ["Undefined"]
+language_list = [v.name for v in iter_langs() if v.pt2b and v.pt1] + [t("Undefined")]
 
 # TODO give warning about exact time needed for text based subtitles
 
@@ -98,7 +98,7 @@ class Subtitle(QtWidgets.QTabWidget):
         # if self.subtitle.disposition.get("forced"):
         #     self.widgets.disposition.setCurrentIndex(dispositions.index("forced"))
 
-        self.setFixedHeight(60)
+        self.setFixedHeight(70)
         self.widgets.title.setToolTip(Box(sub_track.raw_info).to_yaml())
         self.widgets.burn_in.setToolTip(
             f"""{t("Overlay this subtitle track onto the video during conversion.")}\n
@@ -116,21 +116,23 @@ class Subtitle(QtWidgets.QTabWidget):
         # self.movie.start()
 
         self.disposition_widget = Disposition(
-            app=self.app, parent=self, track_name=f"Subtitle Track {index}", track_index=index, audio=False
+            app=self.app, parent=self, track_name=f"{t('Subtitle Track')} {index}", track_index=index, audio=False
         )
         # self.set_dis_button()
         self.widgets.disposition.clicked.connect(self.disposition_widget.show)
 
         disposition_layout = QtWidgets.QHBoxLayout()
-        disposition_layout.addWidget(QtWidgets.QLabel(t("Dispositions")))
+        # disposition_layout.addWidget(QtWidgets.QLabel(t("Dispositions")))
         disposition_layout.addWidget(self.widgets.disposition)
 
         self.grid = QtWidgets.QGridLayout()
+        self.grid.setVerticalSpacing(3)
         self.grid.addLayout(self.init_move_buttons(), 0, 0)
         self.grid.addWidget(self.widgets.track_number, 0, 1)
         self.grid.addWidget(self.widgets.title, 0, 2)
         self.grid.setColumnStretch(2, True)
-        if sub_track.subtitle_type == "text":
+        # if sub_track.subtitle_type == "text":
+        if sub_track.subtitle_type in ["text", "pgs"]:
             self.grid.addWidget(self.widgets.extract, 0, 3)
             self.grid.addWidget(self.gif_label, 0, 3)
             self.gif_label.hide()
@@ -263,10 +265,10 @@ class SubtitleList(FlixList):
         top_layout.addStretch(1)
 
         self.remove_all_button = QtWidgets.QPushButton(t("Unselect All"))
-        self.remove_all_button.setFixedWidth(150)
+        self.remove_all_button.setFixedWidth(90)
         self.remove_all_button.clicked.connect(lambda: self.select_all(False))
         self.save_all_button = QtWidgets.QPushButton(t("Preserve All"))
-        self.save_all_button.setFixedWidth(150)
+        self.save_all_button.setFixedWidth(90)
         self.save_all_button.clicked.connect(lambda: self.select_all(True))
 
         top_layout.addWidget(self.remove_all_button)

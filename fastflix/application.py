@@ -36,8 +36,16 @@ def create_app(enable_scaling):
     main_app = FastFlixApp(sys.argv)
     main_app.allWindows()
     main_app.setApplicationDisplayName("FastFlix")
-    my_font = QtGui.QFont("Arial" if "Arial" in QtGui.QFontDatabase().families() else "Sans Serif", 9)
-    main_app.setFont(my_font)
+    # my_font = QtGui.QFont("Arial" if "Arial" in QtGui.QFontDatabase().families() else "Sans Serif", 9)
+    my_fonts = ["\u5fae\u8f6f\u96c5\u9ed1", "Microsoft Yahei UI", "Microsoft Yahei", "Segoe UI", "Arial"]
+    available_fonts = QtGui.QFontDatabase().families()
+    for font_family in my_fonts:
+        if font_family in available_fonts:
+            my_fonts = QtGui.QFont(font_family, 10)
+            break
+    else:
+        my_fonts = QtGui.QFont("Sans Serif", 10)
+    main_app.setFont(my_fonts)
     main_app.setWindowIcon(QtGui.QIcon(main_icon))
     return main_app
 
@@ -179,12 +187,12 @@ def app_setup(
     app.fastflix.config = Config()
     init_fastflix_directories(app)
     init_logging(app)
-    logger.debug(f"GUI logging initialized, saving to {app.fastflix.log_path}")
+    logger.debug(f"{t('GUI logging initialized, saving to')} {app.fastflix.log_path}")
     upgraded = app.fastflix.config.upgrade_check()
     if upgraded:
         # No translation will be possible in this case
         message(
-            f"Your config file has been upgraded to FastFlix's new YAML config format\n"
+            f"{t('Your config file has been upgraded to FastFlix new YAML config format')}\n"
             f"{app.fastflix.config.config_path}",
             title="Upgraded",
         )
@@ -199,7 +207,7 @@ def app_setup(
                 logger.exception(str(err))
                 sys.exit(1)
         else:
-            logger.error(f"Could not find {err} location, please manually set in {app.fastflix.config.config_path}")
+            logger.error(f"{t('Could not find')} {err} {t('location, please manually set in')} {app.fastflix.config.config_path}")
             sys.exit(1)
     except Exception:
         # TODO give edit / delete options
@@ -285,5 +293,5 @@ def start_app(worker_queue, status_queue, log_queue, queue_list, queue_lock, por
     try:
         app.exec()
     except Exception:
-        logger.exception("Error while running FastFlix")
+        logger.exception(t("Error while running FastFlix"))
         raise

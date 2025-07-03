@@ -11,6 +11,7 @@ from threading import Thread
 from typing import Literal
 
 from psutil import Popen
+from fastflix.language import t
 
 try:
     from psutil import (
@@ -60,18 +61,18 @@ class BackgroundRunner:
 
     def start_exec(self, command, work_dir: str = None, shell: bool = False, errors=(), successes=()):
         self.clean()
-        logger.debug(f"Using work dir: {work_dir}")
+        logger.debug(f"{t('Using work dir')}: {work_dir}")
         work_path = Path(work_dir)
         work_path.mkdir(exist_ok=True, parents=True)
         self.output_file = work_path / f"encoder_output_{secrets.token_hex(6)}.log"
         self.error_output_file = work_path / f"encoder_error_output_{secrets.token_hex(6)}.log"
-        logger.debug(f"command output file set to: {self.output_file}")
-        logger.debug(f"command error output file set to: {self.error_output_file}")
+        logger.debug(f"{t('command output file set to')}: {self.output_file}")
+        logger.debug(f"{t('command error output file set to')}: {self.error_output_file}")
         self.output_file.touch(exist_ok=True)
         self.error_output_file.touch(exist_ok=True)
         self.error_message = errors
         self.success_message = successes
-        logger.info(f"Running command: {command}")
+        logger.info(f"{t('Running command')}: {command}")
         try:
             self.process = Popen(
                 shlex.split(command.replace("\\", "\\\\")) if not shell and isinstance(command, str) else command,
@@ -84,14 +85,14 @@ class BackgroundRunner:
             )
         except PermissionError:
             logger.error(
-                "Could not encode video due to permissions error."
-                "Please make sure encoder is executable and you have permissions to run it."
-                "Otherwise try running FastFlix as an administrator."
+                f"{t('Could not encode video due to permissions error.')}"
+                f"{t('Please make sure encoder is executable and you have permissions to run it.')}"
+                f"{t('Otherwise try running FastFlix as an administrator.')}"
             )
             self.error_detected = True
             return
         except Exception:
-            logger.exception("Could not start worker process")
+            logger.exception(t("Could not start worker process"))
             self.error_detected = True
             return
 
@@ -105,9 +106,9 @@ class BackgroundRunner:
         try:
             if self.process:
                 self.process.nice(priority_levels[new_priority])
-                logger.info(f"Set command priority to {new_priority}")
+                logger.info(f"{t('Set command priority to')} {new_priority}")
         except Exception:
-            logger.exception(f"Could not set process priority to {new_priority}")
+            logger.exception(f"{t('Could not set process priority to')} {new_priority}")
 
     def read_output(self):
         with (
@@ -174,7 +175,7 @@ class BackgroundRunner:
     def kill(self, log=True):
         if self.process and self.process.poll() is None:
             if log:
-                logger.warning(f"Stopping encoder worker process {self.process.pid}")
+                logger.warning(f"{t('Stopping encoder worker process')} {self.process.pid}")
             try:
                 # if reusables.win_based:
                 #     os.kill(self.process.pid, signal.CTRL_C_EVENT)
@@ -184,7 +185,7 @@ class BackgroundRunner:
                 self.process.kill()
             except Exception as err:
                 if log:
-                    logger.exception(f"Couldn't terminate process: {err}")
+                    logger.exception(f"{t('Could not terminate process')}: {err}")
         self.killed = True
 
     def pause(self):

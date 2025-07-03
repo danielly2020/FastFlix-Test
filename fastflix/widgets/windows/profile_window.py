@@ -15,8 +15,9 @@ from fastflix.models.encode import x265Settings, setting_types
 from fastflix.models.profiles import AudioMatch, Profile, MatchItem, MatchType, AdvancedOptions
 from fastflix.shared import error_message
 from fastflix.encoders.common.audio import channel_list
+from fastflix.shared import CustomLineEdit
 
-language_list = [v.name for v in iter_langs() if v.pt2b and v.pt1] + ["Undefined"]
+language_list = [v.name for v in iter_langs() if v.pt2b and v.pt1] + [t("Undefined")]
 
 logger = logging.getLogger("fastflix")
 
@@ -50,7 +51,8 @@ class AudioProfile(QtWidgets.QTabWidget):
 
         self.match_input_boxes = [
             QtWidgets.QLineEdit("*"),
-            QtWidgets.QLineEdit(""),
+            # QtWidgets.QLineEdit(""),
+            CustomLineEdit(""),
             QtWidgets.QComboBox(),
             QtWidgets.QComboBox(),
             QtWidgets.QComboBox(),
@@ -62,7 +64,7 @@ class AudioProfile(QtWidgets.QTabWidget):
         self.match_input_boxes[3].addItems(language_list)
         self.match_input_boxes[3].setCurrentText("English")
         self.match_input_boxes[4].addItems(
-            ["none | unknown", "mono", "stereo", "3 | 2.1", "4", "5", "6 | 5.1", "7", "8 | 7.1", "9", "10"]
+            [t("none | unknown"), "mono", "stereo", "3 | 2.1", "4", "5", "6 | 5.1", "7", "8 | 7.1", "9", "10"]
         )
 
         self.match_input_boxes[2].view().setFixedWidth(self.match_input_boxes[2].minimumSizeHint().width() + 50)
@@ -86,10 +88,11 @@ class AudioProfile(QtWidgets.QTabWidget):
         self.downmix.view().setFixedWidth(self.downmix.minimumSizeHint().width() + 50)
 
         self.convert_to = QtWidgets.QComboBox()
-        self.convert_to.addItems(["None | Passthrough"] + main.video_options.audio_formats)
+        self.convert_to.addItems([t("None | Passthrough")] + main.video_options.audio_formats)
 
         self.convert_to.view().setFixedWidth(self.convert_to.minimumSizeHint().width() + 50)
-        self.bitrate = QtWidgets.QLineEdit()
+        # self.bitrate = QtWidgets.QLineEdit()
+        self.bitrate = CustomLineEdit()
         self.bitrate.setPlaceholderText("128k")
         self.bitrate.setFixedWidth(self.bitrate.minimumSizeHint().width() + 50)
 
@@ -147,10 +150,10 @@ class AudioProfile(QtWidgets.QTabWidget):
         elif match_item_enum == MatchItem.CHANNELS:
             match_input_value = str(self.match_input.currentIndex())
         else:
-            raise Exception("Internal error, what do we do sir?")
+            raise Exception(t("Internal error, what do we do sir?"))
 
         if self.convert_to.currentIndex() > 0 and not self.bitrate.text().strip():
-            raise FastFlixError("No Bitrate")
+            raise FastFlixError(t("No Bitrate"))
 
         return AudioMatch(
             match_type=match_type_eng[self.match_type.currentIndex()],
@@ -392,7 +395,8 @@ class ProfileWindow(QtWidgets.QWidget):
 
         profile_name_label = QtWidgets.QLabel(t("Profile Name"))
         profile_name_label.setFixedHeight(40)
-        self.profile_name = QtWidgets.QLineEdit()
+        # self.profile_name = QtWidgets.QLineEdit()
+        self.profile_name = CustomLineEdit()
         if self.app.fastflix.config.theme == "onyx":
             self.profile_name.setStyleSheet("background-color: #707070; border-radius: 10px; color: black")
         self.profile_name.setFixedWidth(300)
@@ -547,7 +551,7 @@ class ProfileWindow(QtWidgets.QWidget):
                 setattr(new_profile, snake_name, self.encoder)
                 break
         else:
-            logger.error(f"Profile cannot be saved! Unknown encoder type {self.encoder.__class__.__name__}.")
+            logger.error(f"{t('Profile cannot be saved! Unknown encoder type')} {self.encoder.__class__.__name__}.")
             return
 
         self.app.fastflix.config.profiles[profile_name] = new_profile

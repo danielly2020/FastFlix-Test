@@ -73,7 +73,7 @@ class ProgressBar(QtWidgets.QFrame):
     @reusables.log_exception("fastflix")
     def run(self):
         if not self.tasks:
-            logger.error("Progress bar RUN called without any tasks")
+            logger.error(t("Progress bar RUN called without any tasks"))
             return
         ratio = 100 / len(self.tasks)
         self.progress_bar.setValue(0)
@@ -87,7 +87,7 @@ class ProgressBar(QtWidgets.QFrame):
 
         else:
             for i, task in enumerate(self.tasks, start=1):
-                logger.info(f"Running task {task.name}")
+                logger.info(f"{t('Running task')} {task.name}")
                 self.status.setText(task.name)
                 self.app.processEvents()
                 if self.app.fastflix.shutting_down:
@@ -95,7 +95,7 @@ class ProgressBar(QtWidgets.QFrame):
                 try:
                     task.command(config=self.app.fastflix.config, app=self.app, **task.kwargs)
                 except Exception:
-                    logger.exception(f"Could not run task {task.name} with config {self.app.fastflix.config}")
+                    logger.exception(f"{t('Could not run task')} {task.name} {t('with config')} {self.app.fastflix.config}")
                     self.close()
                     raise
                 self.progress_bar.setValue(int(i * ratio))
