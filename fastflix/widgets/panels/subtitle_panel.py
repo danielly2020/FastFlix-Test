@@ -40,7 +40,7 @@ subtitle_types = {
     "xsub": "text",
 }
 
-language_list = [v.name for v in iter_langs() if v.pt2b and v.pt1] + [t("Undefined")]
+language_list = [v.name for v in iter_langs() if v.pt2b and v.pt1] + ["Undefined"]
 
 # TODO give warning about exact time needed for text based subtitles
 

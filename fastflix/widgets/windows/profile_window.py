@@ -17,7 +17,7 @@ from fastflix.shared import error_message
 from fastflix.encoders.common.audio import channel_list
 from fastflix.shared import CustomLineEdit
 
-language_list = [v.name for v in iter_langs() if v.pt2b and v.pt1] + [t("Undefined")]
+language_list = [v.name for v in iter_langs() if v.pt2b and v.pt1] + ["Undefined"]
 
 logger = logging.getLogger("fastflix")
 

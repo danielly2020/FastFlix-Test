@@ -19,7 +19,7 @@ from fastflix.widgets.windows.audio_conversion import AudioConversion
 from fastflix.widgets.windows.disposition import Disposition
 from fastflix.shared import CustomLineEdit
 
-language_list = [v.name for v in iter_langs() if v.pt2b and v.pt1] + [t("Undefined")]
+language_list = [v.name for v in iter_langs() if v.pt2b and v.pt1] + ["Undefined"]
 logger = logging.getLogger("fastflix")
 
 disposition_options = [
@@ -82,7 +82,7 @@ class Audio(QtWidgets.QTabWidget):
 
         self.widgets.audio_info.setToolTip(Box(audio_track.raw_info).to_yaml())
 
-        self.widgets.language.addItems([t("No Language Set"), t("Undefined")] + language_list)
+        self.widgets.language.addItems([t("No Language Set"), "Undefined"] + language_list)
         self.widgets.language.setMaximumWidth(150)
         if audio_track.language:
             try:
@@ -216,7 +216,7 @@ class Audio(QtWidgets.QTabWidget):
     @property
     def language(self) -> str:
         if self.widgets.language.currentIndex() == 0:
-            return ""
+            return "und"
         return Language(self.widgets.language.currentText()).pt2b
 
     @property
