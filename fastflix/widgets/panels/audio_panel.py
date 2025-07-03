@@ -19,7 +19,7 @@ from fastflix.widgets.windows.audio_conversion import AudioConversion
 from fastflix.widgets.windows.disposition import Disposition
 from fastflix.shared import CustomLineEdit
 
-language_list = [v.name for v in iter_langs() if v.pt2b and v.pt1] + ["Undefined"]
+language_list = [v.name for v in iter_langs() if v.pt2b and v.pt1] + [t("Undefined")]
 logger = logging.getLogger("fastflix")
 
 disposition_options = [
