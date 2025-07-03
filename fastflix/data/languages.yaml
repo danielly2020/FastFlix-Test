@@ -1879,7 +1879,7 @@ Could not probe subtitle track:
   chs: 无法探测字幕轨道
 is not in supported format (SRT, ASS, SSA, PGS), skipping extraction:
   chs: 不是支持的格式(SRT, ASS, SSA, PGS)，跳过提取
-  Error checking subtitle format for track:
+Error checking subtitle format for track:
   chs: 检查轨道字幕格式时出错
 Undefined:
   chs: 未定义
