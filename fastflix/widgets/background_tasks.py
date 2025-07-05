@@ -46,12 +46,13 @@ class ThumbnailCreator(QtCore.QThread):
 
 
 class ExtractSubtitleSRT(QtCore.QThread):
-    def __init__(self, app: FastFlixApp, main, index, signal):
+    def __init__(self, app: FastFlixApp, main, index, signal, language):
         super().__init__(main)
         self.main = main
         self.app = app
         self.index = index
         self.signal = signal
+        self.language = language
 
     def run(self):
         subtitle_format = self._get_subtitle_format()
@@ -81,12 +82,12 @@ class ExtractSubtitleSRT(QtCore.QThread):
             self.signal.emit()
             return
 
-        # filename = str(Path(self.main.output_video).parent / f"{self.main.output_video}.{self.index}.srt").replace(
-            # "\\", "/"
-        # )
-        filename = str(Path(self.main.output_video).parent / f"{self.main.output_video}.{self.index}.{extension}").replace(
-            "\\", "/"
-        )
+        # filename = str(
+            # Path(self.main.output_video).parent / f"{self.main.output_video}.{self.index}.{self.language}.srt"
+        # ).replace("\\", "/")
+        filename = str(
+            Path(self.main.output_video).parent / f"{self.main.output_video}.{self.index}.{self.language}.{extension}"
+        ).replace("\\", "/")
         self.main.thread_logging_signal.emit(f"INFO:{t('Extracting subtitles to')} {filename}")
 
         try:
@@ -113,7 +114,8 @@ class ExtractSubtitleSRT(QtCore.QThread):
         else:
             if result.returncode != 0:
                 self.main.thread_logging_signal.emit(
-                    f"WARNING:{t('Could not extract subtitle track')} {self.index}: {result.stdout}"
+                    f"WARNING:{t('Could not extract subtitle track')} "
+                    f"{self.index}: {result.stdout.decode('utf-8', errors='ignore')}"
                 )
             else:
                 self.main.thread_logging_signal.emit(f"INFO:{t('Extracted subtitles successfully')}")

@@ -1860,7 +1860,7 @@ Invalid saturation value:
 Invalid contrast value:
   chs: 对比度值无效
 Could not extract subtitle track:
-  chs: 未能提取字幕轨道
+  chs: 无法提取字幕轨道
 'No opt provided for widget %s %s':
   chs: '没有为小部件提供选项 %s %s'
 Profile not set properly as we dont have encoder:
@@ -1881,5 +1881,3 @@ is not in supported format (SRT, ASS, SSA, PGS), skipping extraction:
   chs: 不是支持的格式(SRT, ASS, SSA, PGS)，跳过提取
 Error checking subtitle format for track:
   chs: 检查轨道字幕格式时出错
-Undefined:
-  chs: 未定义

@@ -169,7 +169,9 @@ class Subtitle(QtWidgets.QTabWidget):
         return layout
 
     def extract(self):
-        worker = ExtractSubtitleSRT(self.parent.app, self.parent.main, self.index, self.extract_completed_signal)
+        worker = ExtractSubtitleSRT(
+            self.parent.app, self.parent.main, self.index, self.extract_completed_signal, language=self.language
+        )
         worker.start()
         self.gif_label.show()
         self.widgets.extract.hide()
@@ -182,7 +184,7 @@ class Subtitle(QtWidgets.QTabWidget):
             self.widgets.language.setCurrentIndex(language_list.index(Language(sub_track.language).name))
         except Exception:
             self.widgets.language.setCurrentIndex(language_list.index("English"))
-        self.widgets.language.currentIndexChanged.connect(self.page_update)
+        self.widgets.language.currentIndexChanged.connect(self.update_language)
         layout = QtWidgets.QHBoxLayout()
         layout.addWidget(QtWidgets.QLabel(t("Language")))
         layout.addWidget(self.widgets.language)
@@ -241,6 +243,12 @@ class Subtitle(QtWidgets.QTabWidget):
         sub_track.burn_in = enable
         self.updating_burn = False
         self.page_update()
+
+    def update_language(self):
+        if not self.loading:
+            sub_track = self.app.fastflix.current_video.subtitle_tracks[self.index]
+            sub_track.language = self.language
+            self.page_update()
 
     def page_update(self):
         if not self.loading:
@@ -369,10 +377,6 @@ class SubtitleList(FlixList):
                     first_default.widgets.burn_in.setChecked(True)
 
         super()._new_source(self.tracks)
-        self.get_settings()
-
-    def get_settings(self):
-        return  # TODO remove
 
     def reload(self, original_tracks):
         clear_list(self.tracks)
