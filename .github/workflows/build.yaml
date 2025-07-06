@@ -1,7 +1,7 @@
 name: Build executables
 on:
   push:
-    branches: [ master, build ]
+    branches: [ tested ]
   pull_request:
     branches: [ master, develop ]
 
