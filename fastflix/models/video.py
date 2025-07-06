@@ -323,14 +323,14 @@ class Video(BaseModel):
                 audio_track.outdex = next_outdex
                 next_outdex += 1
             else:
-                audio.outdex = None
+                audio_track.outdex = None
 
         for subtitle_track in self.subtitle_tracks:
             if subtitle_track.enabled:
                 subtitle_track.outdex = next_outdex
                 next_outdex += 1
             else:
-                subtitle.outdex = None
+                subtitle_track.outdex = None
 
         attachment_start = next_outdex
         for i, attachment in enumerate(self.attachment_tracks):
