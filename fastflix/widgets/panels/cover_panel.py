@@ -231,6 +231,7 @@ class CoverPanel(QtWidgets.QWidget):
                 )
                 start_outdex += 1
         self.app.fastflix.current_video.attachment_tracks = attachments
+        self.app.fastflix.current_video.update_all_tracks_outdex()
 
     def cover_passthrough_check(self):
         checked = self.cover_passthrough_checkbox.isChecked()

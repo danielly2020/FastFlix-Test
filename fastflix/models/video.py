@@ -312,21 +312,28 @@ class Video(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     def update_all_tracks_outdex(self):
+        print(f"Before update - Audio tracks: {[t.outdex for t in self.audio_tracks]}")
+        print(f"Before update - Subtitle tracks: {[t.outdex for t in self.subtitle_tracks]}")
+        print(f"Before update - Attachment tracks: {[t.outdex for t in self.attachment_tracks]}")
+
         next_outdex = 1
 
         for audio_track in self.audio_tracks:
             if audio_track.enabled:
                 audio_track.outdex = next_outdex
                 next_outdex += 1
+            else:
+                audio.outdex = None
 
         for subtitle_track in self.subtitle_tracks:
             if subtitle_track.enabled:
                 subtitle_track.outdex = next_outdex
                 next_outdex += 1
+            else:
+                subtitle.outdex = None
 
-        attachment_start_outdex = next_outdex
-        attachment_index = 0
+        attachment_start = next_outdex
+        for i, attachment in enumerate(self.attachment_tracks):
+            attachment.outdex = attachment_start + i
 
-        for attachment_track in self.attachment_tracks:
-            attachment_track.outdex = attachment_start_outdex + attachment_index
-            attachment_index += 1
+        print(f"After update - Attachment outdex: {[t.outdex for t in self.attachment_tracks]}")
