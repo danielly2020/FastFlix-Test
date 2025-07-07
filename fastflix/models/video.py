@@ -311,29 +311,23 @@ class Video(BaseModel):
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
-    def update_all_tracks_outdex(self):
-        print(f"Before update - Audio tracks: {[t.outdex for t in self.audio_tracks]}")
-        print(f"Before update - Subtitle tracks: {[t.outdex for t in self.subtitle_tracks]}")
-        print(f"Before update - Attachment tracks: {[t.outdex for t in self.attachment_tracks]}")
+    # def update_all_tracks_outdex(self):
+        # next_outdex = 1
 
-        next_outdex = 1
+        # for audio_track in self.audio_tracks:
+            # if audio_track.enabled:
+                # audio_track.outdex = next_outdex
+                # next_outdex += 1
+            # else:
+                # audio_track.outdex = None
 
-        for audio_track in self.audio_tracks:
-            if audio_track.enabled:
-                audio_track.outdex = next_outdex
-                next_outdex += 1
-            else:
-                audio_track.outdex = None
+        # for subtitle_track in self.subtitle_tracks:
+            # if subtitle_track.enabled:
+                # subtitle_track.outdex = next_outdex
+                # next_outdex += 1
+            # else:
+                # subtitle_track.outdex = None
 
-        for subtitle_track in self.subtitle_tracks:
-            if subtitle_track.enabled:
-                subtitle_track.outdex = next_outdex
-                next_outdex += 1
-            else:
-                subtitle_track.outdex = None
-
-        attachment_start = next_outdex
-        for i, attachment in enumerate(self.attachment_tracks):
-            attachment.outdex = attachment_start + i
-
-        print(f"After update - Attachment outdex: {[t.outdex for t in self.attachment_tracks]}")
+        # attachment_start = next_outdex
+        # for i, attachment in enumerate(self.attachment_tracks):
+            # attachment.outdex = attachment_start + i
