@@ -310,3 +310,20 @@ class Video(BaseModel):
             return f"-8:{self.video_settings.resolution_custom}"
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    # def update_all_tracks_outdex(self):
+        # start_outdex = 1
+
+        # for audio_track in self.audio_tracks:
+            # if audio_track.enabled:
+                # audio_track.outdex = start_outdex
+                # start_outdex += 1
+
+        # for subtitle_track in self.subtitle_tracks:
+            # if subtitle_track.enabled:
+                # subtitle_track.outdex = start_outdex
+                # start_outdex += 1
+
+        # attachment_start = start_outdex
+        # for i, attachment in enumerate(self.attachment_tracks):
+            # attachment.outdex = attachment_start + i

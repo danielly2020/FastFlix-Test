@@ -197,6 +197,7 @@ class Audio(QtWidgets.QTabWidget):
         self.widgets.track_number.setText(f"{audio_track.index}:{audio_track.outdex}" if enabled else "❌")
         self.parent.reorder(update=True)
         # self.parent.parent.subtitles.reorder()
+        # self.app.fastflix.current_video.update_all_tracks_outdex()
 
     def page_update(self):
         self.app.fastflix.current_video.audio_tracks[self.index].title = self.title
@@ -255,6 +256,7 @@ class Audio(QtWidgets.QTabWidget):
     def del_me(self):
         self.parent.remove_track(self)
         del self.app.fastflix.current_video.audio_tracks[self.index]
+        self.parent.reorder(update=True)
 
     def set_outdex(self, outdex):
         self.app.fastflix.current_video.audio_tracks[self.index].outdex = outdex
@@ -303,6 +305,21 @@ class AudioList(FlixList):
         self.app = app
         self.parent = parent
         self._first_selected = False
+
+    # def get_settings(self):
+        # settings = []
+        # for track in self.tracks:
+            # settings.append({
+                # 'index': track.index,
+                # 'enabled': track.enabled,
+                # 'title': track.title,
+                # 'language': track.language,
+                # 'outdex': track.outdex,
+                # 'conversion_codec': track.conversion_codec,
+                # 'conversion_bitrate': track.conversion_bitrate,
+                # 'dispositions': track.dispositions
+            # })
+        # return settings
 
     def _get_track_info(self, track):
         track_info = ""
