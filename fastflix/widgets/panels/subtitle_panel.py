@@ -228,6 +228,8 @@ class Subtitle(QtWidgets.QTabWidget):
         sub_track.enabled = enabled
         self.widgets.track_number.setText(f"{sub_track.index}:{sub_track.outdex}" if enabled else "❌")
         self.parent.reorder(update=True)
+        # self.app.fastflix.current_video.update_all_tracks_outdex()
+        self.page_update()
 
     def update_burn_in(self):
         if self.updating_burn:
