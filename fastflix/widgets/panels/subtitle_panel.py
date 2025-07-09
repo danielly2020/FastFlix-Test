@@ -228,6 +228,7 @@ class Subtitle(QtWidgets.QTabWidget):
         sub_track.enabled = enabled
         self.widgets.track_number.setText(f"{sub_track.index}:{sub_track.outdex}" if enabled else "❌")
         self.parent.reorder(update=True)
+        # self.app.fastflix.current_video.update_all_tracks_outdex()
 
     def update_burn_in(self):
         if self.updating_burn:
@@ -379,8 +380,19 @@ class SubtitleList(FlixList):
 
         super()._new_source(self.tracks)
 
-    # def get_settings(self):
-        # return  # TODO remove
+    def get_settings(self):
+        return  # TODO remove
+        # settings = []
+        # for track in self.tracks:
+            # settings.append({
+                # 'index': track.index,
+                # 'enabled': track.enabled,
+                # 'burn_in': track.burn_in,
+                # 'language': track.language,
+                # 'outdex': track.outdex,
+                # # 'dispositions': track.dispositions
+            # })
+        # return settings
 
     def reload(self, original_tracks):
         clear_list(self.tracks)
