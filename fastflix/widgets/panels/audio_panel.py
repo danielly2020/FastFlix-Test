@@ -196,8 +196,7 @@ class Audio(QtWidgets.QTabWidget):
         audio_track.enabled = enabled
         self.widgets.track_number.setText(f"{audio_track.index}:{audio_track.outdex}" if enabled else "❌")
         self.parent.reorder(update=True)
-        # self.app.fastflix.current_video.update_all_tracks_outdex()
-        self.page_update()
+        # self.parent.parent.subtitles.reorder()
 
     def page_update(self):
         self.app.fastflix.current_video.audio_tracks[self.index].title = self.title
