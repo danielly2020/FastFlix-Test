@@ -24,21 +24,21 @@ try:
     )
 except ImportError:
     priority_levels = {
-        "Realtime": 20,
-        "High": 10,
-        "Above Normal": 5,
-        "Normal": 0,
-        "Below Normal": -10,
-        "Idle": -20,
+        t("Realtime"): 20,
+        t("High"): 10,
+        t("Above Normal"): 5,
+        t("Normal"): 0,
+        t("Below Normal"): -10,
+        t("Idle"): -20,
     }
 else:
     priority_levels = {
-        "Realtime": REALTIME_PRIORITY_CLASS,
-        "High": HIGH_PRIORITY_CLASS,
-        "Above Normal": ABOVE_NORMAL_PRIORITY_CLASS,
-        "Normal": NORMAL_PRIORITY_CLASS,
-        "Below Normal": BELOW_NORMAL_PRIORITY_CLASS,
-        "Idle": IDLE_PRIORITY_CLASS,
+        t("Realtime"): REALTIME_PRIORITY_CLASS,
+        t("High"): HIGH_PRIORITY_CLASS,
+        t("Above Normal"): ABOVE_NORMAL_PRIORITY_CLASS,
+        t("Normal"): NORMAL_PRIORITY_CLASS,
+        t("Below Normal"): BELOW_NORMAL_PRIORITY_CLASS,
+        t("Idle"): IDLE_PRIORITY_CLASS,
     }
 
 logger = logging.getLogger("fastflix-core")
@@ -101,7 +101,7 @@ class BackgroundRunner:
         Thread(target=self.read_output).start()
 
     def change_priority(
-        self, new_priority: Literal["Realtime", "High", "Above Normal", "Normal", "Below Normal", "Idle"]
+        self, new_priority: Literal[t("Realtime"), t("High"), t("Above Normal"), t("Normal"), t("Below Normal"), t("Idle")]
     ):
         try:
             if self.process:
