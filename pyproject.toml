@@ -5,7 +5,7 @@ authors = [{ name = "Chris Griffith", email = "chris@cdgriffith.com" }]
 readme = "README.md"
 #url = "https://fastflix.org"
 #download_url = "https://github.com/cdgriffith/FastFlix/releases"
-requires-python = ">=3.12"
+requires-python = ">=3.13"
 dynamic = ["version"]
 dependencies = [
     "platformdirs~=4.3",
@@ -18,13 +18,20 @@ dependencies = [
     "pathvalidate>=2.4,<3.0",
     "psutil>=5.9,<6.0",
     "pydantic>=2.0,<3.0",
-    "pyside6==6.9.0",
+    "pyside6==6.10.1",
     "python-box[all]>=6.0,<7.0",
     "requests>=2.28,<3.0",
     "setuptools>=75.8",
     "wmi>=1.5.1; sys_platform == 'win32'",
     "ffmpeg-normalize>=1.31.3,<2.0",
     "reusables>=1.0.0",
+    "pgsrip>=0.1.0",
+    "pytesseract>=0.3.0",
+    "babelfish>=0.6.0",
+    "cleanit>=0.4.0",
+    "trakit>=0.2.0",
+    "opencv-python>=4.8.0",
+    "pysrt>=1.1.0",
 ]
 
 [project.scripts]
@@ -91,8 +98,8 @@ target-version = "py312"
 #ignore = []
 
 # Allow fix for all enabled rules (when `--fix`) is provided.
-fixable = ["F401", "F541"]
-unfixable = []
+fixable = [ "F541"]
+unfixable = ["F401"]
 
 [tool.ruff.format]
 # Like Black, use double quotes for strings.

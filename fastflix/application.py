@@ -12,7 +12,7 @@ from fastflix.language import t
 from fastflix.models.config import Config, MissingFF
 from fastflix.models.fastflix import FastFlix
 from fastflix.models.fastflix_app import FastFlixApp
-from fastflix.program_downloads import ask_for_ffmpeg, grab_stable_ffmpeg
+from fastflix.program_downloads import ask_for_ffmpeg, grab_stable_ffmpeg, download_hdr10plus_tool
 from fastflix.resources import main_icon, breeze_styles_path
 from fastflix.shared import file_date, message, latest_fastflix, DEVMODE, yes_no_message
 from fastflix.widgets.container import Container
@@ -23,6 +23,11 @@ logger = logging.getLogger("fastflix")
 
 
 def create_app(enable_scaling):
+    if sys.platform == "win32":
+        import ctypes
+
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("cdgriffith.FastFlix")
+
     if enable_scaling:
         if hasattr(QtCore.Qt, "AA_EnableHighDpiScaling"):
             QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
@@ -36,9 +41,17 @@ def create_app(enable_scaling):
     main_app = FastFlixApp(sys.argv)
     main_app.allWindows()
     main_app.setApplicationDisplayName("FastFlix")
-    my_font = QtGui.QFont("Arial" if "Arial" in QtGui.QFontDatabase().families() else "Sans Serif", 9)
+    available_fonts = QtGui.QFontDatabase().families()
+    font_preference = ["Roboto", "Segoe UI", "Ubuntu", "Open Sans", "Sans Serif"]
+    selected_font = next((f for f in font_preference if f in available_fonts), "Sans Serif")
+    my_font = QtGui.QFont(selected_font, 9)
     main_app.setFont(my_font)
-    main_app.setWindowIcon(QtGui.QIcon(main_icon))
+    icon = QtGui.QIcon()
+    icon.addFile(main_icon, QtCore.QSize(16, 16))
+    icon.addFile(main_icon, QtCore.QSize(32, 32))
+    icon.addFile(main_icon, QtCore.QSize(48, 48))
+    icon.addFile(main_icon, QtCore.QSize(256, 256))
+    main_app.setWindowIcon(icon)
     return main_app
 
 
@@ -66,6 +79,7 @@ def init_encoders(app: FastFlixApp, **_):
     from fastflix.encoders.avc_x264 import main as avc_plugin
     from fastflix.encoders.copy import main as copy_plugin
     from fastflix.encoders.gif import main as gif_plugin
+    from fastflix.encoders.gifski import main as gifski_plugin
     from fastflix.encoders.ffmpeg_hevc_nvenc import main as nvenc_plugin
     from fastflix.encoders.hevc_x265 import main as hevc_plugin
     from fastflix.encoders.rav1e import main as rav1e_plugin
@@ -112,6 +126,9 @@ def init_encoders(app: FastFlixApp, **_):
         copy_plugin,
         modify_plugin,
     ]
+
+    if DEVMODE or app.fastflix.config.gifski:
+        encoders.insert(encoders.index(gif_plugin) + 1, gifski_plugin)
 
     if DEVMODE:
         encoders.insert(1, qsvencc_plugin)
@@ -164,14 +181,12 @@ def init_fastflix_directories(app: FastFlixApp):
 def app_setup(
     enable_scaling: bool = True,
     portable_mode: bool = False,
-    queue_list: list = None,
-    queue_lock=None,
     status_queue=None,
     log_queue=None,
     worker_queue=None,
 ):
     app = create_app(enable_scaling=enable_scaling)
-    app.fastflix = FastFlix(queue=queue_list, queue_lock=queue_lock)
+    app.fastflix = FastFlix()
     app.fastflix.log_queue = log_queue
     app.fastflix.status_queue = status_queue
     app.fastflix.worker_queue = worker_queue
@@ -239,6 +254,27 @@ def app_setup(
                 app, [Task(name=t("Detect GPUs"), command=automatic_rigaya_download)], signal_task=True, can_cancel=True
             )
 
+        if app.fastflix.config.auto_hdr10plus_check is None and not app.fastflix.config.hdr10plus_parser:
+            app.fastflix.config.auto_hdr10plus_check = yes_no_message(
+                t(
+                    "HDR10+ tool not found. Do you want FastFlix to automatically download it?\n\nThis tool is used for extracting and injecting HDR10+ dynamic metadata during encoding."
+                ),
+                title="Download HDR10+ Tool",
+            )
+            if app.fastflix.config.auto_hdr10plus_check:
+                try:
+                    ProgressBar(
+                        app,
+                        [Task(t("Downloading HDR10+ Tool"), download_hdr10plus_tool)],
+                        signal_task=True,
+                        can_cancel=True,
+                    )
+                    from fastflix.models.config import find_hdr10plus_tool
+
+                    app.fastflix.config.hdr10plus_parser = find_hdr10plus_tool()
+                except Exception:
+                    logger.exception("Failed to download HDR10+ tool")
+
     app.fastflix.config.save()
 
     startup_tasks = [
@@ -263,20 +299,18 @@ def app_setup(
     container.move(screen_geometry.center() - container.rect().center())
 
     if not app.fastflix.config.disable_version_check:
-        latest_fastflix(app=app, show_new_dialog=False)
+        QtCore.QTimer.singleShot(500, lambda: latest_fastflix(app=app, show_new_dialog=False))
 
     return app
 
 
-def start_app(worker_queue, status_queue, log_queue, queue_list, queue_lock, portable_mode=False, enable_scaling=True):
+def start_app(worker_queue, status_queue, log_queue, portable_mode=False, enable_scaling=True):
     # import tracemalloc
     #
     # tracemalloc.start()
     app = app_setup(
         enable_scaling=enable_scaling,
         portable_mode=portable_mode,
-        queue_list=queue_list,
-        queue_lock=queue_lock,
         status_queue=status_queue,
         log_queue=log_queue,
         worker_queue=worker_queue,

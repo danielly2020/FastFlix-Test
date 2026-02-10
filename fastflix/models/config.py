@@ -87,6 +87,10 @@ def find_hdr10plus_tool():
         return Path(location)
     if location := shutil.which("hdr10plus_parser"):
         return Path(location)
+    # Check the FFmpeg download folder (where auto-download places it)
+    hdr10plus_in_ffmpeg = ffmpeg_folder / "hdr10plus_tool.exe"
+    if hdr10plus_in_ffmpeg.exists():
+        return hdr10plus_in_ffmpeg
     return None
 
 
@@ -99,15 +103,137 @@ def where(filename: str, portable_mode=False) -> Path | None:
     return None
 
 
+def find_ocr_tool(name):
+    """Find OCR tools (tesseract, mkvmerge, pgsrip) similar to how we find FFmpeg"""
+    # Check environment variable
+    if ocr_location := os.getenv(f"FF_{name.upper()}"):
+        return Path(ocr_location).absolute()
+
+    # Check system PATH
+    if (ocr_location := shutil.which(name)) is not None:
+        return Path(ocr_location).absolute()
+
+    # Special handling for tesseract on Windows (not in PATH by default)
+    if name == "tesseract" and win_based:
+        # Check common install locations using environment variables
+        localappdata = os.getenv("LOCALAPPDATA")
+        appdata = os.getenv("APPDATA")
+        program_files = os.getenv("PROGRAMFILES")
+        program_files_x86 = os.getenv("PROGRAMFILES(X86)")
+
+        # Check for Subtitle Edit's Tesseract installations and find the newest version
+        subtitle_edit_versions = []
+        if appdata:
+            subtitle_edit_dir = Path(appdata) / "Subtitle Edit"
+            if subtitle_edit_dir.exists():
+                # Find all Tesseract* directories
+                for tesseract_dir in subtitle_edit_dir.glob("Tesseract*"):
+                    tesseract_exe = tesseract_dir / "tesseract.exe"
+                    if tesseract_exe.exists():
+                        # Extract version number from directory name (e.g., Tesseract550 -> 550)
+                        version_str = tesseract_dir.name.replace("Tesseract", "")
+                        try:
+                            version = int(version_str)
+                            subtitle_edit_versions.append((version, tesseract_exe))
+                        except ValueError:
+                            # If we can't parse version, still add it with version 0
+                            subtitle_edit_versions.append((0, tesseract_exe))
+
+        # If we found Subtitle Edit versions, return the newest one
+        if subtitle_edit_versions:
+            subtitle_edit_versions.sort(reverse=True)  # Sort by version descending
+            return subtitle_edit_versions[0][1]
+
+        common_paths = []
+        # Check user-local installation first
+        if localappdata:
+            common_paths.append(Path(localappdata) / "Programs" / "Tesseract-OCR" / "tesseract.exe")
+        # Check system-wide installations
+        if program_files:
+            common_paths.append(Path(program_files) / "Tesseract-OCR" / "tesseract.exe")
+        if program_files_x86:
+            common_paths.append(Path(program_files_x86) / "Tesseract-OCR" / "tesseract.exe")
+
+        for path in common_paths:
+            if path.exists():
+                return path
+
+        # Check Windows registry for Tesseract install location
+        try:
+            import winreg
+
+            # Try HKEY_LOCAL_MACHINE first (system-wide install)
+            for root_key in [winreg.HKEY_LOCAL_MACHINE, winreg.HKEY_CURRENT_USER]:
+                try:
+                    key = winreg.OpenKey(root_key, r"SOFTWARE\Tesseract-OCR")
+                    install_path = winreg.QueryValueEx(key, "InstallDir")[0]
+                    winreg.CloseKey(key)
+                    tesseract_exe = Path(install_path) / "tesseract.exe"
+                    if tesseract_exe.exists():
+                        return tesseract_exe
+                except (FileNotFoundError, OSError):
+                    pass
+        except ImportError:
+            pass
+
+    # Special handling for mkvmerge on Windows
+    if name == "mkvmerge" and win_based:
+        # Check common install locations using environment variables
+        localappdata = os.getenv("LOCALAPPDATA")
+        program_files = os.getenv("PROGRAMFILES")
+        program_files_x86 = os.getenv("PROGRAMFILES(X86)")
+
+        common_paths = []
+        # Check user-local installation first
+        if localappdata:
+            common_paths.append(Path(localappdata) / "Programs" / "MKVToolNix" / "mkvmerge.exe")
+        # Check system-wide installations
+        if program_files:
+            common_paths.append(Path(program_files) / "MKVToolNix" / "mkvmerge.exe")
+        if program_files_x86:
+            common_paths.append(Path(program_files_x86) / "MKVToolNix" / "mkvmerge.exe")
+
+        for path in common_paths:
+            if path.exists():
+                return path
+
+    # Check in FastFlix OCR tools folder
+    ocr_folder = Path(user_data_dir("FastFlix_OCR", appauthor=False, roaming=True))
+    if ocr_folder.exists():
+        for file in ocr_folder.iterdir():
+            if file.is_file() and file.name.lower() in (name, f"{name}.exe"):
+                return file
+        # Check bin subfolder
+        if (ocr_folder / "bin").exists():
+            for file in (ocr_folder / "bin").iterdir():
+                if file.is_file() and file.name.lower() in (name, f"{name}.exe"):
+                    return file
+
+
+def find_rigaya_encoder(base_name: str) -> Path | None:
+    """Find Rigaya encoder binaries with case-insensitive search."""
+    # Try common binary names in order of preference
+    candidates = [
+        f"{base_name}64",  # Windows 64-bit
+        f"{base_name}",  # Windows/Linux
+        f"{base_name.lower()}",  # Linux lowercase
+    ]
+
+    for candidate in candidates:
+        if location := where(candidate):
+            return location
+
+
 class Config(BaseModel):
     version: str = __version__
     config_path: Path = Field(default_factory=get_config)
     ffmpeg: Path = Field(default_factory=lambda: find_ffmpeg_file("ffmpeg"))
     ffprobe: Path = Field(default_factory=lambda: find_ffmpeg_file("ffprobe"))
     hdr10plus_parser: Path | None = Field(default_factory=find_hdr10plus_tool)
-    nvencc: Path | None = Field(default_factory=lambda: where("NVEncC64") or where("NVEncC"))
-    vceencc: Path | None = Field(default_factory=lambda: where("VCEEncC64") or where("VCEEncC"))
-    qsvencc: Path | None = Field(default_factory=lambda: where("QSVEncC64") or where("QSVEncC"))
+    nvencc: Path | None = Field(default_factory=lambda: find_rigaya_encoder("NVEncC"))
+    vceencc: Path | None = Field(default_factory=lambda: find_rigaya_encoder("VCEEncC"))
+    qsvencc: Path | None = Field(default_factory=lambda: find_rigaya_encoder("QSVEncC"))
+    gifski: Path | None = Field(default_factory=lambda: where("gifski"))
     output_directory: Path | None = None
     source_directory: Path | None = None
     output_name_format: str = "{source}-fastflix-{rand_4}"
@@ -132,6 +258,7 @@ class Config(BaseModel):
     ui_scale: str = "1"
     clean_old_logs: bool = True
     auto_gpu_check: bool | None = None
+    auto_hdr10plus_check: bool | None = None
     gpu_fingerprint: str | None = None
     opencl_support: bool | None = None
     seven_zip: Path | None = None
@@ -167,6 +294,20 @@ class Config(BaseModel):
     disable_complete_message: bool = False
 
     disable_cover_extraction: bool = False
+
+    # PGS to SRT OCR Settings
+    enable_pgs_ocr: bool = False
+    tesseract_path: Path | None = Field(default_factory=lambda: find_ocr_tool("tesseract"))
+    mkvmerge_path: Path | None = Field(default_factory=lambda: find_ocr_tool("mkvmerge"))
+    pgs_ocr_language: str = "eng"
+
+    use_keyframes_for_preview: bool = True
+
+    @property
+    def pgs_ocr_available(self) -> bool:
+        import importlib.util
+
+        return self.tesseract_path is not None and importlib.util.find_spec("pgsrip") is not None
 
     def encoder_opt(self, profile_name, profile_option_name):
         encoder_settings = getattr(self.profiles[self.selected_profile], profile_name)
@@ -289,6 +430,7 @@ class Config(BaseModel):
             "seven_zip",
             "vceencc",
             "qsvencc",
+            "gifski",
         )
         for key, value in data.items():
             if key == "profiles":
@@ -330,6 +472,12 @@ class Config(BaseModel):
             self.qsvencc = where("QSVEncC64", portable_mode=portable_mode) or where(
                 "QSVEncC", portable_mode=portable_mode
             )
+        if not self.gifski:
+            self.gifski = where("gifski", portable_mode=portable_mode)
+        if not self.gifski and win_based:
+            cargo_bin_path = Path(os.environ.get("USERPROFILE", "")) / ".cargo" / "bin" / "gifski.exe"
+            if cargo_bin_path.exists():
+                self.gifski = cargo_bin_path
         self.profiles.update(get_preset_defaults())
 
         if self.selected_profile not in self.profiles:

@@ -16,21 +16,22 @@ Check out [the FastFlix github wiki](https://github.com/cdgriffith/FastFlix/wiki
 
 | Encoder   | x265 | x264 | rav1e | AOM AV1 | SVT AV1 | VP9 | VVC |
 |-----------|------|------|-------|---------|---------|-----|-----|
-| HDR10     | ✓    |      |       |         | ✓       | ✓*  |     |
+| HDR10     | ✓    |      | ✓     | ✓       | ✓       | ✓*  | ✓   |
 | HDR10+    | ✓    |      |       |         |         |     |     |
-| Audio     | ✓    |  ✓   | ✓     | ✓       | ✓       | ✓   | ✓   |
-| Subtitles | ✓    |  ✓   | ✓     | ✓       | ✓       |     | ✓   |
-| Covers    | ✓    |  ✓   | ✓     | ✓       | ✓       |     | ✓   |
-| bt.2020   | ✓    |   ✓  | ✓     | ✓       | ✓       | ✓   | ✓   |
+| Audio     | ✓    | ✓    | ✓     | ✓       | ✓       | ✓   | ✓   |
+| Subtitles | ✓    | ✓    | ✓     | ✓       | ✓       |     | ✓   |
+| Covers    | ✓    | ✓    | ✓     | ✓       | ✓       |     | ✓   |
+| bt.2020   | ✓    | ✓    | ✓     | ✓       | ✓       | ✓   | ✓   |
 
 If one of the above software encoders is not listed, it is due to your version of FFmpeg not having that encoder compiled in.
 
 ## Hardware Encoders 
 
-These will require the appropriate hardware. Nvidia GPU for NVEnc, Intel GPU/CPU for QSVEnc, and AMD GPU for VCEEnc. 
+These will require the appropriate hardware. Nvidia GPU for NVEnc, Intel GPU/CPU for QSVEnc, AMD GPU for VCEEnc,
+or compatible hardware for VAAPI (Linux) and Apple VideoToolbox (macOS).
 
-Most of these are using [rigaya's hardware encoders](https://github.com/rigaya?tab=repositories) that must be downloaded separately, 
-extracted to a directory of your choice, and then linked too in FastFlix Settings panel.
+Most of the Nvidia, Intel, and AMD encoders are using [rigaya's hardware encoders](https://github.com/rigaya?tab=repositories) that must be downloaded separately,
+extracted to a directory of your choice, and then linked to in FastFlix Settings panel.
 
 ### AV1
 
@@ -67,6 +68,28 @@ AV1 is only supported on the latest generation of graphics cards specifically th
 | Covers    |                                                        |                                                          |                                                          |
 | bt.2020   | ✓                                                      | ✓                                                        | ✓                                                        |
 
+### Apple VideoToolbox (macOS)
+
+| Encoder   | H264 VideoToolbox | HEVC VideoToolbox |
+|-----------|-------------------|-------------------|
+| HDR10     |                   |                   |
+| HDR10+    |                   |                   |
+| Audio     | ✓                 | ✓                 |
+| Subtitles | ✓                 | ✓                 |
+| Covers    | ✓                 | ✓                 |
+| bt.2020   | ✓                 | ✓                 |
+
+### VAAPI (Linux)
+
+| Encoder   | VAAPI H264 | VAAPI HEVC | VAAPI VP9 | VAAPI MPEG2 |
+|-----------|------------|------------|-----------|-------------|
+| HDR10     |            |            |           |             |
+| HDR10+    |            |            |           |             |
+| Audio     | ✓          | ✓          | ✓         | ✓           |
+| Subtitles | ✓          | ✓          | ✓         | ✓           |
+| Covers    |            |            |           |             |
+| bt.2020   | ✓          | ✓          | ✓         | ✓           |
+
 `✓ - Full support   |   ✓* - Limited support`
 
 
@@ -83,7 +106,7 @@ Check out the [FFmpeg download page for static builds](https://ffmpeg.org/downlo
 
 To use rigaya's [Nvidia NVENC](https://github.com/rigaya/NVEnc/releases), [AMD VCE](https://github.com/rigaya/VCEEnc/releases), and [Intel QSV](https://github.com/rigaya/QSVEnc/releases) encoders, download them and extract them to folder on your hard drive. 
 
-Windows: Go into FastFlix's settings and select the corresponding EXE file for each of the encoders you want to use. 
+Windows: FastFlix can automatically download rigaya's encoders for you from the Settings panel. Alternatively, you can manually select the corresponding EXE file for each encoder.
 
 Linux: Install the rpm or deb and restart FastFlix
 
@@ -97,14 +120,14 @@ FastFlix was created to easily extract / copy HDR10 data, which it can do with t
 
 VP9 has limited support to copy some existing HDR10 metadata, usually from other VP9 files. Will have the line "Mastering Display Metadata, has_primaries:1 has_luminance:1 ..." when it works.
 
-AV1 is still in development, and hopefully all encoder will support it in the future, but only SVT AV1 works through ffmpeg as of now for software encoders. 
+AV1 HDR10 support varies by encoder:
 
-* QSVEnc - Works! 
+* QSVEnc - Works!
 * NVEncC - Works!
 * VCEEncC - Works!
-* rav1e -  can set mastering data and CLL via their CLI but [not through ffmpeg](https://github.com/xiph/rav1e/issues/2554).
-* SVT AV1 - Now supports HDR10 with latest master ffmpeg build, make sure to update before trying!
-* aomenc (libaom-av1) - does not look to support HDR10
+* rav1e - Works! Mastering display and content light level passed via rav1e-params.
+* SVT AV1 - Works! Supports HDR10 with latest ffmpeg build.
+* aomenc (libaom-av1) - HDR10 color metadata (bt.2020/PQ) is passed through, but mastering display and content light level rely on FFmpeg's automatic side data passthrough.
 
 ## HDR10+
 
@@ -122,7 +145,7 @@ FastFlix (v4.0.2+) passes through HLG color transfer information to everything e
 
 ## Dolby Vision
 
-FastFlix does not plan to support Dolby Vision's proprietary format at this time.
+FastFlix v6.0.0+ supports copying existing Dolby Vision metadata from the input video for HEVC and AV1 videos used with rigaya's hardware encoders.
 
 # Multilingual Support
 
@@ -137,9 +160,27 @@ Special thanks to [leonardyan](https://github.com/leonardyan) for numerous Chine
 [Ta0ba0](https://github.com/Ta0ba0) for the Russian language updates and 
 [bovirus](https://github.com/bovirus) for Italian language updates!
 
+# Subtitle Extraction
+
+FastFlix can extract subtitle tracks from video files. Text-based subtitles (SRT, ASS, SSA) are extracted directly using FFmpeg.
+
+## PGS to SRT OCR Conversion
+
+FastFlix supports converting PGS (Presentation Graphic Stream) image-based subtitles to SRT text format using OCR. This is useful for Blu-ray rips and other sources that use picture-based subtitles.
+
+For PGS tracks, the subtitle panel offers two options:
+- **Extract as .sup** (fast) - extracts the raw PGS image subtitle
+- **Convert to .srt** (OCR, 3-5 min) - extracts and converts to searchable text using OCR
+
+**Requirements (auto-detected from system PATH, standard install locations, or Windows registry)**:
+- [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) 4.x or higher
+- [MKVToolNix](https://mkvtoolnix.download/) (mkvextract/mkvmerge)
+
+FastFlix will show the detection status of these tools in the Settings panel under "Detected External Programs".
+
 # License
 
-Copyright (C) 2019-2025 Chris Griffith
+Copyright (C) 2019-2026 Chris Griffith
 
 The code itself is licensed under the MIT which you can read in the `LICENSE` file. <br>
 Read more about the release licensing in the [docs](docs/README.md) folder. <br>

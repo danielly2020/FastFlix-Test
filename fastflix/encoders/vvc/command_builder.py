@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import secrets
+import shlex
 
 from fastflix.encoders.common.helpers import Command, generate_all, null
 from fastflix.models.encode import VVCSettings
@@ -83,19 +84,68 @@ def build(fastflix: FastFlix):
     beginning, ending, output_fps = generate_all(fastflix, "libvvenc")
 
     if settings.tier:
-        beginning += f"-tier:v {settings.tier} "
+        beginning.extend(["-tier:v", settings.tier])
 
     if settings.levelidc:
-        beginning += f"-level {settings.levelidc} "
+        beginning.extend(["-level", settings.levelidc])
+
+    if not settings.subjopt:
+        beginning.extend(["-qpa", "0"])
+
+    if settings.period is not None:
+        beginning.extend(["-period", str(settings.period)])
+
+    if settings.threads > 0:
+        beginning.extend(["-threads", str(settings.threads)])
 
     vvc_params = settings.vvc_params.copy() or []
+
+    if settings.ifp:
+        vvc_params.append("ifp=1")
 
     if fastflix.current_video.video_settings.maxrate:
         vvc_params.append(f"vbv-maxrate={fastflix.current_video.video_settings.maxrate}")
         vvc_params.append(f"vbv-bufsize={fastflix.current_video.video_settings.bufsize}")
 
-    if fastflix.current_video.cll:
-        pass
+    if not fastflix.current_video.video_settings.remove_hdr:
+        # Color primaries/transfer/matrix via FFmpeg flags (libvvenc reads these for VUI)
+        if fastflix.current_video.video_settings.color_primaries:
+            beginning.extend(["-color_primaries", fastflix.current_video.video_settings.color_primaries])
+        elif fastflix.current_video.color_primaries:
+            cp = fastflix.current_video.color_primaries
+            cp = color_primaries_mapping.get(cp, cp)
+            if cp in vvc_valid_color_primaries:
+                beginning.extend(["-color_primaries", cp])
+
+        if fastflix.current_video.video_settings.color_transfer:
+            beginning.extend(["-color_trc", fastflix.current_video.video_settings.color_transfer])
+        elif fastflix.current_video.color_transfer:
+            ct = fastflix.current_video.color_transfer
+            ct = color_transfer_mapping.get(ct, ct)
+            if ct in vvc_valid_color_transfers:
+                beginning.extend(["-color_trc", ct])
+
+        if fastflix.current_video.video_settings.color_space:
+            beginning.extend(["-colorspace", fastflix.current_video.video_settings.color_space])
+        elif fastflix.current_video.color_space:
+            cs = fastflix.current_video.color_space
+            cs = color_matrix_mapping.get(cs, cs)
+            if cs in vvc_valid_color_matrix:
+                beginning.extend(["-colorspace", cs])
+
+        if settings.pix_fmt in ("yuv420p10le",):
+            if fastflix.current_video.master_display:
+                # vvenc format: Gx,Gy,Bx,By,Rx,Ry,WPx,WPy,Lmax,Lmin (bare numbers, comma-separated)
+                md = fastflix.current_video.master_display
+                md_values = ",".join(v.strip("()") for v in [md.green, md.blue, md.red, md.white, md.luminance])
+                vvc_params.append(f"MasteringDisplayColourVolume={md_values}")
+
+            if fastflix.current_video.cll:
+                vvc_params.append(f"MaxContentLightLevel={fastflix.current_video.cll}")
+
+        current_chroma_loc = fastflix.current_video.current_video_stream.get("chroma_location")
+        if current_chroma_loc in chromaloc_mapping:
+            beginning.extend(["-chroma_sample_location", str(chromaloc_mapping[current_chroma_loc])])
 
     pass_log_file = fastflix.current_video.work_path / f"pass_log_file_{secrets.token_hex(10)}"
 
@@ -103,20 +153,29 @@ def build(fastflix: FastFlix):
         if not isinstance(params, (list, tuple)):
             params = [params]
         all_params = vvc_params + list(params)
-        return '-vvenc-params "{}" '.format(":".join(all_params)) if all_params else ""
+        return ["-vvenc-params", ":".join(all_params)] if all_params else []
+
+    extra = shlex.split(settings.extra) if settings.extra else []
+    extra_both = shlex.split(settings.extra) if settings.extra and settings.extra_both_passes else []
 
     if settings.bitrate:
-        params = get_vvc_params(["pass=1", f"rcstatsfile={quoted_path(clean_file_string(pass_log_file))}"])
+        params = get_vvc_params(["pass=1", f"rcstatsfile={quoted_path(clean_file_string(str(pass_log_file)))}"])
         command_1 = (
-            f"{beginning} {params} "
-            f'-passlogfile "{pass_log_file}" -b:v {settings.bitrate} '
-            f"-preset:v {settings.preset} {settings.extra if settings.extra_both_passes else ''} "
-            f" -an -sn -dn {output_fps} -f mp4 {null}"
+            beginning
+            + params
+            + ["-passlogfile", str(pass_log_file), "-b:v", settings.bitrate, "-preset:v", settings.preset]
+            + extra_both
+            + ["-an", "-sn", "-dn"]
+            + output_fps
+            + ["-f", "mp4", null]
         )
-        params2 = get_vvc_params(["pass=2", f"rcstatsfile={quoted_path(clean_file_string(pass_log_file))}"])
+        params2 = get_vvc_params(["pass=2", f"rcstatsfile={quoted_path(clean_file_string(str(pass_log_file)))}"])
         command_2 = (
-            f'{beginning} {params2} -passlogfile "{pass_log_file}" '
-            f"-b:v {settings.bitrate} -preset:v {settings.preset} {settings.extra} {ending}"
+            beginning
+            + params2
+            + ["-passlogfile", str(pass_log_file), "-b:v", settings.bitrate, "-preset:v", settings.preset]
+            + extra
+            + ending
         )
         return [
             Command(command=command_1, name="First pass bitrate", exe="ffmpeg"),
@@ -125,8 +184,11 @@ def build(fastflix: FastFlix):
 
     elif settings.qp:
         command = (
-            f"{beginning} {get_vvc_params()}  -qp:v {settings.qp} -b:v 0 "
-            f"-preset:v {settings.preset} {settings.extra} {ending}"
+            beginning
+            + get_vvc_params()
+            + ["-qp:v", str(settings.qp), "-b:v", "0", "-preset:v", settings.preset]
+            + extra
+            + ending
         )
         return [Command(command=command, name="Single pass CRF", exe="ffmpeg")]
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 from pathlib import Path
-from queue import Empty
+from queue import Empty, Full
 from typing import Literal
 from datetime import datetime
 
@@ -32,6 +32,7 @@ def queue_worker(gui_proc, worker_queue, status_queue, log_queue):
     command = None
     work_dir = None
     log_name = ""
+    shell = False
     priority: Literal["Realtime", "High", "Above Normal", "Normal", "Below Normal", "Idle"] = "Normal"
 
     def start_command():
@@ -49,16 +50,27 @@ def queue_worker(gui_proc, worker_queue, status_queue, log_queue):
         runner.start_exec(
             command,
             work_dir=work_dir,
+            shell=shell,
         )
         runner.change_priority(priority)
 
     while True:
         if currently_encoding and not runner.is_alive():
             reusables.remove_file_handlers(logger)
-            log_queue.put("STOP_TIMER")
+            try:
+                log_queue.put("STOP_TIMER", timeout=1.0)
+            except Full:
+                pass  # GUI likely dead, ignore
             currently_encoding = False
 
-            if runner.error_detected:
+            # Check error_detected (set by read_output thread) AND check the
+            # process return code directly.  The read_output daemon thread may
+            # not have run yet when FFmpeg exits very quickly (e.g. VAAPI init
+            # failure on Windows), so we must not rely solely on error_detected.
+            process_failed = (
+                runner.process is not None and runner.process.returncode is not None and runner.process.returncode > 0
+            )
+            if runner.error_detected or process_failed:
                 logger.info(t("Error detected while converting"))
 
                 status_queue.put(("error", video_uuid, command_uuid))
@@ -87,7 +99,7 @@ def queue_worker(gui_proc, worker_queue, status_queue, log_queue):
             return
         else:
             if request[0] == "execute":
-                _, video_uuid, command_uuid, command, work_dir, log_name = request
+                _, video_uuid, command_uuid, command, work_dir, log_name, shell = request
                 start_command()
 
             if request[0] == "cancel":
@@ -95,7 +107,10 @@ def queue_worker(gui_proc, worker_queue, status_queue, log_queue):
                 runner.kill()
                 currently_encoding = False
                 status_queue.put(("cancelled", video_uuid, command_uuid))
-                log_queue.put("STOP_TIMER")
+                try:
+                    log_queue.put("STOP_TIMER", timeout=1.0)
+                except Full:
+                    pass  # GUI likely dead, ignore
 
             if request[0] == "pause encode":
                 logger.debug(t("Command worker received request to pause current encode"))
@@ -115,3 +130,12 @@ def queue_worker(gui_proc, worker_queue, status_queue, log_queue):
                 priority = request[1]
                 if runner.is_alive():
                     runner.change_priority(priority)
+
+            if request[0] == "shutdown":
+                logger.debug(t("Shutdown signal received from GUI"))
+                if runner.is_alive():
+                    logger.info(t("Waiting for current encode to finish before shutdown"))
+                    # Don't kill current encode, let it finish
+                    continue
+                logger.debug(t("Worker shutting down gracefully"))
+                return
